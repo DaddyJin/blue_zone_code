@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+
+# 运行产物（数据/视频/日志 — 本仓只收代码）
+processed_dataset/
+*.log
+
+# 大文件保险（防止误提交数据）
+*.mp4
+*.parquet
+*.tar.gz
