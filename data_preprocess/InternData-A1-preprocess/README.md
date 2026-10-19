@@ -6,6 +6,28 @@
 
 ---
 
+## 目录
+
+- [1. 概述](#1-概述)
+- [2. 源数据诊断(转换前实际读取确认)](#2-源数据诊断转换前实际读取确认)
+  - [2.1 数据布局](#21-数据布局)
+  - [2.2 源数据提供的通道(episode parquet 的 29 列)](#22-源数据提供的通道episode-parquet-的-29-列)
+  - [2.3 关键诊断结论](#23-关键诊断结论)
+- [3. 55D 槽位映射(单臂 → 左臂槽)](#3-55d-槽位映射单臂--左臂槽)
+  - [3.1 eef 取"法兰位姿"的依据(与规范先例一致的约定)](#31-eef-取法兰位姿的依据与规范先例一致的约定)
+  - [3.2 action 语义](#32-action-语义)
+- [4. 输出结构](#4-输出结构)
+  - [4.1 data parquet 列(33 列 = 10 规范 + 22 透传 + index)](#41-data-parquet-列33-列--10-规范--22-透传--index)
+  - [4.2 episodes.jsonl](#42-episodesjsonl)
+- [5. 视频规范(方案 B:转码 + ≤960s 打包,与规范生产终态一致)](#5-视频规范方案-b转码--960s-打包与规范生产终态一致)
+- [6. 已知数据特征(非缺陷,如实记录)](#6-已知数据特征非缺陷如实记录)
+- [7. 重要发现与兼容性说明](#7-重要发现与兼容性说明)
+  - [7.1 源数据 ee/tcp 四元数是缺陷编码](#71-源数据-eetcp-四元数是缺陷编码)
+  - [7.2 lerobot 0.4.4 的 `__getitem__` 缺 `subtask_index == -1` 保护](#72-lerobot-044-的-__getitem__-缺-subtask_index---1-保护)
+- [8. 验证结果(全部通过)](#8-验证结果全部通过)
+- [9. 执行流程与批量指南](#9-执行流程与批量指南)
+- [10. 决策记录(为什么这么做)](#10-决策记录为什么这么做)
+
 ## 1. 概述
 
 | 项 | 内容 |
@@ -102,9 +124,10 @@ close_the_laptop/
 ```
 InternData-A1-preprocess/
 ├── intern_extract.py     # ① 批量解压压缩包(幂等,§9)
-├── intern_convert.py     # ② 转换(含视频转码+打包)
+├── intern_convert.py     # ② 转换(含视频转码+打包,视频可并行)
 ├── intern_fk.py          # Franka DH 正运动学(校验用,§8)
 ├── intern_validate.py    # ③ 校验
+├── _progress.py          # 进度/ETA 报告器(标准库,无额外依赖)
 ├── README.md             # 本文档
 └── processed_dataset/
     └── close_the_laptop/
@@ -230,7 +253,8 @@ if "subtask_index" in self.features and self.meta.subtasks is not None:
 | 11 | **LeRobotDataset 官方加载 len=140,157;随机 10 帧(含文件边界)真实解码取帧** | ✅(含 §7.2 workaround) |
 
 参考数据:eef 位置范围 x[0.214, 0.681] y[-0.447, 0.460] z[0.033, 0.660] m;
-速度参考:转码 ~11 分钟,全量校验 ~1 分钟。
+速度参考:串行转码 ~11–13 分钟;`--video-workers 3` 实测 **4 分 05 秒**(~3x);
+全量校验 ~1 分钟。
 
 ---
 
@@ -253,10 +277,12 @@ if "subtask_index" in self.features and self.meta.subtasks is not None:
 **单数据集**:
 
 ```bash
+cd /data5T/liujin/code/blue_zone_code/data_preprocess/InternData-A1-preprocess
 conda activate cosmos-framework
 python intern_extract.py                              # [SKIP] 已解压
-python intern_convert.py  --task close_the_laptop     # ~12 分钟(视频转码为主)
-python intern_validate.py --task close_the_laptop     # 必须 ALL CHECKS PASSED
+python intern_convert.py  --task close_the_laptop --workers 8 --video-workers 3
+#   视频转码为主;--video-workers 3 实测 ~3 倍于串行,进度行含 fps/ETA
+python intern_validate.py --task close_the_laptop --workers 8   # 必须 ALL CHECKS PASSED
 python intern_fk.py                                   # FK 模块自检(秒级)
 ```
 
@@ -267,31 +293,35 @@ python intern_fk.py                                   # FK 模块自检(秒级)
 
 ```bash
 # ── 第 0 步:环境(每次会话一次) ──────────────────────────────────
-cd /data5T/liujin/code/data_preprocess/InternData-A1-preprocess
+cd /data5T/liujin/code/blue_zone_code/data_preprocess/InternData-A1-preprocess
 CONDA_HOME="/data5T/liujin/software/miniconda3"
 source "$CONDA_HOME/etc/profile.d/conda.sh"
 conda activate cosmos-framework
 python intern_fk.py                        # FK 自检(秒级)
 
 # ── 第 1 步:解压全部压缩包(幂等;递归扫描 *.tar.gz/*.tgz) ────────
-python intern_extract.py --src-root /data5T/liujin/dataset/InternData-A1 --continue-on-error
-#   每包一行:[OK] 新解压 / [SKIP] 已解压;末尾 EXTRACT_DONE ok=.. skip=.. failed=0
+python intern_extract.py --src-root /data5T/liujin/dataset/InternData-A1 \
+    --workers 8 --continue-on-error
+#   每包一行:[OK] 新解压 / [SKIP] 已解压 + [PROGRESS];末尾 EXTRACT_DONE ...
 #   有 [FAIL]:看日志原因,修好后原样重跑本命令(成功的自动 SKIP)
 
 # ── 第 2 步:pilot — 先转一个数据集并校验(推荐) ─────────────────
-python intern_convert.py  --task <新数据集名>     # 如 new_task
-python intern_validate.py --task <新数据集名>     # 必须 0 failures 再进下一步
+python intern_convert.py  --task <新数据集名> --video-workers 3
+python intern_validate.py --task <新数据集名> --workers 8
+#   必须 0 failures 再进下一步
 
 # ── 第 3 步:全量转换(后台 + 断点续跑) ───────────────────────────
-setsid nohup python intern_convert.py --skip-existing --continue-on-error \
-    > convert.log 2>&1 &
+#   注意:--workers(数据集并行) × --video-workers(每数据集 ffmpeg 并行)
+#   会相乘;默认 8 x 3 = 24 路 ffmpeg,磁盘受限时建议 8 x 1 或 4 x 2
+setsid nohup python intern_convert.py --workers 8 --video-workers 1 \
+    --skip-existing --continue-on-error > convert.log 2>&1 &
 tail -f convert.log
-#   每数据集一行:[OK]/[SKIP]/[FAIL];末尾 TASK_DONE ok=.. skipped=.. failed=..
+#   每数据集一行:[OK]/[SKIP]/[FAIL] + [PROGRESS](data/video 两阶段,含 fps/ETA)
 #   若中断/崩溃:原样重跑同一条命令 —— 已完成的 [SKIP],自动接着转
 #   失败清单在日志末尾 FAILED_TASKS: xxx;修好原因后重跑本命令只重做失败的
 
 # ── 第 4 步:全量校验 ────────────────────────────────────────────
-python intern_validate.py --all > validate.log 2>&1
+python intern_validate.py --all --workers 8 > validate.log 2>&1
 tail -1 validate.log
 #   期望:RESULT: ALL CHECKS PASSED (.. warnings, N tasks)
 #   若失败:日志末尾 FAILED_TASKS: xxx;重转这些数据集后重校验
@@ -306,10 +336,18 @@ ls processed_dataset | wc -l               # 产出目录数
 
 - 解压默认在压缩包**旁边**生成数据集目录(`--dest` 可指定统一解压根);
 - 输出名 = 数据集目录名(保持源名);不同压缩包内**同名目录**会冲突(extract 跳过/convert 报错提示);
-- 转换**逐个串行**(视频转码是 CPU 密集任务);同机不要并发跑多个 convert;
-- 时间/空间参考(按 close_the_laptop 规模:578 集/14 万帧):转换 ~13 分钟
-  (视频转码为主)、校验 ~1 分钟;磁盘 ~1GB/数据集(data ~76MB + 视频 ~0.9GB,
-  随内容码率浮动);data 轮转 ~100MB,视频按 ≤960s 打包(实测单文件 ≤142MB);
+- **进度/ETA**:三个脚本默认每 10 秒输出一行(`--progress-interval N` 调整,
+  `--no-progress` 关闭)。convert 分 `data:` / `video:` 两个阶段,视频阶段按 ffmpeg
+  实际编码帧数更新,含 fps 与 ETA;
+- **并行**:`--workers N` 并行数据集(默认 convert 8 / extract 8 / validate 8),
+  `--video-workers N` 并行每个数据集内的 ffmpeg 源文件任务(默认 3)。两者会相乘,
+  默认 8×3=24 路 ffmpeg;磁盘受限时用 `--workers 8 --video-workers 1`
+  或 `--workers 4 --video-workers 2` 起步实测;
+  单数据集内部的数据写入仍严格串行,输出与串行版完全一致;
+- 时间/空间参考(按 close_the_laptop 规模:578 集/14 万帧):串行转换 ~13 分钟
+  (视频转码为主);`--video-workers 3` 实测 ~4 分钟(~3x)。校验 ~1 分钟;
+  磁盘 ~1GB/数据集(data ~76MB + 视频 ~0.9GB,随内容码率浮动);
+  data 轮转 ~100MB,视频按 ≤960s 打包(实测单文件 ≤142MB);
 - lerobot 0.4.4 本地取帧需 workaround(§7.2),校验脚本已内置,无需手工处理。
 
 **本地加载取帧(lerobot 0.4.4 需 workaround,§7.2)**:
@@ -324,6 +362,7 @@ item = ds[100000]              # 真实视频解码:observation.images.{head,han
 **迁移到新任务/新环境的自改点**:同机器人(同列名)的新压缩包**无需改代码**
 (解压 → convert 递归发现 → 校验);若列名/机器人不同,改 `intern_convert.py`
 顶部的源列名与 `build_episode_table()` 映射(参考 GM100 项目的 §7.5)。
+迁移时请把 `_progress.py` 与四个脚本、`intern_fk.py` 一起拷贝(脚本按自身目录导入)。
 
 ---
 

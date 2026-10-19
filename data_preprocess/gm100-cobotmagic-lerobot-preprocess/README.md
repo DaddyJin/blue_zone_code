@@ -6,6 +6,32 @@
 
 ---
 
+## 目录
+
+- [1. 概述](#1-概述)
+- [2. 源数据诊断(转换前实际读取确认)](#2-源数据诊断转换前实际读取确认)
+- [3. 55D 槽位映射(本数据集的实际填充)](#3-55d-槽位映射本数据集的实际填充)
+  - [3.1 为什么关节槽是 7 宽而不是 6](#31-为什么关节槽是-7-宽而不是-6)
+  - [3.2 eef 槽:URDF 正运动学回填](#32-eef-槽urdf-正运动学回填)
+  - [3.3 action 语义:下一帧 state(不是命令目标)](#33-action-语义下一帧-state不是命令目标)
+- [4. 输出结构](#4-输出结构)
+  - [4.1 data parquet 列(16 列 = 11 规范 + 5 透传)](#41-data-parquet-列16-列--11-规范--5-透传)
+  - [4.2 data 文件轮转](#42-data-文件轮转)
+  - [4.3 视频:逐集硬链接(不合并、不重编码)](#43-视频逐集硬链接不合并不重编码)
+- [5. 已知数据特征(非缺陷,如实记录)](#5-已知数据特征非缺陷如实记录)
+- [6. 验证结果(全部通过)](#6-验证结果全部通过)
+- [7. 执行流程与迁移指南(在新环境批量转换用)](#7-执行流程与迁移指南在新环境批量转换用)
+  - [7.0 流程总览](#70-流程总览)
+  - [7.1 依赖](#71-依赖)
+  - [7.2 迁移清单(拷到新环境的最小文件集)](#72-迁移清单拷到新环境的最小文件集)
+  - [7.3 执行步骤(以本数据集为例)](#73-执行步骤以本数据集为例)
+  - [7.4 参数说明](#74-参数说明)
+  - [7.4.1 进度与并行(大批量)](#741-进度与并行大批量)
+  - [7.5 迁移到新数据集时改什么](#75-迁移到新数据集时改什么)
+  - [7.6 批量转换注意事项](#76-批量转换注意事项)
+  - [7.7 大批量完整示例(如:A 下有 1000 个 task)](#77-大批量完整示例如a-下有-1000-个-task)
+- [8. 决策记录(为什么这么做)](#8-决策记录为什么这么做)
+
 ## 1. 概述
 
 | 项 | 内容 |
@@ -127,6 +153,7 @@ gm100-cobotmagic-lerobot-preprocess/
 ├── gm100_convert.py      # 转换脚本(§7)
 ├── gm100_validate.py     # 校验脚本(§7)
 ├── gm100_fk.py           # eef 正运动学模块(§3.2)
+├── _progress.py          # 进度/ETA 报告器(标准库,无额外依赖)
 ├── urdf/                 # Piper 臂 URDF + 来源说明(§3.2)
 ├── README.md             # 本文档
 └── processed_dataset/    # ← 所有转换产物
@@ -282,6 +309,7 @@ gm100-cobotmagic-lerobot-preprocess/
 ├── gm100_convert.py                   # 转换脚本
 ├── gm100_fk.py                        # eef 正运动学模块(convert 依赖)
 ├── gm100_validate.py                  # 校验脚本
+├── _progress.py                       # 进度/ETA 报告器(convert/validate 依赖)
 └── urdf/aloha_tracer2_dabai_dark.urdf # FK 用 URDF(convert 依赖)
 ```
 
@@ -299,19 +327,19 @@ gm100-cobotmagic-lerobot-preprocess/
 ### 7.3 执行步骤(以本数据集为例)
 
 ```bash
-cd /data5T/liujin/code/data_preprocess/gm100-cobotmagic-lerobot-preprocess
+cd /data5T/liujin/code/blue_zone_code/data_preprocess/gm100-cobotmagic-lerobot-preprocess
 
 # ① pilot:先转一个 task 并立即校验(推荐在新环境首次执行)
-python gm100_convert.py  --task task_00001
-python gm100_validate.py --task task_00001          # 必须 ALL CHECKS PASSED 才算通过
+python gm100_convert.py  --task task_00001 --workers 8
+python gm100_validate.py --task task_00001 --workers 8   # 必须 ALL CHECKS PASSED 才算通过
 
 # ② 全量:省略 --task,自动遍历源根下全部 task_* 目录
-python gm100_convert.py
-python gm100_validate.py --task task_00001 task_00002 task_00003
+python gm100_convert.py --workers 8
+python gm100_validate.py --task task_00001 task_00002 task_00003 --workers 8
 
 # ③ 换环境/换数据:显式传路径(迁移时推荐,不依赖脚本内的默认值)
-python gm100_convert.py  --src-root /path/to/src --out /path/to/out
-python gm100_validate.py --out /path/to/out --task task_00001 ...
+python gm100_convert.py  --src-root /path/to/src --out /path/to/out --workers 8
+python gm100_validate.py --out /path/to/out --task task_00001 ... --workers 8
 
 # ④ FK 模块自检(秒级;验证 URDF 解析、RPY/轴角约定、零位姿态)
 python gm100_fk.py
@@ -334,9 +362,36 @@ print(len(ds), ds.meta.tasks)
 | `convert --urdf` | `urdf/aloha_tracer2_dabai_dark.urdf` | eef 正运动学使用的 URDF |
 | `convert --skip-existing` | 关 | 跳过已有 `.convert_done` 标记的 task(**大批量断点续跑用**) |
 | `convert --continue-on-error` | 关 | 单个 task 失败不中断整批,结束后列出 `FAILED_TASKS` |
+| `convert --workers` | 8 | **并行转换的 task 数**(1=串行);每个 worker 独立处理一个 task |
 | `validate --out` | 同 convert | 待校验的输出根 |
 | `validate --task` | 省略=全部 | 要校验的 task 名(可多个) |
 | `validate --all` | 关 | 校验 `--out` 下**全部**数据集(大批量用) |
+| `validate --workers` | 8 | **并行校验的 task 数**(1=串行) |
+| `--no-progress` | 关 | 关闭进度/ETA 输出 |
+| `--progress-interval` | 10 | 进度行间隔秒数(非 TTY 日志每个间隔输出一行) |
+
+### 7.4.1 进度与并行(大批量)
+
+转换/校验默认每 10 秒输出一行进度(帧数加权 + 已用时间 + ETA),
+`--workers` 控制同时处理的 task 数:
+
+```bash
+# 1000 个 task:4 路并行转换,日志里可持续看到进度
+setsid nohup python gm100_convert.py --src-root A --out B \
+    --workers 8 --skip-existing --continue-on-error > convert.log 2>&1 &
+tail -f convert.log
+# [PROGRESS] convert 120,000/10,000,000 frames (1.2%) elapsed 00:03:10 ETA 04:12:00 ...
+# [PROGRESS] convert 1,234,567/10,000,000 frames (12.3%) elapsed 00:32:10 ETA 03:49:00 | task_00042
+
+python gm100_validate.py --out B --all --workers 8 > validate.log 2>&1
+```
+
+- **输出完全确定**:每个 task 的输出目录独立,单 task 内仍严格串行;并行只改变
+  调度顺序,不改变任何列、索引、视频命名或文件划分(数据 parquet 与串行版逐字节一致,
+  已在 demo 数据验证)。
+- **并行度**:视频是硬链接,转换瓶颈主要是 parquet 读写与 CPU;`--workers 8`
+  是默认值。HDD/单卷场景建议先实测(观察 `iostat -x 5`),再逐步调高。
+- 每个 worker 内部已把 `pyarrow` CPU 线程数限制为 1,避免 N 个 worker 叠加超订。
 
 ### 7.5 迁移到新数据集时改什么
 
@@ -390,12 +445,12 @@ python gm100_validate.py --out B --task task_00001
 
 # ── 第 4 步:全量转换(后台 + 日志;可断点续跑) ─────────────────
 setsid nohup python gm100_convert.py --src-root A --out B \
-    --skip-existing --continue-on-error > convert.log 2>&1 &
-tail -f convert.log                        # 进度:[OK]/[SKIP]/[FAIL] 每 task 一行
+    --workers 8 --skip-existing --continue-on-error > convert.log 2>&1 &
+tail -f convert.log                        # 进度:[OK]/[SKIP]/[FAIL] + [PROGRESS] 行
 #   若中断/崩溃:原样重跑同一条命令即可 —— 已完成的 task 显示 [SKIP],自动接着转
 
 # ── 第 5 步:全量校验(转换完成后) ───────────────────────────────
-python gm100_validate.py --out B --all > validate.log 2>&1
+python gm100_validate.py --out B --all --workers 8 > validate.log 2>&1
 tail -1 validate.log
 #   期望:RESULT: ALL CHECKS PASSED (0 warnings, 1000 tasks)
 #   若失败:日志末尾有 FAILED_TASKS: task_xxx ...;重转这些 task 后再校验
@@ -406,9 +461,11 @@ grep "FAILED_TASKS" convert.log            # 失败清单(应无输出)
 ls B | wc -l                               # 数据集目录数(应=1000)
 ```
 
-**时间/空间参考**(按本数据集单 task 规模换算):
-- 转换:约 15–20 秒/task → 1000 个约 **4–6 小时**(串行;同文件系统时视频零拷贝)
-- 校验:约 50 秒/task → 1000 个约 **14 小时**(可后台跑,或分批边转边校验)
+**时间/空间参考**(按 task_00001 规模实测,2026-10-19;同文件系统视频零拷贝):
+- 转换:串行约 **7 秒/task**;**8 个同规模 task:57 秒 → 8 秒(`--workers 8`,约 7.1x)**;
+  1000 个约 2 小时(串行)/ 15–30 分钟(8 并行,磁盘允许时)
+- 校验:串行约 **19 秒/task**;**8 个 task:153 秒 → 27 秒(`--workers 8`,约 5.7x)**;
+  1000 个约 5 小时(串行)/ 约 1 小时(8 并行)
 - 磁盘:data parquet 为真实占用(单 task 约 6–36 MB);视频为硬链接**零占用**
   (跨文件系统退化为拷贝时,需按源视频总量预留空间)
 

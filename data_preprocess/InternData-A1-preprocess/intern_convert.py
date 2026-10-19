@@ -56,13 +56,19 @@ Usage (cosmos-framework env):
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import math
+import multiprocessing as mp
 import os
 import shutil
 import subprocess
 import sys
+import tempfile
+import threading
 import time
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
+from contextlib import redirect_stdout
 from pathlib import Path
 
 import numpy as np
@@ -72,6 +78,7 @@ from scipy.spatial.transform import Rotation
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from intern_fk import fk_flange  # noqa: E402  (used for an in-convert sanity check)
+from _progress import Progress, start_queue_forwarder  # noqa: E402
 
 FPS = 30
 DATA_ROTATE_BYTES = 100 * 1024 * 1024   # on-disk target per data file
@@ -138,6 +145,30 @@ def fixed_list_f32(arr: np.ndarray) -> pa.Array:
     arr = np.ascontiguousarray(arr, dtype=np.float32)
     return pa.FixedSizeListArray.from_arrays(
         pa.array(arr.ravel(), type=pa.float32()), arr.shape[1])
+
+
+def dataset_frame_count(dataset_dir: Path) -> int:
+    """Total frames of one source dataset (v3.0 episodes index; cheap)."""
+    files = sorted((dataset_dir / "meta" / "episodes" / "chunk-000").glob("file-*.parquet"))
+    if files:
+        return int(sum(pq.read_table(f).column("length").to_numpy().sum() for f in files))
+    data_files = sorted((dataset_dir / "data" / "chunk-000").glob("file-*.parquet"))
+    if data_files:
+        return int(sum(pq.ParquetFile(f).metadata.num_rows for f in data_files))
+    raise FileNotFoundError(f"cannot determine length for {dataset_dir}")
+
+
+def dataset_work_units(dataset_dir: Path) -> int:
+    """Weighted progress units: one unit per data frame + one per video frame.
+
+    Video transcode dominates wall time, so counting video frames as well makes
+    the batch-level ETA meaningful (data phase ~10%, video phase ~90%).
+    """
+    frames = dataset_frame_count(dataset_dir)
+    info = json.loads((dataset_dir / "meta" / "info.json").read_text())
+    n_cams = sum(1 for v in info.get("features", {}).values()
+                 if v.get("dtype") == "video")
+    return frames * (1 + max(1, n_cams))
 
 
 def probe_video(path: Path) -> dict:
@@ -305,85 +336,167 @@ def plan_packs(ep_meta: list[dict], cam_key: str) -> list[dict]:
     return packs
 
 
-def transcode_camera(task_dir: Path, out_dir: Path, cam: str, cam_key: str,
-                     packs: list[dict], src_hw: tuple[int, int]) -> dict:
-    """av1 -> h264 transcode + episode-boundary packing (one ffmpeg pass per
-    source file). Verifies frame counts / durations / +faststart per output."""
+def build_video_jobs(ep_meta: list[dict], cam_keys: list[str],
+                     cams: list[str]) -> tuple[list[dict], dict[str, dict[int, tuple[int, float, float]]]]:
+    """Plan parallel transcode jobs and the per-episode video locators.
+
+    One job = one source video file (all of its <=960s output packs), so jobs
+    never read the same source concurrently. Output file indices are fixed here,
+    independent of job completion order.
+    """
+    jobs: list[dict] = []
+    cam_locs: dict[str, dict[int, tuple[int, float, float]]] = {}
+    for k, cam in zip(cam_keys, cams):
+        packs = plan_packs(ep_meta, k)
+        m: dict[int, tuple[int, float, float]] = {}
+        for fi, pack in enumerate(packs):
+            cum = 0
+            for e in pack["episodes"]:
+                start = cum / FPS
+                cum += e["length"]
+                m[e["episode_index"]] = (fi, start, cum / FPS)
+        cam_locs[cam] = m
+
+        i = 0
+        while i < len(packs):
+            sf = packs[i]["src_file"]
+            j = i
+            while j < len(packs) and packs[j]["src_file"] == sf:
+                j += 1
+            group = packs[i:j]
+            jobs.append({
+                "cam": cam,
+                "cam_key": k,
+                "src_file": sf,
+                "group": group,
+                "start_index": i,
+                "frames": sum(p["frames"] for p in group),
+            })
+            i = j
+    return jobs, cam_locs
+
+
+def _run_ffmpeg(cmd: list[str], expected_frames: int,
+                progress: Progress | None, note: str,
+                progress_cb=None) -> None:
+    """Run ffmpeg, feeding `-progress pipe:1` frame counts into the reporter."""
+    last = 0
+    with tempfile.TemporaryFile(mode="w+") as errf:
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=errf,
+                                text=True, bufsize=1)
+        assert proc.stdout is not None
+        for line in proc.stdout:
+            line = line.strip()
+            if not line.startswith("frame="):
+                continue
+            try:
+                n = int(line.split("=", 1)[1])
+            except ValueError:
+                continue
+            if n > last:
+                delta = n - last
+                if progress is not None:
+                    progress.update(delta, note=note)
+                if progress_cb is not None:
+                    progress_cb(delta, note)
+                last = n
+        rc = proc.wait()
+        errf.seek(0)
+        err = errf.read()
+    if rc != 0:
+        tail = "\n".join(err.strip().splitlines()[-20:])
+        raise RuntimeError(f"ffmpeg failed (rc={rc}): {tail}")
+    # in case progress parsing missed a tail (e.g. segment muxer counters)
+    if expected_frames > last:
+        delta = expected_frames - last
+        if progress is not None:
+            progress.update(delta, note=note)
+        if progress_cb is not None:
+            progress_cb(delta, note)
+
+
+def transcode_job(task_dir: Path, out_dir: Path, job: dict,
+                  src_hw: tuple[int, int], progress: Progress | None,
+                  progress_cb=None) -> dict:
+    """Transcode ONE source video file into its pre-planned output pack files.
+
+    Safe to run concurrently with other jobs: output file names are disjoint
+    and were fixed by build_video_jobs() before any worker started.
+    """
+    cam = job["cam"]
+    cam_key = job["cam_key"]
+    sf = job["src_file"]
+    group = job["group"]
+    start = job["start_index"]
+    expected_frames = job["frames"]
     dst_dir = out_dir / "videos" / f"observation.images.{cam}" / "chunk-000"
     dst_dir.mkdir(parents=True, exist_ok=True)
+    src = task_dir / "videos" / cam_key / "chunk-000" / f"file-{sf:03d}.mp4"
+    if not src.exists():
+        raise FileNotFoundError(f"missing source video: {src}")
+    note = f"{cam} src-file-{sf:03d}"
+    t0 = time.time()
+
+    if len(group) > 1:
+        bounds, cum = [], 0
+        for g in group[:-1]:
+            cum += g["frames"]
+            bounds.append(cum)
+        # force keyframes ONLY at the split boundaries (eq, not gte: gte(n,0)
+        # is true for every frame and would force all-intra encoding)
+        expr = "expr:eq(n,0)" + "".join(f"+eq(n,{b})" for b in bounds)
+        cmd = [FFMPEG, "-v", "error", "-y", "-progress", "pipe:1", "-nostats",
+               "-i", str(src),
+               "-c:v", "libx264", "-crf", "18", "-preset", "fast",
+               "-pix_fmt", "yuv420p",
+               "-force_key_frames", expr,
+               "-f", "segment",
+               "-segment_frames", ",".join(map(str, bounds)),
+               "-segment_start_number", str(start),
+               "-reset_timestamps", "1",
+               str(dst_dir / "file-%03d.mp4")]
+    else:
+        cmd = [FFMPEG, "-v", "error", "-y", "-progress", "pipe:1", "-nostats",
+               "-i", str(src),
+               "-c:v", "libx264", "-crf", "18", "-preset", "fast",
+               "-pix_fmt", "yuv420p", str(dst_dir / f"file-{start:03d}.mp4")]
+    _run_ffmpeg(cmd, expected_frames, progress, note, progress_cb=progress_cb)
+
+    # +faststart post-pass (the segment muxer ignores -movflags; stream-copy
+    # each finished file once to move moov to the front, per spec §5)
+    for k in range(len(group)):
+        p = dst_dir / f"file-{start + k:03d}.mp4"
+        tmp = p.with_name(p.stem + ".fs.tmp.mp4")
+        subprocess.run([FFMPEG, "-v", "error", "-y", "-i", str(p),
+                        "-c", "copy", "-movflags", "+faststart", str(tmp)],
+                       check=True)
+        os.replace(tmp, p)
+
+    # verify each produced file
     max_bytes = total_bytes = 0
-    n_files = 0
+    for k, pack in enumerate(group):
+        p = dst_dir / f"file-{start + k:03d}.mp4"
+        info = probe_video(p)
+        exp_dur = pack["frames"] / FPS
+        if info["nb_frames"] != pack["frames"]:
+            raise RuntimeError(f"{p.name}: {info['nb_frames']} frames != expected "
+                               f"{pack['frames']}")
+        if abs(info["duration"] - exp_dur) > 0.15:
+            raise RuntimeError(f"{p.name}: duration {info['duration']:.3f}s != "
+                               f"expected {exp_dur:.3f}s")
+        if (info["height"], info["width"]) != src_hw:   # src_hw = (h, w)
+            raise RuntimeError(f"{p.name}: {info['width']}x{info['height']} != "
+                               f"source {src_hw[1]}x{src_hw[0]}")
+        if not moov_at_front(p):
+            raise RuntimeError(f"{p.name}: moov not at front (+faststart failed)")
+        sz = p.stat().st_size
+        max_bytes = max(max_bytes, sz)
+        total_bytes += sz
 
-    i = 0
-    while i < len(packs):
-        sf = packs[i]["src_file"]
-        j = i
-        while j < len(packs) and packs[j]["src_file"] == sf:
-            j += 1
-        group = packs[i:j]
-        src = task_dir / "videos" / cam_key / "chunk-000" / f"file-{sf:03d}.mp4"
-        if not src.exists():
-            raise FileNotFoundError(f"missing source video: {src}")
-        t0 = time.time()
-        if len(group) > 1:
-            bounds, cum = [], 0
-            for g in group[:-1]:
-                cum += g["frames"]
-                bounds.append(cum)
-            # force keyframes ONLY at the split boundaries (eq, not gte: gte(n,0)
-            # is true for every frame and would force all-intra encoding)
-            expr = "expr:eq(n,0)" + "".join(f"+eq(n,{b})" for b in bounds)
-            cmd = [FFMPEG, "-v", "error", "-y", "-i", str(src),
-                   "-c:v", "libx264", "-crf", "18", "-preset", "fast",
-                   "-pix_fmt", "yuv420p",
-                   "-force_key_frames", expr,
-                   "-f", "segment",
-                   "-segment_frames", ",".join(map(str, bounds)),
-                   "-segment_start_number", str(i),
-                   "-reset_timestamps", "1",
-                   str(dst_dir / "file-%03d.mp4")]
-        else:
-            cmd = [FFMPEG, "-v", "error", "-y", "-i", str(src),
-                   "-c:v", "libx264", "-crf", "18", "-preset", "fast",
-                   "-pix_fmt", "yuv420p", str(dst_dir / f"file-{i:03d}.mp4")]
-        subprocess.run(cmd, check=True)
-
-        # +faststart post-pass (the segment muxer ignores -movflags; stream-copy
-        # each finished file once to move moov to the front, per spec §5)
-        for k in range(len(group)):
-            p = dst_dir / f"file-{i + k:03d}.mp4"
-            tmp = p.with_name(p.stem + ".fs.tmp.mp4")
-            subprocess.run([FFMPEG, "-v", "error", "-y", "-i", str(p),
-                            "-c", "copy", "-movflags", "+faststart", str(tmp)],
-                           check=True)
-            os.replace(tmp, p)
-
-        # verify each produced file
-        for k, pack in enumerate(group):
-            p = dst_dir / f"file-{i + k:03d}.mp4"
-            info = probe_video(p)
-            exp_dur = pack["frames"] / FPS
-            if info["nb_frames"] != pack["frames"]:
-                raise RuntimeError(f"{p.name}: {info['nb_frames']} frames != expected "
-                                   f"{pack['frames']}")
-            if abs(info["duration"] - exp_dur) > 0.15:
-                raise RuntimeError(f"{p.name}: duration {info['duration']:.3f}s != "
-                                   f"expected {exp_dur:.3f}s")
-            if (info["height"], info["width"]) != src_hw:   # src_hw = (h, w)
-                raise RuntimeError(f"{p.name}: {info['width']}x{info['height']} != "
-                                   f"source {src_hw[1]}x{src_hw[0]}")
-            if not moov_at_front(p):
-                raise RuntimeError(f"{p.name}: moov not at front (+faststart failed)")
-            sz = p.stat().st_size
-            max_bytes = max(max_bytes, sz)
-            total_bytes += sz
-            n_files += 1
-        log(f"    {cam}: source file-{sf:03d}.mp4 -> file-{i:03d}..{i + len(group) - 1:03d}.mp4 "
-            f"({len(group)} files, {sum(g['frames'] for g in group) / FPS:.0f}s, "
-            f"{time.time() - t0:.0f}s)")
-        i = j
-
-    return {"n_files": n_files, "max_bytes": max_bytes, "total_bytes": total_bytes}
+    return {"cam": cam, "src_file": sf, "start_index": start,
+            "n_files": len(group), "frames": expected_frames,
+            "max_bytes": max_bytes, "total_bytes": total_bytes,
+            "seconds": time.time() - t0}
 
 
 def write_episodes_index(ep_meta: list[dict], data_locs: list[dict],
@@ -454,7 +567,9 @@ def build_features(cams: list[str], video_hw: dict[str, tuple[int, int]],
     return f
 
 
-def convert_task(task_dir: Path, out_root: Path) -> dict:
+def convert_task(task_dir: Path, out_root: Path, show_progress: bool = True,
+                 progress_interval: float = 10.0, video_workers: int = 3,
+                 progress_cb=None) -> dict:
     task_name = task_dir.name
     out_dir = out_root / task_name
     if out_dir.exists():
@@ -522,6 +637,9 @@ def convert_task(task_dir: Path, out_root: Path) -> dict:
             passthrough_types[name] = ("float32", [1])   # scalar (shape-[1] feature)
 
     # ---------------- build episode tables (55D + passthrough) ----------------
+    data_prog = Progress(total_frames, "frames", f"data:{task_name}",
+                         enabled=show_progress, interval=progress_interval)
+    data_prog.start_heartbeat()
     ep_tables: list[tuple[dict, pa.Table]] = []
     cursor = 0
     for e in ep_meta:
@@ -529,6 +647,10 @@ def convert_task(task_dir: Path, out_root: Path) -> dict:
         tbl = build_episode_table(sub, e["episode_index"], cursor)
         cursor += tbl.num_rows
         ep_tables.append((e, tbl))
+        data_prog.update(e["length"], note=f"ep {e['episode_index']}")
+        if progress_cb is not None:
+            progress_cb(e["length"], f"data ep {e['episode_index']}")
+    data_prog.finish()
 
     # in-convert sanity: FK(joints) vs the 55D eef we just wrote (3 frames)
     st = np.stack([ep_tables[0][1].column("state_unified").to_pylist()[0],
@@ -545,24 +667,47 @@ def convert_task(task_dir: Path, out_root: Path) -> dict:
     # ---------------- data parquet (~100MB rotation) ----------------
     data_locs = write_data(ep_tables, out_dir / "data" / "chunk-000")
 
-    # ---------------- videos: transcode + <=960s packing ----------------
-    cam_locs: dict[str, dict[int, tuple[int, float, float]]] = {}
+    # ---------------- videos: transcode + <=960s packing (parallel) ----------
+    # One job per source video file; jobs write disjoint pre-planned output
+    # files, so they can run concurrently without changing file numbering.
+    jobs, cam_locs = build_video_jobs(ep_meta, cam_keys, cams)
+    for cam in cams:
+        assert len(cam_locs[cam]) == len(ep_meta), f"{cam}: packing lost episodes"
+    video_total = sum(j["frames"] for j in jobs)
+    assert video_total == total_frames * len(cams), \
+        f"video frames {video_total} != {total_frames} x {len(cams)}"
+    video_prog = Progress(video_total, "frames", f"video:{task_name}",
+                          enabled=show_progress, interval=progress_interval)
+    video_prog.start_heartbeat()
+
     video_stats: dict[str, dict] = {}
-    for k, cam in zip(cam_keys, cams):
-        packs = plan_packs(ep_meta, k)
-        n_ep = sum(len(p["episodes"]) for p in packs)
-        assert n_ep == len(ep_meta), f"{cam}: packing lost episodes"
-        info = transcode_camera(task_dir, out_dir, cam, k, packs,
-                                video_hw[f"observation.images.{cam}"])
-        video_stats[cam] = info
-        m: dict[int, tuple[int, float, float]] = {}
-        for fi, pack in enumerate(packs):
-            cum = 0
-            for e in pack["episodes"]:
-                f_s = cum / FPS
-                cum += e["length"]
-                m[e["episode_index"]] = (fi, f_s, cum / FPS)
-        cam_locs[cam] = m
+    errors: list[str] = []
+    with ThreadPoolExecutor(max_workers=max(1, int(video_workers))) as ex:
+        futs = {ex.submit(transcode_job, task_dir, out_dir, j,
+                          video_hw[f"observation.images.{j['cam']}"],
+                          video_prog, progress_cb): j for j in jobs}
+        for fut in as_completed(futs):
+            j = futs[fut]
+            try:
+                info = fut.result()
+            except Exception as e:  # noqa: BLE001
+                msg = f"{j['cam']} src-file-{j['src_file']:03d}: {type(e).__name__}: {e}"
+                errors.append(msg)
+                log(f"    [FAIL] {msg}")
+                continue
+            s = video_stats.setdefault(j["cam"], {"n_files": 0, "max_bytes": 0,
+                                                  "total_bytes": 0})
+            s["n_files"] += info["n_files"]
+            s["max_bytes"] = max(s["max_bytes"], info["max_bytes"])
+            s["total_bytes"] += info["total_bytes"]
+            log(f"    {j['cam']}: source file-{j['src_file']:03d}.mp4 -> "
+                f"file-{j['start_index']:03d}.."
+                f"{j['start_index'] + len(j['group']) - 1:03d}.mp4 "
+                f"({info['n_files']} files, {info['frames'] / FPS:.0f}s, "
+                f"{info['seconds']:.0f}s)")
+    video_prog.finish(ok=not errors)
+    if errors:
+        raise RuntimeError("video transcode failed: " + "; ".join(errors))
 
     # ---------------- meta ----------------
     meta = out_dir / "meta"
@@ -714,19 +859,51 @@ def discover_datasets(src_root: Path) -> list[Path]:
     return found
 
 
+def _convert_worker(dataset_dir: str, out_root: str, video_workers: int,
+                    progress_q=None) -> dict:
+    """Worker-process entry point: convert one dataset, capture its log."""
+    import pyarrow as pa  # local import: safe in spawned/forked workers
+    pa.set_cpu_count(1)     # each worker writes its own parquet; avoid oversubscription
+
+    def cb(n: float, note: str) -> None:
+        if progress_q is not None:
+            progress_q.put((float(n), str(note)))
+
+    buf = io.StringIO()
+    try:
+        with redirect_stdout(buf):
+            r = convert_task(Path(dataset_dir), Path(out_root),
+                             show_progress=False, video_workers=video_workers,
+                             progress_cb=cb)
+        return {"ok": True, "result": r, "log": buf.getvalue()}
+    except Exception as e:  # noqa: BLE001
+        return {"ok": False, "error": f"{type(e).__name__}: {e}",
+                "log": buf.getvalue()}
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--src-root", default="/data5T/liujin/dataset/InternData-A1",
                     help="root scanned recursively for dataset dirs (meta/info.json); "
                          "run intern_extract.py first to materialize extracted archives")
     ap.add_argument("--out",
-                    default="/data5T/liujin/code/data_preprocess/InternData-A1-preprocess/processed_dataset")
+                    default=str(Path(__file__).resolve().parent / "processed_dataset"))
     ap.add_argument("--task", nargs="+", default=None,
                     help="dataset dir name(s), e.g. close_the_laptop (default: all discovered)")
     ap.add_argument("--skip-existing", action="store_true",
                     help="skip datasets that already have a .convert_done marker")
     ap.add_argument("--continue-on-error", action="store_true",
                     help="keep converting remaining datasets after one fails")
+    ap.add_argument("--workers", type=int, default=8,
+                    help="datasets converted in parallel (1 = sequential; default: 8; "
+                         "note each worker also runs --video-workers ffmpeg jobs, "
+                         "so total ffmpeg concurrency = workers x video-workers)")
+    ap.add_argument("--video-workers", type=int, default=3,
+                    help="concurrent ffmpeg transcode jobs per dataset (default: 3)")
+    ap.add_argument("--no-progress", action="store_true",
+                    help="disable progress/ETA lines")
+    ap.add_argument("--progress-interval", type=float, default=10.0,
+                    help="seconds between progress lines (default: 10)")
     args = ap.parse_args()
 
     src_root = Path(args.src_root)
@@ -750,25 +927,100 @@ def main() -> None:
         sys.exit(f"duplicate dataset dir name(s) {dupes} under {src_root} would "
                  f"collide in {out_root}; rename or extract them separately")
 
-    log(f"TASK_START total={len(datasets)}")
-    results: list[dict] = []
-    failed: list[str] = []
+    # --skip-existing: completed datasets are removed from both work and ETA totals
+    pending: list[Path] = []
     n_skipped = 0
     for d in datasets:
-        t = d.name
-        if args.skip_existing and (out_root / t / ".convert_done").exists():
-            log(f"[SKIP] {t}: already converted (.convert_done present)")
+        if args.skip_existing and (out_root / d.name / ".convert_done").exists():
+            log(f"[SKIP] {d.name}: already converted (.convert_done present)")
             n_skipped += 1
-            continue
+        else:
+            pending.append(d)
+
+    frames_by_ds: dict[str, int] = {}
+    work_by_ds: dict[str, int] = {}
+    for d in pending:
         try:
-            r = convert_task(d, out_root)
-            results.append(r)
-            log(f"[OK] {t}: {r['episodes']} eps, {r['frames']} frames, {r['videos']} videos")
-        except Exception as e:  # noqa: BLE001
-            log(f"[FAIL] {t}: {e}")
-            failed.append(t)
-            if not args.continue_on_error:
-                raise
+            frames_by_ds[d.name] = dataset_frame_count(d)
+            work_by_ds[d.name] = dataset_work_units(d)
+        except Exception as e:  # noqa: BLE001  (broken dataset must not abort the batch)
+            log(f"WARN: cannot pre-scan {d.name}: {e}")
+            frames_by_ds[d.name] = 0
+            work_by_ds[d.name] = 0
+    total_frames = sum(frames_by_ds.values())
+    total_work = sum(work_by_ds.values())
+    prog = Progress(total_work, "frames", "convert",
+                    enabled=not args.no_progress,
+                    interval=args.progress_interval)
+    prog.start_heartbeat()
+
+    log(f"TASK_START total={len(datasets)} pending={len(pending)} "
+        f"skipped={n_skipped} frames={total_frames:,}")
+    results: list[dict] = []
+    failed: list[str] = []
+    workers = max(1, int(args.workers))
+    video_workers = max(1, int(args.video_workers))
+
+    if workers == 1:
+        for d in pending:
+            t = d.name
+            r = None
+            try:
+                r = convert_task(d, out_root,
+                                 show_progress=not args.no_progress,
+                                 progress_interval=args.progress_interval,
+                                 video_workers=video_workers,
+                                 progress_cb=lambda n, note: prog.update(n, note=note))
+                results.append(r)
+                log(f"[OK] {t}: {r['episodes']} eps, {r['frames']} frames, "
+                    f"{r['videos']} videos")
+            except Exception as e:  # noqa: BLE001
+                log(f"[FAIL] {t}: {e}")
+                failed.append(t)
+                if not args.continue_on_error:
+                    break
+    else:
+        mgr = mp.Manager()
+        q = mgr.Queue()
+        stop = threading.Event()
+        fwd = start_queue_forwarder(q, prog, stop)
+        try:
+            with ProcessPoolExecutor(max_workers=workers) as ex:
+                futs = {ex.submit(_convert_worker, str(d), str(out_root),
+                                  video_workers, q): d for d in pending}
+                cancelled = False
+                for fut in as_completed(futs):
+                    d = futs[fut]
+                    t = d.name
+                    if cancelled:
+                        continue
+                    try:
+                        res = fut.result()
+                    except Exception as e:  # noqa: BLE001  (worker crash/pickling)
+                        res = {"ok": False, "error": f"{type(e).__name__}: {e}",
+                               "log": ""}
+                    if res.get("log"):
+                        for line in res["log"].splitlines():
+                            log(f"[{t}] {line}")
+                    if res["ok"]:
+                        r = res["result"]
+                        results.append(r)
+                        log(f"[OK] {t}: {r['episodes']} eps, {r['frames']} frames, "
+                            f"{r['videos']} videos")
+                    else:
+                        log(f"[FAIL] {t}: {res['error']}")
+                        failed.append(t)
+                        if not args.continue_on_error:
+                            cancelled = True
+                            for f2 in futs:
+                                f2.cancel()
+        finally:
+            q.put(None)
+            stop.set()
+            fwd.join(timeout=2)
+            mgr.shutdown()
+
+    prog.finish(ok=not failed)
     log(f"TASK_DONE ok={len(results)} skipped={n_skipped} failed={len(failed)}")
     if failed:
         log("FAILED_TASKS: " + " ".join(failed))

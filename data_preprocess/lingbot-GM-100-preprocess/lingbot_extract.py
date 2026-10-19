@@ -34,12 +34,17 @@ Usage (cosmos-framework env; needs only the stdlib):
 from __future__ import annotations
 
 import argparse
+import fcntl
 import hashlib
 import shutil
 import sys
 import tarfile
 import time
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _progress import Progress  # noqa: E402
 
 
 def log(line: str) -> None:
@@ -78,6 +83,15 @@ def dataset_ok(d: Path) -> bool:
             and (d / "videos").is_dir())
 
 
+def _publish_lock(dest_root: Path):
+    """Cross-process lock so parallel archives publishing into one --dest do not
+    race on same-named top-level dataset dirs. Only the final move is locked."""
+    dest_root.mkdir(parents=True, exist_ok=True)
+    fh = open(dest_root / ".extract_publish.lock", "w")
+    fcntl.flock(fh, fcntl.LOCK_EX)
+    return fh
+
+
 def extract_archive(archive: Path, dest_root: Path, force: bool) -> str:
     """Extract one archive. Returns 'ok' | 'skip'. Raises on failure."""
     with tarfile.open(archive, "r:gz") as tf:
@@ -114,16 +128,36 @@ def extract_archive(archive: Path, dest_root: Path, force: bool) -> str:
                     f"extracted '{t}' is not a lerobot dataset "
                     f"(missing meta/info.json or data/videos); archive layout unexpected")
 
-        # move into place; keep pre-existing valid dirs, replace invalid ones
-        for t in tops:
-            final = dest_root / t
-            if final.exists():
-                if not force and dataset_ok(final):
-                    continue                               # keep existing valid copy
-                shutil.rmtree(final)
-            shutil.move(str(tmp / t), str(final))
+        # move into place; keep pre-existing valid dirs, replace invalid ones.
+        # Serialize only the publish step: with --workers > 1, multiple archives
+        # may share one --dest and race on same-named top-level dirs.
+        lock = _publish_lock(dest_root)
+        try:
+            for t in tops:
+                final = dest_root / t
+                if final.exists():
+                    if not force and dataset_ok(final):
+                        continue                           # keep existing valid copy
+                    shutil.rmtree(final)
+                shutil.move(str(tmp / t), str(final))
+        finally:
+            fcntl.flock(lock, fcntl.LOCK_UN)
+            lock.close()
         shutil.rmtree(tmp, ignore_errors=True)
         return "ok"
+
+
+def _extract_worker(archive: str, dest: str, force: bool) -> dict:
+    """Worker-process entry point: extract one archive."""
+    a = Path(archive)
+    t0 = time.time()
+    try:
+        status = extract_archive(a, Path(dest), force)
+        return {"ok": True, "status": status, "archive": archive,
+                "size_mb": a.stat().st_size / 1e6, "seconds": time.time() - t0}
+    except Exception as e:  # noqa: BLE001
+        return {"ok": False, "archive": archive,
+                "error": f"{type(e).__name__}: {e}", "seconds": time.time() - t0}
 
 
 def main() -> None:
@@ -137,6 +171,12 @@ def main() -> None:
                     help="re-extract even if the dataset dirs already exist")
     ap.add_argument("--continue-on-error", action="store_true",
                     help="keep going after a bad archive; failed archives are listed at the end")
+    ap.add_argument("--workers", type=int, default=8,
+                    help="archives extracted in parallel (1 = sequential; default: 8)")
+    ap.add_argument("--no-progress", action="store_true",
+                    help="disable progress/ETA lines")
+    ap.add_argument("--progress-interval", type=float, default=10.0,
+                    help="seconds between progress lines (default: 10)")
     args = ap.parse_args()
 
     src_root = Path(args.src_root)
@@ -148,28 +188,70 @@ def main() -> None:
         log(f"no *.tar.gz / *.tgz archives found under {src_root}")
         sys.exit(1)
 
+    prog = Progress(len(archives), "archives", "extract",
+                    enabled=not args.no_progress,
+                    interval=args.progress_interval)
+    prog.start_heartbeat()
     log(f"EXTRACT_START archives={len(archives)} src={src_root}")
     n_ok = n_skip = 0
     failed: list[str] = []
-    for a in archives:
-        dest_root = Path(args.dest) if args.dest else a.parent
-        t0 = time.time()
-        try:
-            r = extract_archive(a, dest_root, args.force)
-        except Exception as e:  # noqa: BLE001
-            log(f"[FAIL] {a}: {type(e).__name__}: {e}")
-            failed.append(str(a))
-            if not args.continue_on_error:
-                raise
-            continue
-        if r == "skip":
-            n_skip += 1
-            log(f"[SKIP] {a}: already extracted (use --force to redo)")
-        else:
-            n_ok += 1
-            size_mb = a.stat().st_size / 1e6
-            log(f"[OK]   {a}: {size_mb:.0f} MB archive -> {dest_root} ({time.time() - t0:.1f}s)")
+    workers = max(1, int(args.workers))
 
+    if workers == 1:
+        for a in archives:
+            dest_root = Path(args.dest) if args.dest else a.parent
+            t0 = time.time()
+            try:
+                r = extract_archive(a, dest_root, args.force)
+            except Exception as e:  # noqa: BLE001
+                log(f"[FAIL] {a}: {type(e).__name__}: {e}")
+                failed.append(str(a))
+                prog.update(1, note=a.name)
+                if not args.continue_on_error:
+                    break
+                continue
+            if r == "skip":
+                n_skip += 1
+                log(f"[SKIP] {a}: already extracted (use --force to redo)")
+            else:
+                n_ok += 1
+                size_mb = a.stat().st_size / 1e6
+                log(f"[OK]   {a}: {size_mb:.0f} MB archive -> {dest_root} "
+                    f"({time.time() - t0:.1f}s)")
+            prog.update(1, note=a.name)
+    else:
+        jobs = [(a, Path(args.dest) if args.dest else a.parent) for a in archives]
+        with ProcessPoolExecutor(max_workers=workers) as ex:
+            futs = {ex.submit(_extract_worker, str(a), str(dest), args.force): (a, dest)
+                    for a, dest in jobs}
+            cancelled = False
+            for fut in as_completed(futs):
+                a, dest_root = futs[fut]
+                if cancelled:
+                    continue
+                try:
+                    res = fut.result()
+                except Exception as e:  # noqa: BLE001  (worker crash/pickling)
+                    res = {"ok": False, "archive": str(a),
+                           "error": f"{type(e).__name__}: {e}", "seconds": 0.0}
+                if res["ok"]:
+                    if res["status"] == "skip":
+                        n_skip += 1
+                        log(f"[SKIP] {a}: already extracted (use --force to redo)")
+                    else:
+                        n_ok += 1
+                        log(f"[OK]   {a}: {res['size_mb']:.0f} MB archive -> {dest_root} "
+                            f"({res['seconds']:.1f}s)")
+                    prog.update(1, note=a.name)
+                else:
+                    log(f"[FAIL] {a}: {res['error']}")
+                    failed.append(str(a))
+                    if not args.continue_on_error:
+                        cancelled = True
+                        for f2 in futs:
+                            f2.cancel()
+
+    prog.finish(ok=not failed)
     log(f"EXTRACT_DONE ok={n_ok} skip={n_skip} failed={len(failed)}")
     if failed:
         log("FAILED_ARCHIVES:")

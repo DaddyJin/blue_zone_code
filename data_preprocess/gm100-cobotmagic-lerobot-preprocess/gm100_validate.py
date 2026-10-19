@@ -21,13 +21,21 @@ Usage (cosmos-framework env):
 from __future__ import annotations
 
 import argparse
+import io
 import json
+import multiprocessing as mp
 import sys
+import threading
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from contextlib import redirect_stdout
 from pathlib import Path
 
 import numpy as np
 import pyarrow as pa
 import pyarrow.parquet as pq
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _progress import Progress, start_queue_forwarder  # noqa: E402
 
 FPS = 30
 N_DIM = 55
@@ -74,7 +82,33 @@ def to_np(tbl: pa.Table, col: str) -> np.ndarray:
     return np.stack(tbl.column(col).to_pylist())
 
 
-def validate_task(out_root: Path, task: str) -> None:
+def dataset_frame_count(d: Path) -> int:
+    """Total frames of a converted dataset (episodes.jsonl only; cheap)."""
+    rows = [json.loads(line) for line in
+            (d / "meta" / "episodes.jsonl").read_text().splitlines() if line.strip()]
+    return sum(int(r["length"]) for r in rows)
+
+
+def _validate_worker(out_root: str, task: str, progress_q=None) -> dict:
+    """Worker-process entry point: validate one dataset, capture its log."""
+    global FAILURES, WARNINGS
+    FAILURES, WARNINGS = [], []
+
+    def cb(n: float, note: str) -> None:
+        if progress_q is not None:
+            progress_q.put((float(n), str(note)))
+
+    buf = io.StringIO()
+    try:
+        with redirect_stdout(buf):
+            validate_task(Path(out_root), task, progress_cb=cb)
+    except Exception as e:  # noqa: BLE001
+        FAILURES.append(f"validator crashed: {type(e).__name__}: {e}")
+    return {"task": task, "failures": list(FAILURES),
+            "warnings": list(WARNINGS), "log": buf.getvalue()}
+
+
+def validate_task(out_root: Path, task: str, progress_cb=None) -> None:
     d = out_root / task
     print(f"validating: {d}")
     if not d.is_dir():
@@ -156,16 +190,29 @@ def validate_task(out_root: Path, task: str) -> None:
 
     for f in files:
         tbl = pq.read_table(f)
+        n_rows = tbl.num_rows
+
+        def step(frac: float, label: str) -> None:
+            if progress_cb is not None:
+                progress_cb(frac * n_rows, f"{task} {label}")
+
+        step(0.05, f"read {f.name}")
         state = to_np(tbl, "state_unified")
+        step(0.06, "state")
         action = to_np(tbl, "action_unified")
+        step(0.06, "action")
         ms = to_np(tbl, "mask_state")
+        step(0.06, "mask_state")
         ma = to_np(tbl, "mask_action")
+        step(0.06, "mask_action")
         rel = to_np(tbl, "reliability")
+        step(0.06, "reliability")
         epis = tbl.column("episode_index").to_numpy()
         findex = tbl.column("frame_index").to_numpy()
         ts = tbl.column("timestamp").to_numpy()
         sti = tbl.column("subtask_index").to_numpy()
         gidx = tbl.column("index").to_numpy()
+        step(0.05, "index prep")
 
         # index contiguous 0..N-1
         if gidx[0] != expected_global or gidx[-1] != expected_global + len(gidx) - 1:
@@ -218,6 +265,8 @@ def validate_task(out_root: Path, task: str) -> None:
                 action_bad += 1
             if not np.array_equal(action[e - 1], state[e - 1]):
                 action_bad += 1
+            if progress_cb is not None:
+                progress_cb(0.6 * T, f"{task} ep {ep}")
 
     check(mask_bad == 0, f"mask/reliability pattern (active={sorted(ACTIVE_SLOTS)}, rest 0) on every episode")
     check(eef_bad == 0, "empty slots (6, 13, hand/waist/head/mobile/reserved 30:55) all zero")
@@ -301,11 +350,17 @@ def validate_task(out_root: Path, task: str) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default="/data5T/liujin/code/data_preprocess/gm100-cobotmagic-lerobot-preprocess/processed_dataset")
+    ap.add_argument("--out", default=str(Path(__file__).resolve().parent / "processed_dataset"))
     ap.add_argument("--task", nargs="+", default=None,
                     help="task dir name(s); if omitted, all datasets under --out are validated")
     ap.add_argument("--all", action="store_true",
                     help="validate every dataset dir under --out (large batches)")
+    ap.add_argument("--workers", type=int, default=8,
+                    help="datasets validated in parallel (1 = sequential; default: 8)")
+    ap.add_argument("--no-progress", action="store_true",
+                    help="disable progress/ETA lines")
+    ap.add_argument("--progress-interval", type=float, default=10.0,
+                    help="seconds between progress lines (default: 10)")
     args = ap.parse_args()
     out_root = Path(args.out)
 
@@ -319,12 +374,57 @@ def main() -> None:
         sys.exit(1)
     print(f"validating {len(tasks)} task(s) under {out_root}")
 
-    failed_tasks: list[str] = []
+    frames_by_task: dict[str, int] = {}
     for t in tasks:
-        n0 = len(FAILURES)
-        validate_task(out_root, t)
-        if len(FAILURES) > n0:
-            failed_tasks.append(t)
+        try:
+            frames_by_task[t] = dataset_frame_count(out_root / t)
+        except Exception as e:  # noqa: BLE001  (let validate_task report the real error)
+            print(f"  [WARN] cannot pre-scan {t}: {e}")
+            frames_by_task[t] = 0
+    prog = Progress(sum(frames_by_task.values()), "frames", "validate",
+                    enabled=not args.no_progress,
+                    interval=args.progress_interval)
+    prog.start_heartbeat()
+
+    failed_tasks: list[str] = []
+    workers = max(1, int(args.workers))
+    if workers == 1:
+        for t in tasks:
+            n0 = len(FAILURES)
+            validate_task(out_root, t,
+                          progress_cb=lambda n, note: prog.update(n, note=note))
+            if len(FAILURES) > n0:
+                failed_tasks.append(t)
+    else:
+        mgr = mp.Manager()
+        q = mgr.Queue()
+        stop = threading.Event()
+        fwd = start_queue_forwarder(q, prog, stop)
+        try:
+            with ProcessPoolExecutor(max_workers=workers) as ex:
+                futs = {ex.submit(_validate_worker, str(out_root), t, q): t
+                        for t in tasks}
+                for fut in as_completed(futs):
+                    t = futs[fut]
+                    try:
+                        res = fut.result()
+                    except Exception as e:  # noqa: BLE001  (worker crash/pickling)
+                        res = {"task": t,
+                               "failures": [f"worker crashed: {type(e).__name__}: {e}"],
+                               "warnings": [], "log": ""}
+                    if res["log"]:
+                        print(f"\n===== {t} =====")
+                        print(res["log"].rstrip())
+                    FAILURES.extend(res["failures"])
+                    WARNINGS.extend(res["warnings"])
+                    if res["failures"]:
+                        failed_tasks.append(t)
+        finally:
+            q.put(None)
+            stop.set()
+            fwd.join(timeout=2)
+            mgr.shutdown()
+    prog.finish(ok=not failed_tasks)
 
     print("\n" + "=" * 60)
     if FAILURES:

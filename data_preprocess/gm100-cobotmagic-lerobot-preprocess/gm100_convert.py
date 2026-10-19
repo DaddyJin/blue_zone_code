@@ -49,12 +49,17 @@ Usage (cosmos-framework env):
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import math
+import multiprocessing as mp
 import os
 import shutil
 import sys
+import threading
 import time
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from contextlib import redirect_stdout
 from pathlib import Path
 
 import numpy as np
@@ -63,6 +68,7 @@ import pyarrow.parquet as pq
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from gm100_fk import GM100FK, DEFAULT_URDF  # noqa: E402
+from _progress import Progress, start_queue_forwarder  # noqa: E402
 
 FPS = 30
 DATA_ROTATE_BYTES = 100 * 1024 * 1024   # on-disk target per data file
@@ -123,6 +129,12 @@ def read_jsonl(path: Path) -> list[dict]:
             if line:
                 rows.append(json.loads(line))
     return rows
+
+
+def task_frame_count(src_root: Path, task: str) -> int:
+    """Total frames of one source task (cheap: episodes.jsonl only)."""
+    return sum(int(r["length"]) for r in
+               read_jsonl(src_root / task / "meta" / "episodes.jsonl"))
 
 
 def build_episode_table(src: pa.Table, ep_idx: int, global_cursor: int,
@@ -357,7 +369,7 @@ def build_features(cams: list[str], video_hw: tuple[int, int],
 
 
 def convert_task(src_root: Path, task_name: str, out_root: Path,
-                 urdf_path: Path = DEFAULT_URDF) -> dict:
+                 urdf_path: Path = DEFAULT_URDF, progress_cb=None) -> dict:
     task_dir = src_root / task_name
     if not task_dir.is_dir():
         raise FileNotFoundError(f"task dir not found: {task_dir}")
@@ -401,6 +413,8 @@ def convert_task(src_root: Path, task_name: str, out_root: Path,
         tbl = build_episode_table(src, ep_idx, cursor, fk)
         cursor += tbl.num_rows
         ep_tables.append((e, tbl))
+        if progress_cb is not None:
+            progress_cb(tbl.num_rows, f"{task_name} ep {ep_idx}")
     total_frames = cursor
 
     # --- data parquet (~100MB on-disk rotation, episode boundaries only) ---
@@ -548,12 +562,33 @@ def convert_task(src_root: Path, task_name: str, out_root: Path,
             "videos": vinfo["n_videos"], "out": str(out_dir)}
 
 
+def _convert_worker(src_root: str, task: str, out_root: str, urdf: str,
+                    progress_q=None) -> dict:
+    """Worker-process entry point: convert one task, capture its log."""
+    import pyarrow as pa  # local import: safe in spawned/forked workers
+    pa.set_cpu_count(1)     # avoid N workers x pyarrow threads oversubscription
+
+    def cb(n: float, note: str) -> None:
+        if progress_q is not None:
+            progress_q.put((float(n), str(note)))
+
+    buf = io.StringIO()
+    try:
+        with redirect_stdout(buf):
+            r = convert_task(Path(src_root), task, Path(out_root), Path(urdf),
+                             progress_cb=cb)
+        return {"ok": True, "result": r, "log": buf.getvalue()}
+    except Exception as e:  # noqa: BLE001
+        return {"ok": False, "error": f"{type(e).__name__}: {e}",
+                "log": buf.getvalue()}
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--src-root",
                     default="/data5T/liujin/dataset/gm100-cobotmagic-lerobot-demo")
     ap.add_argument("--out",
-                    default="/data5T/liujin/code/data_preprocess/gm100-cobotmagic-lerobot-preprocess/processed_dataset")
+                    default=str(Path(__file__).resolve().parent / "processed_dataset"))
     ap.add_argument("--task", nargs="+", default=None,
                     help="task dir name(s), e.g. task_00001 (default: all)")
     ap.add_argument("--urdf", default=str(DEFAULT_URDF),
@@ -564,33 +599,105 @@ def main() -> None:
     ap.add_argument("--continue-on-error", action="store_true",
                     help="keep converting remaining tasks after a task fails; "
                          "failed tasks are listed at the end (retry with --skip-existing)")
+    ap.add_argument("--workers", type=int, default=8,
+                    help="tasks converted in parallel (1 = sequential; default: 8)")
+    ap.add_argument("--no-progress", action="store_true",
+                    help="disable progress/ETA lines")
+    ap.add_argument("--progress-interval", type=float, default=10.0,
+                    help="seconds between progress lines (default: 10)")
     args = ap.parse_args()
 
     src_root = Path(args.src_root)
     out_root = Path(args.out)
     out_root.mkdir(parents=True, exist_ok=True)
 
-    tasks = args.task or sorted(d.name for d in src_root.iterdir()
-                                if d.is_dir() and d.name.startswith("task_"))
+    all_tasks = args.task or sorted(d.name for d in src_root.iterdir()
+                                    if d.is_dir() and d.name.startswith("task_"))
 
-    log(f"TASK_START total={len(tasks)}")
-    results: list[dict] = []
-    failed: list[str] = []
+    # --skip-existing: completed tasks are removed from both work and ETA totals
+    tasks: list[str] = []
     n_skipped = 0
-    for t in tasks:
+    for t in all_tasks:
         if args.skip_existing and (out_root / t / ".convert_done").exists():
             log(f"[SKIP] {t}: already converted (.convert_done present)")
             n_skipped += 1
-            continue
+        else:
+            tasks.append(t)
+
+    frames_by_task: dict[str, int] = {}
+    for t in tasks:
         try:
-            r = convert_task(src_root, t, out_root, Path(args.urdf))
-            results.append(r)
-            log(f"[OK] {t}: {r['episodes']} eps, {r['frames']} frames, {r['videos']} videos")
-        except Exception as e:  # noqa: BLE001
-            log(f"[FAIL] {t}: {e}")
-            failed.append(t)
-            if not args.continue_on_error:
-                raise
+            frames_by_task[t] = task_frame_count(src_root, t)
+        except Exception as e:  # noqa: BLE001  (broken task must not abort the batch)
+            log(f"WARN: cannot pre-scan {t}: {e}")
+            frames_by_task[t] = 0
+    total_frames = sum(frames_by_task.values())
+    prog = Progress(total_frames, "frames", "convert",
+                    enabled=not args.no_progress,
+                    interval=args.progress_interval)
+    prog.start_heartbeat()
+
+    log(f"TASK_START total={len(all_tasks)} pending={len(tasks)} "
+        f"skipped={n_skipped} frames={total_frames:,}")
+    results: list[dict] = []
+    failed: list[str] = []
+    workers = max(1, int(args.workers))
+
+    if workers == 1:
+        for t in tasks:
+            r = None
+            try:
+                r = convert_task(src_root, t, out_root, Path(args.urdf),
+                                 progress_cb=lambda n, note: prog.update(n, note=note))
+                results.append(r)
+                log(f"[OK] {t}: {r['episodes']} eps, {r['frames']} frames, "
+                    f"{r['videos']} videos")
+            except Exception as e:  # noqa: BLE001
+                log(f"[FAIL] {t}: {e}")
+                failed.append(t)
+                if not args.continue_on_error:
+                    break
+    else:
+        mgr = mp.Manager()
+        q = mgr.Queue()
+        stop = threading.Event()
+        fwd = start_queue_forwarder(q, prog, stop)
+        try:
+            with ProcessPoolExecutor(max_workers=workers) as ex:
+                futs = {ex.submit(_convert_worker, str(src_root), t,
+                                  str(out_root), str(args.urdf), q): t for t in tasks}
+                cancelled = False
+                for fut in as_completed(futs):
+                    t = futs[fut]
+                    if cancelled:
+                        continue
+                    try:
+                        res = fut.result()
+                    except Exception as e:  # noqa: BLE001  (worker crash/pickling)
+                        res = {"ok": False, "error": f"{type(e).__name__}: {e}",
+                               "log": ""}
+                    if res.get("log"):
+                        for line in res["log"].splitlines():
+                            log(f"[{t}] {line}")
+                    if res["ok"]:
+                        r = res["result"]
+                        results.append(r)
+                        log(f"[OK] {t}: {r['episodes']} eps, {r['frames']} frames, "
+                            f"{r['videos']} videos")
+                    else:
+                        log(f"[FAIL] {t}: {res['error']}")
+                        failed.append(t)
+                        if not args.continue_on_error:
+                            cancelled = True
+                            for f2 in futs:
+                                f2.cancel()
+        finally:
+            q.put(None)
+            stop.set()
+            fwd.join(timeout=2)
+            mgr.shutdown()
+
+    prog.finish(ok=not failed)
     log(f"TASK_DONE ok={len(results)} skipped={n_skipped} failed={len(failed)}")
     if failed:
         log("FAILED_TASKS: " + " ".join(failed))

@@ -7,6 +7,35 @@
 
 ---
 
+## 目录
+
+- [1. 概述](#1-概述)
+- [2. 源数据诊断(转换前实际读取确认)](#2-源数据诊断转换前实际读取确认)
+  - [2.0 血缘关系:与 GM100 task_00001 的关系(逐字节核验)](#20-血缘关系与-gm100-task_00001-的关系逐字节核验)
+  - [2.1 数据布局](#21-数据布局)
+  - [2.2 与 GM100 版本不同的 6 个视频(已逐一核对)](#22-与-gm100-版本不同的-6-个视频已逐一核对)
+- [3. 55D 槽位映射(与 GM100 一致)](#3-55d-槽位映射与-gm100-一致)
+  - [3.1 为什么关节槽是 7 宽而不是 6](#31-为什么关节槽是-7-宽而不是-6)
+  - [3.2 eef 槽:URDF 正运动学回填](#32-eef-槽urdf-正运动学回填)
+  - [3.3 action 语义:下一帧 state(不是命令目标)](#33-action-语义下一帧-state不是命令目标)
+- [4. 输出结构](#4-输出结构)
+  - [4.0 解压(lingbot_extract.py)](#40-解压lingbot_extractpy)
+  - [4.1 data parquet 列(16 列 = 11 规范 + 5 透传)](#41-data-parquet-列16-列--11-规范--5-透传)
+  - [4.2 data 文件轮转](#42-data-文件轮转)
+  - [4.3 视频:逐集硬链接(不合并、不重编码)](#43-视频逐集硬链接不合并不重编码)
+- [5. 已知数据特征(非缺陷,如实记录)](#5-已知数据特征非缺陷如实记录)
+- [6. 验证结果(全部通过)](#6-验证结果全部通过)
+- [7. 执行流程与批量指南](#7-执行流程与批量指南)
+  - [7.0 流程总览(压缩包 → 交付)](#70-流程总览压缩包--交付)
+  - [7.1 依赖与环境](#71-依赖与环境)
+  - [7.2 单数据集执行(以 BM-001 为例)](#72-单数据集执行以-bm-001-为例)
+  - [7.3 大批量完整示例(假设有 N 个压缩包)](#73-大批量完整示例假设有-n-个压缩包)
+  - [7.4 批量注意事项(重要)](#74-批量注意事项重要)
+  - [7.4.1 进度与并行](#741-进度与并行)
+  - [7.5 迁移到新压缩包/新数据集时改什么](#75-迁移到新压缩包新数据集时改什么)
+  - [7.6 迁移到新环境(一个文件夹下几百个压缩包)](#76-迁移到新环境一个文件夹下几百个压缩包)
+- [8. 决策记录(为什么这么做)](#8-决策记录为什么这么做)
+
 ## 1. 概述
 
 | 项 | 内容 |
@@ -145,6 +174,7 @@ lingbot-GM-100-preprocess/
 ├── lingbot_convert.py    # ② 转换(§7)
 ├── lingbot_fk.py         # eef 正运动学模块(§3.2)
 ├── lingbot_validate.py   # ③ 校验(§7)
+├── _progress.py          # 进度/ETA 报告器(标准库,无额外依赖)
 ├── urdf/                 # Piper 臂 URDF + 来源说明(§3.2)
 ├── README.md             # 本文档
 └── processed_dataset/    # ← 所有转换产物
@@ -300,14 +330,14 @@ conda activate cosmos-framework
 ### 7.2 单数据集执行(以 BM-001 为例)
 
 ```bash
-cd /data5T/liujin/code/data_preprocess/lingbot-GM-100-preprocess
+cd /data5T/liujin/code/blue_zone_code/data_preprocess/lingbot-GM-100-preprocess
 
 # ① 解压(幂等,可反复执行)
 python lingbot_extract.py --src-root /data5T/liujin/dataset/lingbot-GM-100-demo
 
 # ② 转换(BM-001 已完成,重跑加 --skip-existing 即跳过)
-python lingbot_convert.py --task BM-001
-python lingbot_validate.py --task BM-001 --full-videos   # 必须 ALL CHECKS PASSED 才算通过
+python lingbot_convert.py --task BM-001 --workers 8
+python lingbot_validate.py --task BM-001 --full-videos --workers 8   # 必须 ALL CHECKS PASSED 才算通过
 
 # ③ FK 模块自检(秒级)
 python lingbot_fk.py
@@ -330,23 +360,23 @@ python lingbot_fk.py                         # FK 自检
 
 # ── 第 1 步:解压全部压缩包(幂等;重复执行只解新包) ──────────────
 python lingbot_extract.py --src-root /data5T/liujin/dataset/lingbot-GM-100-demo \
-    2>&1 | tee extract.log
-#   期望:每包一行 [OK]/[SKIP];EXTRACT_DONE ok=.. skip=.. failed=0
+    --workers 8 2>&1 | tee extract.log
+#   期望:每包一行 [OK]/[SKIP] + [PROGRESS];EXTRACT_DONE ok=.. skip=.. failed=0
 #   有 FAIL 时:看日志定位,修好后原样重跑(已成功的自动 SKIP)
 
 # ── 第 2 步:pilot 单数据集转换 + 校验 ──────────────────────────
-python lingbot_convert.py --task BM-001
-python lingbot_validate.py --task BM-001 --full-videos
+python lingbot_convert.py --task BM-001 --workers 8
+python lingbot_validate.py --task BM-001 --full-videos --workers 8
 #   必须通过后再进下一步
 
 # ── 第 3 步:全量转换(后台 + 日志;可断点续跑) ─────────────────
-setsid nohup python lingbot_convert.py --skip-existing --continue-on-error \
+setsid nohup python lingbot_convert.py --workers 8 --skip-existing --continue-on-error \
     > convert.log 2>&1 &
-tail -f convert.log                        # [OK]/[SKIP]/[FAIL] 每数据集一行
+tail -f convert.log                        # [OK]/[SKIP]/[FAIL] + [PROGRESS] 行
 #   若中断/崩溃:原样重跑同一条命令 —— 已完成的显示 [SKIP],自动接着转
 
 # ── 第 4 步:全量校验(转换完成后) ───────────────────────────────
-python lingbot_validate.py --all > validate.log 2>&1
+python lingbot_validate.py --all --workers 8 > validate.log 2>&1
 tail -1 validate.log
 #   期望:RESULT: ALL CHECKS PASSED (0 warnings, N tasks)
 #   若失败:日志末尾有 FAILED_TASKS: xxx;重转这些数据集后再校验
@@ -377,6 +407,26 @@ ls processed_dataset | wc -l               # 数据集目录数(应=N)
   后台运行并留日志(参考 `standard_format/docs/EGOSUITE_PIPELINE_RUNBOOK.md`)。
 - **完成判据**:每批转换后必须跑校验,输出 `ALL CHECKS PASSED` 才算完成。
 
+### 7.4.1 进度与并行
+
+三个脚本默认每 10 秒输出一行进度(URL: `--progress-interval N`,关闭: `--no-progress`):
+
+```
+[PROGRESS] extract 23/300 archives (7.7%) elapsed 00:01:12 ETA 00:14:26 0.3 archives/s | BM-023.tar.gz
+[PROGRESS] convert 1,234,567/10,000,000 frames (12.3%) elapsed 00:32:10 ETA 03:49:00 | BM-042
+[PROGRESS] validate 8,900,000/10,000,000 frames (89.0%) elapsed 00:12:05 ETA 00:01:30 | BM-291
+```
+
+- `--workers N`(默认 8):extract 并行解压 N 个压缩包、convert 并行转换 N 个数据集、
+  validate 并行校验 N 个数据集;`1` 表示串行。
+- `validate --video-workers N`(默认 4):`--full-videos` 时并行探测 N 个视频时长。
+- **输出完全确定**:每个数据集输出目录独立,单数据集内仍串行;并行不改变列、索引、
+  视频命名或文件划分。GM100/lingbot 的 demo 产物已与改造前逐字节对比一致。
+- 解压的最终发布步骤加了跨进程文件锁(`.extract_publish.lock`),多个压缩包解到同一
+  `--dest` 时不会因同名顶层目录互相踩踏。
+- 并行度建议:默认 8;HDD/单卷场景先用 `iostat -x 5` 观察磁盘,再按实测调整。
+  每个 convert worker 已把 pyarrow CPU 线程数限制为 1。
+
 ### 7.5 迁移到新压缩包/新数据集时改什么
 
 数据集无关的机制(55D 构造 / mask / 轮转 / meta 与词表 / episodes 索引 / 视频链接 /
@@ -403,6 +453,7 @@ lingbot-GM-100-preprocess/
 ├── lingbot_convert.py     # ② 转换
 ├── lingbot_fk.py          #    (convert 依赖)
 ├── lingbot_validate.py    # ③ 校验
+├── _progress.py           #    进度/ETA(三个脚本依赖)
 └── urdf/aloha_tracer2_dabai_dark.urdf   # (convert 依赖)
 ```
 
@@ -418,22 +469,24 @@ conda activate cosmos-framework            # 或 pip install pyarrow numpy scipy
 python lingbot_fk.py                       # FK 自检(秒级,验证 URDF 可解析)
 
 # ── 1. 解压全部压缩包(幂等;中断后原样重跑,已解压的自动 SKIP) ──
-python lingbot_extract.py --src-root /data/newenv/archives --dest /data/newenv/datasets
+python lingbot_extract.py --src-root /data/newenv/archives --dest /data/newenv/datasets \
+    --workers 8
 #   期望 EXTRACT_DONE ok=N skip=0 failed=0;有 FAIL 看日志修好后原样重跑
 
 # ── 2. pilot:先试一个数据集,走通再全量 ──
-python lingbot_convert.py  --src-root /data/newenv/datasets --out /data/newenv/processed --task BM-001
-python lingbot_validate.py --out /data/newenv/processed --task BM-001 --full-videos
+python lingbot_convert.py  --src-root /data/newenv/datasets --out /data/newenv/processed \
+    --task BM-001 --workers 8
+python lingbot_validate.py --out /data/newenv/processed --task BM-001 --full-videos --workers 8
 #   必须 ALL CHECKS PASSED 再进下一步
 
 # ── 3. 全量转换(后台;中断/崩溃后原样重跑同一条命令即可续) ──
 setsid nohup python lingbot_convert.py --src-root /data/newenv/datasets \
-    --out /data/newenv/processed --skip-existing --continue-on-error \
+    --out /data/newenv/processed --workers 8 --skip-existing --continue-on-error \
     > convert.log 2>&1 &
-tail -f convert.log                         # [OK]/[SKIP]/[FAIL] 每数据集一行
+tail -f convert.log                         # [OK]/[SKIP]/[FAIL] + [PROGRESS] 行
 
 # ── 4. 全量校验 ──
-python lingbot_validate.py --out /data/newenv/processed --all > validate.log 2>&1
+python lingbot_validate.py --out /data/newenv/processed --all --workers 8 > validate.log 2>&1
 tail -1 validate.log                        # 期望 RESULT: ALL CHECKS PASSED
 ```
 
