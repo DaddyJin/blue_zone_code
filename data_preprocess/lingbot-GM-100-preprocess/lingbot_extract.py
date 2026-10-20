@@ -42,7 +42,7 @@ import shutil
 import sys
 import tarfile
 import time
-from concurrent.futures import ProcessPoolExecutor, as_completed
+from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, wait
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -204,6 +204,7 @@ def main() -> None:
     if not src_root.is_dir():
         log(f"src-root not found: {src_root}")
         sys.exit(1)
+    log(f"EXTRACT_SCAN scanning {src_root} recursively for archives ...")
     archives = find_archives(src_root)
     if not archives:
         log(f"no *.tar.gz / *.tgz archives found under {src_root}")
@@ -222,6 +223,7 @@ def main() -> None:
     if workers == 1:
         for a in archives:
             dest_root = dest_for(a, src_root, dest_opt)
+            prog.set_note(f"extracting: {a.name}")
             t0 = time.time()
             try:
                 r = extract_archive(a, dest_root, args.force)
@@ -242,36 +244,53 @@ def main() -> None:
                     f"({time.time() - t0:.1f}s)")
             prog.update(1, note=a.name)
     else:
-        jobs = [(a, dest_for(a, src_root, dest_opt)) for a in archives]
+        # bounded submission: keep at most `workers` archives in flight, so the
+        # progress note can show what is CURRENTLY being extracted
+        pending = [(a, dest_for(a, src_root, dest_opt)) for a in archives]
+        inflight: dict = {}
+        cancelled = False
+
+        def submit_one(ex) -> None:
+            a, dest = pending.pop(0)
+            inflight[ex.submit(_extract_worker, str(a), str(dest), args.force)] = (a, dest)
+            names = [x[0].name for x in inflight.values()]
+            shown = ", ".join(names[:3]) + (f" (+{len(names) - 3})" if len(names) > 3 else "")
+            prog.set_note(f"extracting: {shown}")
+
         with ProcessPoolExecutor(max_workers=workers) as ex:
-            futs = {ex.submit(_extract_worker, str(a), str(dest), args.force): (a, dest)
-                    for a, dest in jobs}
-            cancelled = False
-            for fut in as_completed(futs):
-                a, dest_root = futs[fut]
-                if cancelled:
-                    continue
-                try:
-                    res = fut.result()
-                except Exception as e:  # noqa: BLE001  (worker crash/pickling)
-                    res = {"ok": False, "archive": str(a),
-                           "error": f"{type(e).__name__}: {e}", "seconds": 0.0}
-                if res["ok"]:
-                    if res["status"] == "skip":
-                        n_skip += 1
-                        log(f"[SKIP] {a}: already extracted (use --force to redo)")
+            while pending and len(inflight) < workers:
+                submit_one(ex)
+            while inflight:
+                done, _ = wait(list(inflight), return_when=FIRST_COMPLETED)
+                for fut in done:
+                    a, dest_root = inflight.pop(fut)
+                    if cancelled:
+                        continue
+                    try:
+                        res = fut.result()
+                    except Exception as e:  # noqa: BLE001  (worker crash/pickling)
+                        res = {"ok": False, "archive": str(a),
+                               "error": f"{type(e).__name__}: {e}", "seconds": 0.0}
+                    if res["ok"]:
+                        if res["status"] == "skip":
+                            n_skip += 1
+                            log(f"[SKIP] {a}: already extracted (use --force to redo)")
+                        else:
+                            n_ok += 1
+                            log(f"[OK]   {a}: {res['size_mb']:.0f} MB archive -> {dest_root} "
+                                f"({res['seconds']:.1f}s)")
+                        prog.update(1, note=a.name)
                     else:
-                        n_ok += 1
-                        log(f"[OK]   {a}: {res['size_mb']:.0f} MB archive -> {dest_root} "
-                            f"({res['seconds']:.1f}s)")
-                    prog.update(1, note=a.name)
-                else:
-                    log(f"[FAIL] {a}: {res['error']}")
-                    failed.append(str(a))
-                    if not args.continue_on_error:
-                        cancelled = True
-                        for f2 in futs:
-                            f2.cancel()
+                        log(f"[FAIL] {a}: {res['error']}")
+                        failed.append(str(a))
+                        if not args.continue_on_error:
+                            cancelled = True
+                            pending.clear()
+                            for f2 in inflight:
+                                f2.cancel()
+                if not cancelled:
+                    while pending and len(inflight) < workers:
+                        submit_one(ex)
 
     prog.finish(ok=not failed)
     log(f"EXTRACT_DONE ok={n_ok} skip={n_skip} failed={len(failed)}")
