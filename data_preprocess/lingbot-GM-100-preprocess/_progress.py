@@ -17,10 +17,36 @@ Design:
 from __future__ import annotations
 
 import queue as queue_mod
+import shutil
 import sys
 import threading
 import time
 from typing import TextIO
+
+# serialize in-place progress refreshes with ordinary log lines (see log_line)
+_WRITE_LOCK = threading.RLock()
+
+
+def log_line(msg: str = "", stream: TextIO | None = None) -> None:
+    """print()-replacement that keeps the in-place progress bar intact.
+
+    On a TTY the progress line is drawn without a trailing newline; a plain
+    print() would append to it and leave a broken row. This clears the line
+    (CR + erase-to-end) first, under the same lock as the progress writes.
+    On non-TTY streams (logs / pipes) this is equivalent to print().
+    """
+    out = stream if stream is not None else sys.stdout
+    try:
+        is_tty = bool(getattr(out, "isatty", lambda: False)())
+    except Exception:  # noqa: BLE001
+        is_tty = False
+    with _WRITE_LOCK:
+        if is_tty:
+            out.write("\r\x1b[K")
+        out.write(msg)
+        if not msg.endswith("\n"):
+            out.write("\n")
+        out.flush()
 
 
 def fmt_duration(seconds: float | None) -> str:
@@ -129,13 +155,26 @@ class Progress:
             self._write(line)
         self.stream.flush()
 
+    def _term_width(self) -> int:
+        """Usable terminal width (minus 1 col so a full line never wraps)."""
+        try:
+            cols = shutil.get_terminal_size((120, 20)).columns
+        except Exception:  # noqa: BLE001  (defensive: no tty info)
+            cols = 120
+        return max(20, cols - 1)
+
     def _write(self, line: str) -> None:
-        if self._is_tty:
-            # keep the line from wrapping and leaving stale characters behind
-            width = 200
-            self.stream.write("\r" + line[:width].ljust(width))
-        else:
-            self.stream.write(line + "\n")
+        with _WRITE_LOCK:
+            if self._is_tty:
+                # Single-line in-place refresh: CR + erase-to-end-of-line. Never
+                # pad to a fixed width -- a line wider than the terminal wraps
+                # and CR would then only rewind the last visual row.
+                w = self._term_width()
+                if len(line) > w:
+                    line = line[:w - 1] + "…"
+                self.stream.write("\r" + line + "\x1b[K")
+            else:
+                self.stream.write(line + "\n")
 
     # -------------------------------------------------------------- lifecycle
     def start_heartbeat(self) -> None:
@@ -166,11 +205,15 @@ class Progress:
             line = self._render(now)
             if not ok:
                 line += " | INCOMPLETE"
-            if self._is_tty:
-                self.stream.write("\r" + line.ljust(200) + "\n")
-            else:
-                self.stream.write(line + "\n")
-            self.stream.flush()
+            with _WRITE_LOCK:
+                if self._is_tty:
+                    w = self._term_width()
+                    if len(line) > w:
+                        line = line[:w - 1] + "…"
+                    self.stream.write("\r" + line + "\x1b[K\n")
+                else:
+                    self.stream.write(line + "\n")
+                self.stream.flush()
             self._finished = True
 
 

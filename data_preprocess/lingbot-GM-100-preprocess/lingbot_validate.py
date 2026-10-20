@@ -41,7 +41,7 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _progress import Progress, start_queue_forwarder  # noqa: E402
+from _progress import Progress, start_queue_forwarder, log_line  # noqa: E402
 
 FPS = 30
 N_DIM = 55
@@ -448,9 +448,14 @@ def main() -> None:
     if workers == 1:
         for t in tasks:
             n0 = len(FAILURES)
-            validate_task(out_root, t, full_videos=args.full_videos,
-                          video_workers=args.video_workers,
-                          progress_cb=lambda n, note: prog.update(n, note=note))
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                validate_task(out_root, t, full_videos=args.full_videos,
+                              video_workers=args.video_workers,
+                              progress_cb=lambda n, note: prog.update(n, note=note))
+            if buf.getvalue():
+                log_line(f"\n===== {t} =====")
+                log_line(buf.getvalue().rstrip())
             if len(FAILURES) > n0:
                 failed_tasks.append(t)
     else:
@@ -472,8 +477,8 @@ def main() -> None:
                                "failures": [f"worker crashed: {type(e).__name__}: {e}"],
                                "warnings": [], "log": ""}
                     if res["log"]:
-                        print(f"\n===== {t} =====")
-                        print(res["log"].rstrip())
+                        log_line(f"\n===== {t} =====")
+                        log_line(res["log"].rstrip())
                     FAILURES.extend(res["failures"])
                     WARNINGS.extend(res["warnings"])
                     if res["failures"]:

@@ -46,11 +46,11 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _progress import Progress  # noqa: E402
+from _progress import Progress, log_line  # noqa: E402
 
 
 def log(line: str) -> None:
-    print(line, flush=True)
+    log_line(line)
 
 
 def find_archives(src_root: Path) -> list[Path]:

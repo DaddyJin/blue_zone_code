@@ -76,7 +76,7 @@ import pyarrow.parquet as pq
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lingbot_fk import LingbotFK, DEFAULT_URDF  # noqa: E402
-from _progress import Progress, start_queue_forwarder  # noqa: E402
+from _progress import Progress, start_queue_forwarder, log_line  # noqa: E402
 
 FPS = 30
 DATA_ROTATE_BYTES = 100 * 1024 * 1024   # on-disk target per data file
@@ -119,7 +119,7 @@ INT_COLS = {"frame_index", "episode_index", "task_index", "subtask_index", "inde
 
 
 def log(line: str) -> None:
-    print(line, flush=True)
+    log_line(line)
 
 
 def fixed_list_f32(arr: np.ndarray) -> pa.Array:
