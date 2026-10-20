@@ -24,6 +24,7 @@ import argparse
 import io
 import json
 import multiprocessing as mp
+import os
 import sys
 import threading
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -59,6 +60,7 @@ DATA_COL_ORDER = CANON_COLS + PASSTHROUGH_COLS + ["index"]
 
 FAILURES: list[str] = []
 WARNINGS: list[str] = []
+_SOFT_NOTE = {"shown": False}   # one-time note for the optional lerobot soft check
 
 
 def check(cond: bool, msg: str) -> None:
@@ -335,6 +337,9 @@ def validate_task(out_root: Path, task: str, progress_cb=None) -> None:
     # ---------------- 10. lerobot load (soft) ----------------
     section("10. lerobot LeRobotDataset load (soft check)")
     try:
+        # validators need no accelerators: disable torch device-backend extension
+        # autoload (e.g. torch_npu), which can crash the import in foreign envs
+        os.environ.setdefault("TORCH_DEVICE_BACKEND_AUTOLOAD", "0")
         import lerobot
         from lerobot.datasets.lerobot_dataset import LeRobotDataset
         try:
@@ -344,8 +349,16 @@ def validate_task(out_root: Path, task: str, progress_cb=None) -> None:
         except Exception as e:  # noqa: BLE001
             warn(f"LeRobotDataset load failed under lerobot {lerobot.__version__}: "
                  f"{type(e).__name__}: {e}")
-    except ImportError:
-        warn("lerobot not importable: skipped official load")
+    except Exception as e:  # noqa: BLE001
+        # SOFT check: the official load is optional, so ANY torch/lerobot
+        # environment problem (broken torch_npu autoload raising RuntimeError,
+        # triton TORCH_LIBRARY double-registration, missing deps, ...) must
+        # degrade to a warning instead of failing the dataset.
+        if not _SOFT_NOTE["shown"]:
+            _SOFT_NOTE["shown"] = True
+            warn(f"lerobot/torch unusable in this environment "
+                 f"({type(e).__name__}: {e}); skipped official load "
+                 f"(hint: export TORCH_DEVICE_BACKEND_AUTOLOAD=0)")
 
 
 def main() -> None:
