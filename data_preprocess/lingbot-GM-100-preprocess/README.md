@@ -198,8 +198,9 @@ lingbot-GM-100-preprocess/
   数据集**(meta/info.json + data/ + videos/)后再原子式移入正式位置 ——
   中断不会留下半成品
 - **幂等**:已解压且结构完好的包直接跳过;重跑安全
-- `--dest` 指定单独的解压根(默认解到压缩包旁边);`--force` 强制重解;
-  `--continue-on-error` 单包失败不中断,末尾列出失败清单
+- `--dest` 指定单独的解压根:**按压缩包相对 `--src-root` 的路径层级镜像**
+  (如 `A/AgileX/BM-001.tar.gz` → `B/AgileX/BM-001/`);不给 `--dest` 时就地解到
+  压缩包旁边;`--force` 强制重解;`--continue-on-error` 单包失败不中断,末尾列出失败清单
 - **绝不删除/修改源压缩包**;mp4 本身已压缩,解压后体积 ≈ 包体积,预留等量磁盘
 
 ### 4.1 data parquet 列(16 列 = 11 规范 + 5 透传)
@@ -471,6 +472,7 @@ python lingbot_fk.py                       # FK 自检(秒级,验证 URDF 可解
 # ── 1. 解压全部压缩包(幂等;中断后原样重跑,已解压的自动 SKIP) ──
 python lingbot_extract.py --src-root /data/newenv/archives --dest /data/newenv/datasets \
     --workers 8
+#   解压保留层级:archives/<子目录>/X.tar.gz → datasets/<子目录>/X/
 #   期望 EXTRACT_DONE ok=N skip=0 failed=0;有 FAIL 看日志修好后原样重跑
 
 # ── 2. pilot:先试一个数据集,走通再全量 ──

@@ -4,10 +4,12 @@
 At scale the input arrives as many compressed archives; each archive contains
 one (or more) lerobot v2.1 dataset dirs:
 
-    <src-root>/AgileX/BM-001.tar.gz   ->   <dest>/BM-001/
+    <src-root>/AgileX/BM-001.tar.gz   ->   <dest>/AgileX/BM-001/
                                             ├── data/chunk-000/episode_*.parquet
                                             ├── videos/chunk-000/<key>/*.mp4
                                             └── meta/{info.json,tasks.jsonl,episodes.jsonl,...}
+    (with --dest the archive's path relative to --src-root is mirrored;
+     without --dest the archive extracts in place, next to itself)
 
 Design (batch-safe):
   - scans --src-root recursively for *.tar.gz / *.tgz (skips hidden dirs)
@@ -61,6 +63,23 @@ def find_archives(src_root: Path) -> list[Path]:
             continue
         out.append(p)
     return out
+
+
+def dest_for(archive: Path, src_root: Path, dest: Path | None) -> Path:
+    """Extraction root for one archive.
+
+    Without --dest: extract in place (next to the archive).
+    With --dest: MIRROR the archive's path relative to --src-root under it,
+    preserving the archive tree's directory hierarchy, e.g.
+        A/AgileX/BM-001.tar.gz  --dest B  ->  B/AgileX/BM-001/
+    """
+    if dest is None:
+        return archive.parent
+    try:
+        rel = archive.parent.relative_to(src_root)
+    except ValueError:                      # archive not under src-root (defensive)
+        rel = Path(".")
+    return dest / rel
 
 
 def top_dirs_of(tf: tarfile.TarFile) -> list[str]:
@@ -165,8 +184,10 @@ def main() -> None:
     ap.add_argument("--src-root", default="/data5T/liujin/dataset/lingbot-GM-100-demo",
                     help="root scanned recursively for *.tar.gz / *.tgz archives")
     ap.add_argument("--dest", default=None,
-                    help="extraction root; default: each archive is extracted in place "
-                         "(next to the archive)")
+                    help="extraction root; each archive is extracted to "
+                         "<dest>/<archive path relative to --src-root>/, preserving the "
+                         "archive-tree hierarchy (default: extract in place, next to the "
+                         "archive)")
     ap.add_argument("--force", action="store_true",
                     help="re-extract even if the dataset dirs already exist")
     ap.add_argument("--continue-on-error", action="store_true",
@@ -196,10 +217,11 @@ def main() -> None:
     n_ok = n_skip = 0
     failed: list[str] = []
     workers = max(1, int(args.workers))
+    dest_opt = Path(args.dest) if args.dest else None
 
     if workers == 1:
         for a in archives:
-            dest_root = Path(args.dest) if args.dest else a.parent
+            dest_root = dest_for(a, src_root, dest_opt)
             t0 = time.time()
             try:
                 r = extract_archive(a, dest_root, args.force)
@@ -220,7 +242,7 @@ def main() -> None:
                     f"({time.time() - t0:.1f}s)")
             prog.update(1, note=a.name)
     else:
-        jobs = [(a, Path(args.dest) if args.dest else a.parent) for a in archives]
+        jobs = [(a, dest_for(a, src_root, dest_opt)) for a in archives]
         with ProcessPoolExecutor(max_workers=workers) as ex:
             futs = {ex.submit(_extract_worker, str(a), str(dest), args.force): (a, dest)
                     for a, dest in jobs}
