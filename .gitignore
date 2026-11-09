@@ -10,3 +10,28 @@ processed_dataset/
 *.mp4
 *.parquet
 *.tar.gz
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 以下规则是在解压 RoboCOIN 数据集包（robocoin_v4_run_20261031.tar.gz）、
+# 从中提取预处理脚本时添加的：
+# 本仓只跟踪脚本/文档/运行时配置，不跟踪逐库元数据、审计报告和校验清单。
+# ─────────────────────────────────────────────────────────────────────────────
+# 逐库元数据（research/metadata 804 份 + research/metadata_modelscope 809 份 JSON）
+data_preprocess/robocoin_v4_run/**/research/metadata/
+data_preprocess/robocoin_v4_run/**/research/metadata_modelscope/
+# 审计/验收报告（converter 与 loader 两处的 reports/）
+data_preprocess/robocoin_v4_run/**/reports/
+# 校验清单：描述的是完整发布包，与仓库中的代码子集不一致，故不跟踪。
+# 完整包校验请在 tar.gz 解压后执行：cd robocoin_v4_run && sha256sum -c PACKAGE_SHA256SUMS
+data_preprocess/robocoin_v4_run/PACKAGE_SHA256SUMS
+data_preprocess/robocoin_v4_run/robocoin_converter_v4/BUNDLE_SHA256SUMS
+data_preprocess/robocoin_v4_run/robocoin_loader_tests_v4/BUNDLE_SHA256SUMS
+
+# 通用 LeRobot 数据集元数据（数据目录放入仓内时也不误提交）
+**/meta/info.json
+**/meta/episodes.jsonl
+**/meta/tasks.jsonl
+**/meta/stats.json
+
+# macOS 元数据文件
+.DS_Store

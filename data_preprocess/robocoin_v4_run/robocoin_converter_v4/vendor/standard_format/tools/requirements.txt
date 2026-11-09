@@ -1,0 +1,6 @@
+numpy>=1.24
+pyarrow>=17
+pandas>=2
+av>=13
+scipy>=1.10
+jsonschema>=4.23

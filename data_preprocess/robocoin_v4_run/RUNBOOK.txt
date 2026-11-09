@@ -1,0 +1,46 @@
+RoboCOIN v4：正式机执行
+操作以本文件和 config.sh 为准，无需展开子目录的历史说明。
+
+1. 解压后进入 robocoin_v4_run/，后续命令都在此目录执行。
+   不需要固定安装路径；转换与加载测试代码已解压在包内。
+
+2. 修改 config.sh：
+   - CONVERT_PY、LEROBOT_PY：填写已安装的转换/加载环境解释器。
+   - INPUT：指向已解压数据的相对路径，默认 ./input。
+     也可创建链接，例如：ln -s ../已解压数据 input
+   - 输出默认 ./output，工作文件和日志默认 ./work。
+   - INPUT、OUTPUT、WORK 不能互相包含，不要混入 v3 输出。
+   - 默认 128 CPU：4×4×8；64 CPU 改为 4×4×4、CPU_BUDGET=64。
+     建议 256 GB 内存预算，这不是脚本强制上限。
+
+3. 预检并查看缺库、跳过项和可用空间：
+   bash run.sh plan
+
+   额外磁盘要求：2×有效输入大小 + 4096×行数 + 2 GiB。
+   另留环境和临时文件空间；续跑仍按上述全量预算检查。
+
+4. 转换、保真校验、真实 LeRobot 加载及完整性验收：
+   bash run.sh all
+
+   如需后台运行：
+   nohup bash run.sh all > launcher.log 2>&1 < /dev/null &
+
+5. 查看进度：
+   bash run.sh status
+   tail -f launcher.log
+
+6. 中断后确认旧进程已结束，保持代码、配置和输入不变，重跑：
+   bash run.sh all
+
+   已完成单元校验哈希后跳过；未完成的仓库/split 重做。
+   失败可能保留隐藏临时目录，占用额外空间；不要盲目删除。
+
+7. 最终以 work/acceptance_v4.json 的 passed=true 为准。
+   它要求完整覆盖 809 库，且转换、保真和 LeRobot 0.5.0 加载全部通过。
+   部分数据集的验收会失败，不能视为全量完整。
+   如转换已完成，可单独执行：
+   bash run.sh verify
+   bash run.sh load
+   bash run.sh accept
+
+详细日志在 work/logs/。加载使用包内的 LeRobot 薄兼容层。

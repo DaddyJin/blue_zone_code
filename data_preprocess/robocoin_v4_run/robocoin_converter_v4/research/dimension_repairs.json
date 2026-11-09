@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "id": "robocoin_missing_names_v1_c10db2b2ea8d",
+      "schema_key": "c10db2b2ea8d06e47b1321b5759c34acfb8beeafb352ff8e6eb7f04b328e42a8",
+      "repositories": [
+        "G1edu-u3_little_tray_storage_apple_b",
+        "G1edu-u3_little_tray_storage_lemon_b",
+        "G1edu-u3_pick_apple_a",
+        "G1edu-u3_pick_apple_b",
+        "G1edu-u3_pick_crumpled_paper_aa",
+        "G1edu-u3_pick_cup_a",
+        "G1edu-u3_pick_empty_bottle_ab",
+        "G1edu-u3_pick_leftover_food_ac",
+        "G1edu-u3_pick_metal_bowl_aa",
+        "G1edu-u3_pick_metal_bowl_ab",
+        "G1edu-u3_pick_plastic_bowl_ac",
+        "G1edu-u3_pick_plastic_bowl_ad",
+        "G1edu-u3_pick_up_the_bottled_water_a",
+        "G1edu-u3_pick_up_the_bottled_water_as",
+        "G1edu-u3_pick_up_the_bottled_water_b",
+        "G1edu-u3_pick_up_the_bread_az",
+        "G1edu-u3_pick_up_the_lemon_a",
+        "G1edu-u3_pick_up_the_lemon_at",
+        "G1edu-u3_pick_up_the_tissue_box_ao",
+        "G1edu-u3_pick_up_the_toy_ai",
+        "G1edu-u3_place_apple_c",
+        "G1edu-u3_place_bottle_c",
+        "G1edu-u3_place_metal_bowl_ae",
+        "G1edu-u3_place_metal_bowl_af",
+        "G1edu-u3_place_plastic_bowl_ag",
+        "G1edu-u3_place_plastic_bowl_ah",
+        "G1edu-u3_put_the_bread_aw",
+        "G1edu-u3_put_the_cup_b",
+        "G1edu-u3_put_the_lemon_af",
+        "G1edu-u3_put_the_lemon_on_the_plate_ah",
+        "G1edu-u3_put_the_tissue_box_al",
+        "G1edu-u3_put_the_toy_ap",
+        "G1edu-u3_put_the_water_bottle_aq",
+        "G1edu-u3_put_the_water_bottle_on_the_table_d",
+        "G1edu-u3_tray_storage_lemon_a"
+      ],
+      "columns": {
+        "observation.state": {
+          "named_width": 28,
+          "actual_width": 30
+        },
+        "action": {
+          "named_width": 28,
+          "actual_width": 30
+        }
+      },
+      "evidence": [
+        "reports/dimension_audit.json: every repository first/last parquet, all rows have declared width; unknown values retained",
+        "Publisher ordered feature names remain source-index references; no shift, trim, or synthetic physical labels",
+        "https://github.com/FlagOpen/RoboCOIN/blob/b3261fe7cf92d18d9f8545c4b8ad9813dd1d2edd/src/lerobot/robots/g1_29_robot/g1_29_robot.py#L156"
+      ]
+    },
+    {
+      "id": "robocoin_missing_names_v1_bf893c2ea024",
+      "schema_key": "bf893c2ea024fbc32c46f64fdf508e4375dde84667a964da68e91c974d99e43a",
+      "repositories": [
+        "R1_Lite_build_blocks",
+        "R1_Lite_move_the_position_of_the_apple",
+        "R1_Lite_move_the_position_of_the_black_marker",
+        "R1_Lite_move_the_position_of_the_brush",
+        "R1_Lite_move_the_position_of_the_coffee_capsule",
+        "R1_Lite_move_the_position_of_the_cookie",
+        "R1_Lite_move_the_position_of_the_duck",
+        "R1_Lite_move_the_position_of_the_glass",
+        "R1_Lite_move_the_position_of_the_long_bread",
+        "R1_Lite_move_the_position_of_the_milk",
+        "R1_Lite_move_the_position_of_the_orange",
+        "R1_Lite_move_the_position_of_the_peeler",
+        "R1_Lite_move_the_position_of_the_pen",
+        "R1_Lite_move_the_position_of_the_rubiks_cube",
+        "R1_Lite_move_the_position_of_the_soda",
+        "R1_Lite_move_the_position_of_the_spoon",
+        "R1_Lite_move_the_position_of_the_triangle_bread",
+        "R1_Lite_peach_storage",
+        "R1_Lite_stack_baskets"
+      ],
+      "columns": {
+        "action": {
+          "named_width": 16,
+          "actual_width": 18
+        }
+      },
+      "evidence": [
+        "reports/dimension_audit.json: every repository first/last parquet, all rows have declared width; unknown values retained",
+        "Publisher ordered feature names remain source-index references; no shift, trim, or synthetic physical labels",
+        "R1 Lite paired observation.state has 16 names/16 values; action first 16 follow the same published order; sampled extras are zero but not assumed padding"
+      ]
+    }
+  ]
+}

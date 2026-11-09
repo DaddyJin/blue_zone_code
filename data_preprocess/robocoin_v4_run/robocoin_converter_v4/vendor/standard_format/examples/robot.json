@@ -1,0 +1,93 @@
+{
+  "dataset_id": "Example__panda",
+  "profile_id": "example:panda:base:next-state:v1",
+  "data_kind": "robot",
+  "robot_type": "panda",
+  "fps": 10,
+  "media": {
+    "policy": "native"
+  },
+  "source": {
+    "id": "replace_with_real_dataset_id",
+    "revision": "replace_with_version"
+  },
+  "frames": {
+    "source_base": {
+      "kind": "robot_base",
+      "origin": "source base_link origin",
+      "axes": "replace with documented positive x/y/z directions",
+      "status": "source_declared"
+    }
+  },
+  "state_fields": [
+    {
+      "source": "joint_position",
+      "slot": "right_arm_joint",
+      "owner": "panda",
+      "quantity": "joint_position",
+      "unit": "rad",
+      "component_names": [
+        "panda_joint1",
+        "panda_joint2",
+        "panda_joint3",
+        "panda_joint4",
+        "panda_joint5",
+        "panda_joint6",
+        "panda_joint7"
+      ],
+      "provenance": "measured"
+    },
+    {
+      "source": "eef_pose_xyzw",
+      "slot": "right_eef",
+      "owner": "panda",
+      "quantity": "absolute_pose",
+      "unit": "m",
+      "quaternion_order": "xyzw",
+      "frame": "source_base",
+      "reference_point": "tool0",
+      "provenance": "measured"
+    },
+    {
+      "source": "gripper_closed",
+      "slot": "right_gripper",
+      "owner": "panda",
+      "quantity": "opening",
+      "unit": "1",
+      "provenance": "commanded",
+      "gripper": {
+        "mode": "closed_01"
+      },
+      "signal_kind": "binary",
+      "notes": "Commanded opening; not measured jaw separation"
+    }
+  ],
+  "action": {
+    "mode": "next_state"
+  },
+  "time": {
+    "kind": "measured",
+    "column": "capture_timestamp_ns",
+    "unit": "ns"
+  },
+  "passthrough_columns": "all",
+  "episodes": [
+    {
+      "source_episode_id": "episode_000",
+      "data": "episode_000.parquet",
+      "videos": {
+        "main": "episode_000.mp4"
+      },
+      "task": "pick up the object",
+      "split_group_uid": "real-dataset:session-0:demo-0",
+      "segments": [
+        {
+          "action_text": "approach the object",
+          "skill": null,
+          "start_frame": 0,
+          "end_frame": 10
+        }
+      ]
+    }
+  ]
+}

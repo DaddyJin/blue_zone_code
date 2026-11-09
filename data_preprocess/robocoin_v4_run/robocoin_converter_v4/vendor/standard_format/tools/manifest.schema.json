@@ -1,0 +1,783 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unified55:manifest:2.1-robocoin",
+  "title": "Unified55 GM100 native-gripper and explicit-clock extension",
+  "description": "Structural schema only. Source semantics, frames and real timing require evidence. Runtime conversion and validation apply further constraints.",
+  "type": "object",
+  "required": [
+    "dataset_id",
+    "profile_id",
+    "data_kind",
+    "robot_type",
+    "fps",
+    "media",
+    "state_fields",
+    "action",
+    "source",
+    "episodes"
+  ],
+  "properties": {
+    "dataset_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "data_kind": {
+      "enum": [
+        "robot",
+        "ego",
+        "observation_only",
+        "video_only"
+      ]
+    },
+    "robot_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fps": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "media": {
+      "type": "object",
+      "required": [
+        "policy"
+      ],
+      "properties": {
+        "policy": {
+          "enum": [
+            "native",
+            "normalize"
+          ]
+        },
+        "fps": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "size": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 2,
+              "multipleOf": 2
+            },
+            {
+              "type": "integer",
+              "minimum": 2,
+              "multipleOf": 2
+            }
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "max_file_bytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "policy": {
+                "const": "normalize"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "fps",
+              "size"
+            ]
+          }
+        }
+      ]
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "id",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "state_fields": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/field"
+      }
+    },
+    "action": {
+      "type": "object",
+      "required": [
+        "mode"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "next_state",
+            "source",
+            "none"
+          ]
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/field"
+          }
+        },
+        "terminal": {
+          "enum": [
+            "keep",
+            "mask"
+          ]
+        },
+        "dt_column": {
+          "type": "string"
+        },
+        "dt_kind": {
+          "const": "measured"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "source"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "fields",
+              "terminal"
+            ],
+            "properties": {
+              "fields": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "frames": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "kind",
+          "origin",
+          "axes"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "origin": {
+            "type": "string"
+          },
+          "axes": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "time": {
+      "$ref": "#/$defs/time"
+    },
+    "episodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/episode"
+      }
+    },
+    "passthrough_columns": {
+      "oneOf": [
+        {
+          "const": "all"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "task_column": {
+      "type": "string"
+    },
+    "task_id_column": {
+      "type": "string"
+    },
+    "task_vocabulary": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "invalid_sample_column": {
+      "type": "string"
+    },
+    "split": {
+      "type": "string"
+    },
+    "parquet_rows": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "calibration_columns": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "K": {
+            "type": "string"
+          },
+          "P": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "data_kind": {
+            "const": "video_only"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "state_fields": {
+            "maxItems": 0
+          },
+          "action": {
+            "properties": {
+              "mode": {
+                "const": "none"
+              }
+            }
+          },
+          "episodes": {
+            "items": {
+              "properties": {
+                "videos": {
+                  "minProperties": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "field": {
+      "type": "object",
+      "required": [
+        "source",
+        "slot",
+        "owner",
+        "quantity",
+        "unit",
+        "provenance"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "slot": {
+          "enum": [
+            "left_arm_joint",
+            "right_arm_joint",
+            "left_eef",
+            "right_eef",
+            "left_gripper",
+            "right_gripper",
+            "left_hand",
+            "right_hand",
+            "waist",
+            "head",
+            "mobile"
+          ]
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quantity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "source_unit": {
+          "type": "string"
+        },
+        "provenance": {
+          "enum": [
+            "measured",
+            "commanded",
+            "derived",
+            "assumed",
+            "unknown"
+          ]
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "component_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6
+          },
+          "uniqueItems": true
+        },
+        "indices": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 1
+        },
+        "frame": {
+          "type": "string"
+        },
+        "reference_point": {
+          "type": "string"
+        },
+        "quaternion_order": {
+          "enum": [
+            "xyzw",
+            "wxyz"
+          ]
+        },
+        "valid_column": {
+          "type": "string"
+        },
+        "gripper": {
+          "type": "object",
+          "required": [
+            "mode"
+          ],
+          "properties": {
+            "mode": {
+              "enum": [
+                "open_01",
+                "closed_01",
+                "width",
+                "unknown",
+                "native_open_direction"
+              ]
+            },
+            "closed": {
+              "type": "number"
+            },
+            "open": {
+              "type": "number"
+            },
+            "unit": {
+              "enum": [
+                "m",
+                "mm"
+              ]
+            },
+            "scale": {
+              "enum": [
+                -1,
+                1
+              ]
+            },
+            "offset": {
+              "type": "number"
+            },
+            "direction_evidence": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "mode": {
+                    "const": "width"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "closed",
+                  "open",
+                  "unit"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "mode": {
+                    "const": "native_open_direction"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "scale",
+                  "direction_evidence"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "provenance": {
+                "const": "derived"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "method"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "slot": {
+                "enum": [
+                  "left_eef",
+                  "right_eef"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "frame",
+              "reference_point"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "slot": {
+                "enum": [
+                  "left_gripper",
+                  "right_gripper"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "gripper"
+            ]
+          }
+        }
+      ]
+    },
+    "time": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "measured",
+            "published",
+            "nominal",
+            "video_pts",
+            "unknown"
+          ]
+        },
+        "column": {
+          "type": "string"
+        },
+        "unit": {
+          "enum": [
+            "s",
+            "ms",
+            "us",
+            "ns"
+          ]
+        },
+        "fps": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "measured",
+                  "published",
+                  "video_pts"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "column",
+              "unit"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "nominal"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "fps"
+            ]
+          }
+        }
+      ]
+    },
+    "dataRef": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "required": [
+            "path"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "length": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "episode_index": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      ]
+    },
+    "video": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "required": [
+            "path"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "from_frame": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "length": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "from_timestamp": {
+              "type": "number"
+            },
+            "to_timestamp": {
+              "type": "number"
+            },
+            "fps": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "timestamp_tolerance": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "episode": {
+      "type": "object",
+      "required": [
+        "videos"
+      ],
+      "properties": {
+        "source_episode_id": {
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "videos": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/video"
+          }
+        },
+        "data": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/dataRef"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/dataRef"
+              }
+            }
+          ]
+        },
+        "length": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "fps": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "task": {
+          "type": "string"
+        },
+        "split": {
+          "type": "string"
+        },
+        "split_group_uid": {
+          "type": "string",
+          "minLength": 1
+        },
+        "time": {
+          "$ref": "#/$defs/time"
+        },
+        "excluded": {
+          "type": "boolean"
+        },
+        "segments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "action_text",
+              "start_frame",
+              "end_frame"
+            ],
+            "properties": {
+              "action_text": {
+                "type": "string"
+              },
+              "skill": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "start_frame": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "end_frame": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "videos": {
+                "maxProperties": 0
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "length",
+              "data"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

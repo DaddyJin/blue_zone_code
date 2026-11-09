@@ -1,0 +1,5 @@
+numpy==1.26.4
+pyarrow==25.0.1
+pandas==2.3.3
+av==17.1.0
+jsonschema==4.26.0

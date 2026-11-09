@@ -1,0 +1,4049 @@
+{
+  "repos": [
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_wipe_table",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_wipe_table",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/alpha_bot_2_move_the_table",
+      "modelscope_repo": "RoboCOIN/alpha_bot_2_move_the_table",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_pass_the_cleaner_c",
+      "modelscope_repo": "RoboCOIN/leju_robot_pass_the_cleaner_c",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_pass_the_cleaner_d",
+      "modelscope_repo": "RoboCOIN/leju_robot_pass_the_cleaner_d",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_pass_the_cleaner_e",
+      "modelscope_repo": "RoboCOIN/leju_robot_pass_the_cleaner_e",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_pass_the_cleaner_b",
+      "modelscope_repo": "RoboCOIN/leju_robot_pass_the_cleaner_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/alpha_bot_2_sticker",
+      "modelscope_repo": "RoboCOIN/alpha_bot_2_sticker",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/alpha_bot_2_recover_after_touching_an_obstacle",
+      "modelscope_repo": "RoboCOIN/alpha_bot_2_recover_after_touching_an_obstacle",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/alpha_bot_2_carry_the_clothes_basket",
+      "modelscope_repo": "RoboCOIN/alpha_bot_2_carry_the_clothes_basket",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/alpha_bot_2_item_reversal",
+      "modelscope_repo": "RoboCOIN/alpha_bot_2_item_reversal",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/alpha_bot_2_operate_the_microwave_oven",
+      "modelscope_repo": "RoboCOIN/alpha_bot_2_operate_the_microwave_oven",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_stack_baskets",
+      "modelscope_repo": "RoboCOIN/R1_Lite_stack_baskets",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_peach_storage",
+      "modelscope_repo": "RoboCOIN/R1_Lite_peach_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_build_blocks",
+      "modelscope_repo": "RoboCOIN/R1_Lite_build_blocks",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_black_marker",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_black_marker",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_triangle_bread",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_triangle_bread",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_spoon",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_spoon",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_rubiks_cube",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_rubiks_cube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_orange",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_orange",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_peeler",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_peeler",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_brush",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_brush",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_long_bread",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_long_bread",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_apple",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_apple",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_duck",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_duck",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_glass",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_glass",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_pen",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_pen",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_cookie",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_cookie",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_fruit_storage",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_fruit_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_place_the_fruits_repeatedly",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_place_the_fruits_repeatedly",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_pour_coffee_beans",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_pour_coffee_beans",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_food_storage",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_food_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_stack_baskets",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_stack_baskets",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_basket_storage_orange",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_basket_storage_orange",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_get_water",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_get_water",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_pumpkin_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_pumpkin_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_storage_box_for_mouse_and_sponge",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_storage_box_for_mouse_and_sponge",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_lemon_and_orange_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_lemon_and_orange_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_store_coffee_cups",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_store_coffee_cups",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_storage_item",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_storage_item",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_close_the_computer",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_close_the_computer",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_store_pomegranates_and_mangoes",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_store_pomegranates_and_mangoes",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_organize_and_place_books",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_organize_and_place_books",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_take_down_paper_cup",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_take_down_paper_cup",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_pull_the_syringe_piston",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_pull_the_syringe_piston",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_desktop_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_desktop_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_yellow_block",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_yellow_block",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_square_arrangement",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_square_arrangement",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_mobile_phone_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_mobile_phone_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_cake_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_cake_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_blue_and_purple_blocks",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_blue_and_purple_blocks",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_shark_toys_and_gold_bars",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_shark_toys_and_gold_bars",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_cup_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_cup_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_double-sided_tape_placement",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_double-sided_tape_placement",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_organize_books",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_organize_books",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_small_bowl_of_canned_food",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_small_bowl_of_canned_food",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_play_the_guitar",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_play_the_guitar",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_screw_the_bottle_cap",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_screw_the_bottle_cap",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_plate_storage",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_plate_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_diamond_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_diamond_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_basket_storage_peach",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_basket_storage_peach",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_stir_coffee",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_stir_coffee",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_boxs_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_boxs_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_egg_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_egg_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pour_rice",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pour_rice",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_glasses_case_and_gold_bars",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_glasses_case_and_gold_bars",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_storage_for_building_blocks_and_beauty_sponges",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_storage_for_building_blocks_and_beauty_sponges",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_basket_storage_egg_yolk_pastry",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_basket_storage_egg_yolk_pastry",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_paper_drawer",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_paper_drawer",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_clean_table",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_clean_table",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_glasses_storage",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_glasses_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_potato_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_potato_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_stacking_blocks",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_stacking_blocks",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_cake",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_cake",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_push_building_blocks",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_push_building_blocks",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_pour_out_the_beauty_blender",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_pour_out_the_beauty_blender",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_store_wet_wipes_and_bowls",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_store_wet_wipes_and_bowls",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_building_blocks",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_building_blocks",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_store_beauty_blender_and_building_blocks",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_store_beauty_blender_and_building_blocks",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_store_peaches_and_pears",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_store_peaches_and_pears",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_food_packaging",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_food_packaging",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_storage_remote_control_clip_box_water_bottle",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_storage_remote_control_clip_box_water_bottle",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_storage_rubiks_cube_and_cup",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_storage_rubiks_cube_and_cup",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_network_cable_and_mouse_box",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_network_cable_and_mouse_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_piano_and_the_needle-nose_pliers",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_piano_and_the_needle-nose_pliers",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_storage_tissue_paper",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_storage_tissue_paper",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_storage_toy_cars_and_cookies",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_storage_toy_cars_and_cookies",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_storage_wet_tissue_and_building_block",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_storage_wet_tissue_and_building_block",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_basket_storage_banana",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_basket_storage_banana",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_pliers_and_wallpaper_knife",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_pliers_and_wallpaper_knife",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_basket_storage_orange",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_basket_storage_orange",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_storage_computer_box",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_storage_computer_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_storage_tissue_and_milk_carton",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_storage_tissue_and_milk_carton",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_umbrella_and_the_ruler",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_umbrella_and_the_ruler",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_toy_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_toy_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_take_the_book",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_take_the_book",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_scoop_coffee_beans",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_scoop_coffee_beans",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_fold_shorts",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_fold_shorts",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_basket_storage_banana",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_basket_storage_banana",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_take_down_umbrella_and_mineral_water",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_take_down_umbrella_and_mineral_water",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_basket_storage_long_bread",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_basket_storage_long_bread",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_zip_up_the_document_bag",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_zip_up_the_document_bag",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_basket_storage_bread",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_basket_storage_bread",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_wipe_the_table",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_wipe_the_table",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_pour_drink",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_pour_drink",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_milk",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_milk",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_pour_tea",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_pour_tea",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_bowl_storage_pepper",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_bowl_storage_pepper",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_item_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_item_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_food_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_food_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_books",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_books",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_spoon",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_spoon",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_take_out_the_bread",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_take_out_the_bread",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_prepare_breakfast",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_prepare_breakfast",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_move_the_ball",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_move_the_ball",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_move_plate",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_move_plate",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_move_the_ball_interference",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_move_the_ball_interference",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_pot_storage_steamer",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_pot_storage_steamer",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_clothes",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_clothes",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_clean_blackboard",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_clean_blackboard",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_desktop_organization",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_desktop_organization",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_twist_bottle_cap",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_twist_bottle_cap",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_water_bottle_storage",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_water_bottle_storage",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_place_square_pyramid",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_place_square_pyramid",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_mobile_cube_blackboard",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_mobile_cube_blackboard",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_pour_water_bottle",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_pour_water_bottle",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_pushing_magnet",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_pushing_magnet",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_move_beverage",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_move_beverage",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_mobile_cube",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_mobile_cube",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_cube_reset",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_cube_reset",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_pull_zipper",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_pull_zipper",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_classification_of_tableware",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_classification_of_tableware",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_plate_storaje_baozi",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_plate_storaje_baozi",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_steamer_storage_dumpling",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_steamer_storage_dumpling",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_the_plate_holds_the_fruit",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_the_plate_holds_the_fruit",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_the_plate_holds_the_vegetables",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_the_plate_holds_the_vegetables",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_take_the_shoes_off_the_shelf",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_take_the_shoes_off_the_shelf",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_turn_on_the_desk_lamp",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_turn_on_the_desk_lamp",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_the_box_stores_table_tennis_balls",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_the_box_stores_table_tennis_balls",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_fold_towel_a",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_fold_towel_a",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_plate_storage_apple",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_plate_storage_apple",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_movethe_position_of_the_bluetooth",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_movethe_position_of_the_bluetooth",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_put_in_the_pear",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_put_in_the_pear",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_catch_the_ball",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_catch_the_ball",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_put_the_building_block_on_the_table",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_put_the_building_block_on_the_table",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_move_the_small_ball",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_move_the_small_ball",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_move_the_cup",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_move_the_cup",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_plate_storage_bread",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_plate_storage_bread",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_move_the_bread",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_move_the_bread",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_move_the_plate",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_move_the_plate",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_turn_on_the_bulb",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_turn_on_the_bulb",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_clear_the_desktop",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_clear_the_desktop",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_take_out_a_pen_from_the_pen_holder",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_take_out_a_pen_from_the_pen_holder",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_close_button",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_close_button",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_place_the_test_tube",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_place_the_test_tube",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_close_book",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_close_book",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_fold_the_towel",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_fold_the_towel",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_storage_plate",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_storage_plate",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_open_the_food_pan",
+      "modelscope_repo": "RoboCOIN/R1_Lite_open_the_food_pan",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_washing_board",
+      "modelscope_repo": "RoboCOIN/R1_Lite_washing_board",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_wipe_the_table",
+      "modelscope_repo": "RoboCOIN/R1_Lite_wipe_the_table",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_tidy_up_toiletries",
+      "modelscope_repo": "RoboCOIN/R1_Lite_tidy_up_toiletries",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_storage_of_toiletries",
+      "modelscope_repo": "RoboCOIN/R1_Lite_storage_of_toiletries",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_tableware_arrangement",
+      "modelscope_repo": "RoboCOIN/R1_Lite_tableware_arrangement",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_put_the_shoes_into_the_shoe_box",
+      "modelscope_repo": "RoboCOIN/R1_Lite_put_the_shoes_into_the_shoe_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_wash_the_tableware",
+      "modelscope_repo": "RoboCOIN/R1_Lite_wash_the_tableware",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_put_the_pillow_on_the_bed",
+      "modelscope_repo": "RoboCOIN/R1_Lite_put_the_pillow_on_the_bed",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_take_and_put_away_garden_stuff",
+      "modelscope_repo": "RoboCOIN/R1_Lite_take_and_put_away_garden_stuff",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_place_the_dress_shirt_on_the_hanger",
+      "modelscope_repo": "RoboCOIN/R1_Lite_place_the_dress_shirt_on_the_hanger",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_open_and_close_the_freezer_door",
+      "modelscope_repo": "RoboCOIN/R1_Lite_open_and_close_the_freezer_door",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_make_breakfast",
+      "modelscope_repo": "RoboCOIN/R1_Lite_make_breakfast",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_take_and_place_the_portable_power_bank",
+      "modelscope_repo": "RoboCOIN/R1_Lite_take_and_place_the_portable_power_bank",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_cover_the_pot_lid",
+      "modelscope_repo": "RoboCOIN/R1_Lite_cover_the_pot_lid",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_make_the_bed",
+      "modelscope_repo": "RoboCOIN/R1_Lite_make_the_bed",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_take_or_store_plates",
+      "modelscope_repo": "RoboCOIN/R1_Lite_take_or_store_plates",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_open_and_close_nightstand_door",
+      "modelscope_repo": "RoboCOIN/R1_Lite_open_and_close_nightstand_door",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_dispose_of_leftover_food",
+      "modelscope_repo": "RoboCOIN/R1_Lite_dispose_of_leftover_food",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_garbage_disposal",
+      "modelscope_repo": "RoboCOIN/R1_Lite_garbage_disposal",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_take_and_put_away_items",
+      "modelscope_repo": "RoboCOIN/R1_Lite_take_and_put_away_items",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_clean_the_floor",
+      "modelscope_repo": "RoboCOIN/R1_Lite_clean_the_floor",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_connect_the_router_cable",
+      "modelscope_repo": "RoboCOIN/R1_Lite_connect_the_router_cable",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_catch_the_water",
+      "modelscope_repo": "RoboCOIN/R1_Lite_catch_the_water",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_clean_toilet",
+      "modelscope_repo": "RoboCOIN/R1_Lite_clean_toilet",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_switch_labels",
+      "modelscope_repo": "RoboCOIN/R1_Lite_switch_labels",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_open_and_close_nightstand_drawer",
+      "modelscope_repo": "RoboCOIN/R1_Lite_open_and_close_nightstand_drawer",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_opening_and_closing_aalcony_sliding_doors",
+      "modelscope_repo": "RoboCOIN/R1_Lite_opening_and_closing_aalcony_sliding_doors",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_fold_clothes",
+      "modelscope_repo": "RoboCOIN/R1_Lite_fold_clothes",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_clean_the_sink",
+      "modelscope_repo": "RoboCOIN/R1_Lite_clean_the_sink",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_put_on_a_garbage_bag",
+      "modelscope_repo": "RoboCOIN/R1_Lite_put_on_a_garbage_bag",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_pour_water",
+      "modelscope_repo": "RoboCOIN/R1_Lite_pour_water",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_make_a_landline_call",
+      "modelscope_repo": "RoboCOIN/R1_Lite_make_a_landline_call",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_boil_water_in_a_kettle",
+      "modelscope_repo": "RoboCOIN/R1_Lite_boil_water_in_a_kettle",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_sliding_chair",
+      "modelscope_repo": "RoboCOIN/R1_Lite_sliding_chair",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_tableware_cleaning",
+      "modelscope_repo": "RoboCOIN/R1_Lite_tableware_cleaning",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_switch_on_and_off_the_central_air_conditioning",
+      "modelscope_repo": "RoboCOIN/R1_Lite_switch_on_and_off_the_central_air_conditioning",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_take_and_put_the_bowl",
+      "modelscope_repo": "RoboCOIN/R1_Lite_take_and_put_the_bowl",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_open_and_close_curtains",
+      "modelscope_repo": "RoboCOIN/R1_Lite_open_and_close_curtains",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_tea_service_table_setting",
+      "modelscope_repo": "RoboCOIN/R1_Lite_tea_service_table_setting",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_picks_up_cardboard_box",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_picks_up_cardboard_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_right_capture_part",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_right_capture_part",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_left_capture_part",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_left_capture_part",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_hang_clothes",
+      "modelscope_repo": "RoboCOIN/R1_Lite_hang_clothes",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_make_tea",
+      "modelscope_repo": "RoboCOIN/R1_Lite_make_tea",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_take_and_put_away_garden_stuff_a",
+      "modelscope_repo": "RoboCOIN/R1_Lite_take_and_put_away_garden_stuff_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_robotic_arm_picks_up_battery",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_robotic_arm_picks_up_battery",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_medicine_bottle_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_medicine_bottle_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_mobile_car",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_mobile_car",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_plug_the_socket",
+      "modelscope_repo": "RoboCOIN/R1_Lite_plug_the_socket",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_robotic_arm_picks_up_parts",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_robotic_arm_picks_up_parts",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_tool_storage",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_tool_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_picks_up_battery_b",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_picks_up_battery_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_storage_item_b",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_storage_item_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_part_placement",
+      "modelscope_repo": "RoboCOIN/leju_robot_part_placement",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_pass_the_cleaner_a",
+      "modelscope_repo": "RoboCOIN/leju_robot_pass_the_cleaner_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_picks_up_battery_a",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_picks_up_battery_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Tianqin_A2_container_storage_graphics_card",
+      "modelscope_repo": "RoboCOIN/Tianqin_A2_container_storage_graphics_card",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Tianqin_A2_box_storage_part",
+      "modelscope_repo": "RoboCOIN/Tianqin_A2_box_storage_part",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_box_storage_cardboard_box_a",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_box_storage_cardboard_box_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_box_storage_cardboard_box_b",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_box_storage_cardboard_box_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_storage_item_d",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_storage_item_d",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_box_storage_cardboard_box_c",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_box_storage_cardboard_box_c",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_picks_up_parts_a",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_picks_up_parts_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_storage_item_e",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_storage_item_e",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_pick_up_battery",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_pick_up_battery",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_box_storage_a",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_box_storage_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_box_storage_b",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_box_storage_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_box_storage_c",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_box_storage_c",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_mobile_accessory_storage_box_a",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_mobile_accessory_storage_box_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_battery_storage_b",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_battery_storage_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_remove_the_accessory",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_remove_the_accessory",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_mobile_accessory_storage_box_c",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_mobile_accessory_storage_box_c",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_mobile_accessory_storage_box_e",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_mobile_accessory_storage_box_e",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_b",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_c",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_c",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_f",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_f",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_ab",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_ab",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_aa",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_aa",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_ae",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_ae",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_k",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_k",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_af",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_af",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_ac",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_ac",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_ag",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_ag",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_ad",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_ad",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_i",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_i",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_b",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_d",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_d",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_c",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_c",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_a",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_box_storage_parcel_b",
+      "modelscope_repo": "RoboCOIN/leju_robot_box_storage_parcel_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_f",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_f",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_box_storage_parcel_a",
+      "modelscope_repo": "RoboCOIN/leju_robot_box_storage_parcel_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_box_storage_parcel_c",
+      "modelscope_repo": "RoboCOIN/leju_robot_box_storage_parcel_c",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_box_storage_parcel_g",
+      "modelscope_repo": "RoboCOIN/leju_robot_box_storage_parcel_g",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_box_storage_parcel_h",
+      "modelscope_repo": "RoboCOIN/leju_robot_box_storage_parcel_h",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_e",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_e",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_n",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_n",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_r",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_r",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_q",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_q",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_u",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_u",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_box_storage_e",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_box_storage_e",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_clean_the_desktop_a",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_clean_the_desktop_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/alpha_bot_2_press_the_button_a",
+      "modelscope_repo": "RoboCOIN/alpha_bot_2_press_the_button_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/alpha_bot_2_pass_the_sandbag",
+      "modelscope_repo": "RoboCOIN/alpha_bot_2_pass_the_sandbag",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/alpha_bot_2_stack_building_blocks",
+      "modelscope_repo": "RoboCOIN/alpha_bot_2_stack_building_blocks",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_basket_storage_peach",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_basket_storage_peach",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_plate_storage_rabbit_doll",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_plate_storage_rabbit_doll",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_basket_storage_long_bread",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_basket_storage_long_bread",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_basket_storage_egg_yolk_pastry",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_basket_storage_egg_yolk_pastry",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_place_test_tube",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_place_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_pour_rice",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_pour_rice",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_plate_storage",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_plate_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_mobile_calculator_box",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_mobile_calculator_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_classification_of_fruits_and_vegetables",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_classification_of_fruits_and_vegetables",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_box_storage_chopsticks",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_box_storage_chopsticks",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_clean_up_the_tableware",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_clean_up_the_tableware",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_turn_off_the_desk_lamp",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_turn_off_the_desk_lamp",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_box_storage_parcel",
+      "modelscope_repo": "RoboCOIN/leju_robot_box_storage_parcel",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_plate_storage_doll",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_plate_storage_doll",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_basket_storage_apple",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_basket_storage_apple",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_put_the_tableware_into_the_cupboard",
+      "modelscope_repo": "RoboCOIN/R1_Lite_put_the_tableware_into_the_cupboard",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_mobile_accessory_storage_box_f",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_mobile_accessory_storage_box_f",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_a",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_h",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_h",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_g",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_g",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_j",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_j",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_stack_bowls",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_stack_bowls",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_pull_open_bag",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_pull_open_bag",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_organise_the_document_bag",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_organise_the_document_bag",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_place_towel",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_place_towel",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_storage_bin_storage",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_storage_bin_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_push_piston",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_push_piston",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_stir_coffee",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_stir_coffee",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_stack_baskets",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_stack_baskets",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_make_fruit_salad",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_make_fruit_salad",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_place_the_cube_block",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_place_the_cube_block",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_open_the_shoebox",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_open_the_shoebox",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_cap_the_pen_a",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_cap_the_pen_a",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_cut_banana",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_cut_banana",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_open_notebook",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_open_notebook",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_cookies_and_beer",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_cookies_and_beer",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_chop_the_scallions",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_chop_the_scallions",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_building_block_storage",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_building_block_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_basin",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_basin",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_the_cup_is_put_into_the_bucket",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_the_cup_is_put_into_the_bucket",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_bowl_storage_grape_singletry",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_bowl_storage_grape_singletry",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_food_storage",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_food_storage",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_desktop_organization",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_desktop_organization",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_move_the_ball_and_the_cube_block",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_move_the_ball_and_the_cube_block",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_vase_storage_flower",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_vase_storage_flower",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_box_up_down",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_box_up_down",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_pick_up_and_store_items",
+      "modelscope_repo": "RoboCOIN/R1_Lite_pick_up_and_store_items",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_open_and_close_microwave_oven",
+      "modelscope_repo": "RoboCOIN/R1_Lite_open_and_close_microwave_oven",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_take_clothes_out_of_the_washing_machine",
+      "modelscope_repo": "RoboCOIN/R1_Lite_take_clothes_out_of_the_washing_machine",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_cook_a_meal",
+      "modelscope_repo": "RoboCOIN/R1_Lite_cook_a_meal",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_a",
+      "modelscope_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_drawer_storage_hair_dryer",
+      "modelscope_repo": "RoboCOIN/R1_Lite_drawer_storage_hair_dryer",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_coffee_capsule",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_coffee_capsule",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_soda",
+      "modelscope_repo": "RoboCOIN/R1_Lite_move_the_position_of_the_soda",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_throw_out_the_trash",
+      "modelscope_repo": "RoboCOIN/R1_Lite_throw_out_the_trash",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/R1_Lite_put_slippers_into_floor_standing_shoe_cabinet",
+      "modelscope_repo": "RoboCOIN/R1_Lite_put_slippers_into_floor_standing_shoe_cabinet",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_box_storage_tool",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_box_storage_tool",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Tianqin_A2_place_the_paper_box",
+      "modelscope_repo": "RoboCOIN/Tianqin_A2_place_the_paper_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pour_tea",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pour_tea",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_the_pants",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_the_pants",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_food_packaging",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_food_packaging",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_make_hamburger",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_make_hamburger",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pullBowl_storage_bread_b",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pullBowl_storage_bread_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/RMC-AIDA-L_fold_shirt",
+      "modelscope_repo": "RoboCOIN/RMC-AIDA-L_fold_shirt",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_beauty_sponge_and_cake_to_place",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_beauty_sponge_and_cake_to_place",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_pour_water_a",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_pour_water_a",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_clean_the_desktop",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_clean_the_desktop",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_drawer_storage_mineral_water",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_drawer_storage_mineral_water",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_box_storage_part_a",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_box_storage_part_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_picks_up_parts_b",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_picks_up_parts_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_battery_storage_c",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_battery_storage_c",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AgiBot-g1_mobile_accessory_storage_box_d",
+      "modelscope_repo": "RoboCOIN/AgiBot-g1_mobile_accessory_storage_box_d",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_g1_fold_clothe_b",
+      "modelscope_repo": "RoboCOIN/Galbot_g1_fold_clothe_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_g1_fold_clothe_c",
+      "modelscope_repo": "RoboCOIN/Galbot_g1_fold_clothe_c",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_g1_fold_clothe_e",
+      "modelscope_repo": "RoboCOIN/Galbot_g1_fold_clothe_e",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_c",
+      "modelscope_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_c",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_b",
+      "modelscope_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_d",
+      "modelscope_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_d",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_e",
+      "modelscope_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_e",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_h",
+      "modelscope_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_h",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_f",
+      "modelscope_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_f",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_i",
+      "modelscope_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_i",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_g",
+      "modelscope_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_g",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_j",
+      "modelscope_repo": "RoboCOIN/Galbot_g1_steamer_storage_baozi_j",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_i",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_i",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_ah",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_ah",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_hotel_services_h",
+      "modelscope_repo": "RoboCOIN/leju_robot_hotel_services_h",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_box_storage_parcel_f",
+      "modelscope_repo": "RoboCOIN/leju_robot_box_storage_parcel_f",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_m",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_m",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_o",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_o",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_s",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_s",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_moving_parts_t",
+      "modelscope_repo": "RoboCOIN/leju_robot_moving_parts_t",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Cobot_Magic_classification_of_fruits_and_vegetables_a",
+      "modelscope_repo": "RoboCOIN/Agilex_Split_Aloha_classification_of_fruits_and_vegetables_a",
+      "renamed": true
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pullBowl_storage_bread_a",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pullBowl_storage_bread_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pullBowl_storage_bread_unordered_a",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pullBowl_storage_bread_unordered_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pullBowl_storage_bread_unordered_b",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pullBowl_storage_bread_unordered_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pullBowl_storage_bread_unordered_C",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pullBowl_storage_bread_unordered_C",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/alpha_bot_2_press_the_button_b",
+      "modelscope_repo": "RoboCOIN/alpha_bot_2_press_the_button_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_up_the_lemon_at",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_up_the_lemon_at",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_up_the_bread_az",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_up_the_bread_az",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_up_the_toy_ai",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_up_the_toy_ai",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_up_the_bottled_water_as",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_up_the_bottled_water_as",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_put_the_water_bottle_aq",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_put_the_water_bottle_aq",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_up_the_tissue_box_ao",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_up_the_tissue_box_ao",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_put_the_bread_aw",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_put_the_bread_aw",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_put_the_lemon_af",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_put_the_lemon_af",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_put_the_toy_ap",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_put_the_toy_ap",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_apple_b",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_apple_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_put_the_tissue_box_al",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_put_the_tissue_box_al",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_cup_a",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_cup_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_put_the_lemon_on_the_plate_ah",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_put_the_lemon_on_the_plate_ah",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_place_apple_c",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_place_apple_c",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_place_bottle_c",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_place_bottle_c",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_little_tray_storage_apple_b",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_little_tray_storage_apple_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_crumpled_paper_aa",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_crumpled_paper_aa",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_empty_bottle_ab",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_empty_bottle_ab",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_little_tray_storage_lemon_b",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_little_tray_storage_lemon_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_leftover_food_ac",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_leftover_food_ac",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_put_the_water_bottle_on_the_table_d",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_put_the_water_bottle_on_the_table_d",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_metal_bowl_aa",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_metal_bowl_aa",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_tray_storage_lemon_a",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_tray_storage_lemon_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_plastic_bowl_ad",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_plastic_bowl_ad",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_place_metal_bowl_ae",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_place_metal_bowl_ae",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_place_plastic_bowl_ah",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_place_plastic_bowl_ah",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_apple_a",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_apple_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_up_the_lemon_a",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_up_the_lemon_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_put_the_cup_b",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_put_the_cup_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_metal_bowl_ab",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_metal_bowl_ab",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_plastic_bowl_ac",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_plastic_bowl_ac",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_up_the_bottled_water_a",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_up_the_bottled_water_a",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_pick_up_the_bottled_water_b",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_pick_up_the_bottled_water_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_place_metal_bowl_af",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_place_metal_bowl_af",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_place_plastic_bowl_ag",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_place_plastic_bowl_ag",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AIRBOT_MMK2_place_the_sponge_and_wet_wipes",
+      "modelscope_repo": "RoboCOIN/AIRBOT_MMK2_place_the_sponge_and_wet_wipes",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_box_storage_parcel_d",
+      "modelscope_repo": "RoboCOIN/leju_robot_box_storage_parcel_d",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_box_storage_parcel_j",
+      "modelscope_repo": "RoboCOIN/leju_robot_box_storage_parcel_j",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/leju_robot_box_storage_parcel_i",
+      "modelscope_repo": "RoboCOIN/leju_robot_box_storage_parcel_i",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/G1edu-u3_basket_storage_apple_b",
+      "modelscope_repo": "RoboCOIN/G1edu-u3_basket_storage_apple_b",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_swap_sponge_paper_box_plate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_swap_sponge_paper_box_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_toy_car",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_toy_car",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_medicine_bottle",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_medicine_bottle",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_drink",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_drink",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_pour_BBs",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_pour_BBs",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_push_toy_car",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_push_toy_car",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_electronics",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_electronics",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_egg_plate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_egg_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_egg_bowl",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_egg_bowl",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_peach_pear",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_peach_pear",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_bowl_wet_wipes",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_bowl_wet_wipes",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_braised_pork_belly_shrimp",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_braised_pork_belly_shrimp",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_open_laptop",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_open_laptop",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_bottle_tape_measure",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_bottle_tape_measure",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_fake_food",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_fake_food",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_book_front",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_book_front",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_book_right_side",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_book_right_side",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_electronics_yellow_baket",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_electronics_yellow_baket",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_pass_paper_box",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_pass_paper_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_bottle_part",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_bottle_part",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_block_gold_bar_models",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_block_gold_bar_models",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_cup_rubik_s_cube",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_cup_rubik_s_cube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_tumbler_umbrella",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_tumbler_umbrella",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_cookie_toy_car",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_cookie_toy_car",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_tools",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_tools",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_cup",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_cup",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_tub",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_tub",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_phone_twice",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_phone_twice",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_swap_bottle_wet_wipes_plate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_swap_bottle_wet_wipes_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_cup",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_cup",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_yellow_basket",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_yellow_basket",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_pour_powder",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_pour_powder",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_bowl_sponge",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_bowl_sponge",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_pour_solid",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_pour_solid",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_object_closest",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_object_closest",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_shark_doll",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_shark_doll",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_close_drawer_upper",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_close_drawer_upper",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_erase_board_left_side",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_erase_board_left_side",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_close_drawer_bottom",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_close_drawer_bottom",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_open_drawer_bottom",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_open_drawer_bottom",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_stack_cubic_block",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_stack_cubic_block",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_diamond_ring",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_diamond_ring",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Realman_RMC_AIDA_L_storage_peach_drawer",
+      "modelscope_repo": "RoboCOIN/Realman_RMC_AIDA_L_storage_peach_drawer",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_cake_ice_cream",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_cake_ice_cream",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_tape_measure_umbrella",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_tape_measure_umbrella",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_dog_doll",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_dog_doll",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_part_both_hands",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_part_both_hands",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_bread_basket",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_bread_basket",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_move_mouse_pen_black_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_move_mouse_pen_black_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_slide_tape_onto_can",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_slide_tape_onto_can",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Realman_RMC_AIDA_L_storage_towel_basket",
+      "modelscope_repo": "RoboCOIN/Realman_RMC_AIDA_L_storage_towel_basket",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_dish",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_dish",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_pour_solid_marble_bar_counter",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_pour_solid_marble_bar_counter",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_classify_objects_eight",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_classify_objects_eight",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_left_to_right_khaki_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_left_to_right_khaki_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_right_to_left_black_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_right_to_left_black_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_right_to_left_green_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_right_to_left_green_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_right_to_left_khaki_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_right_to_left_khaki_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_toggle_drawer_red",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_toggle_drawer_red",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_close_drawer_top",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_close_drawer_top",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_object_closest_apple",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_object_closest_apple",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_change_baai_into_brain",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_change_baai_into_brain",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_mix_red_blue_large_test_tube",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_mix_red_blue_large_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_mix_red_blue_right",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_mix_red_blue_right",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_move_mouse",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_move_mouse",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_mix_red_yellow_right",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_mix_red_yellow_right",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_mix_red_yellow_large_test_tube",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_mix_red_yellow_large_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_mix_blue_yellow_left_large_test_tube",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_mix_blue_yellow_left_large_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_object",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_object",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_mix_blue_yellow_right",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_mix_blue_yellow_right",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_mix_color_small_test_tube",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_mix_color_small_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_cake",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_cake",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_block_wet_wipes",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_block_wet_wipes",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_paper_box",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_paper_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_arrange_baai_then_brain",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_arrange_baai_then_brain",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_fold_towel_twice",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_fold_towel_twice",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_mix_red_blue_left_large_test_tube",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_mix_red_blue_left_large_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_mix_red_yellow_left_large_test_tube",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_mix_red_yellow_left_large_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_stack_bowl",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_stack_bowl",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_block_BBs",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_block_BBs",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_cake_both_hands",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_cake_both_hands",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_cake_box",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_cake_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_hourglass",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_hourglass",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_ice_cream",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_ice_cream",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_paper_box_sponge",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_paper_box_sponge",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_penguin_doll_tiger_doll",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_penguin_doll_tiger_doll",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_block_tape_measure",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_block_tape_measure",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storge_cake_ice_cream",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storge_cake_ice_cream",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_cake_cup",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_cake_cup",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_remove_pen_cap",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_remove_pen_cap",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_left_to_right_green_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_left_to_right_green_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_doodled_line",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_doodled_line",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_pumpkin_left",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_pumpkin_left",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_tomato_potato",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_tomato_potato",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_pumpkin_right",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_pumpkin_right",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_stationery_xylophone",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_stationery_xylophone",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_block_both_hands",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_block_both_hands",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_orange_white_bag",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_orange_white_bag",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_stack_cup",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_stack_cup",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_peach_white_bag",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_peach_white_bag",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_bell_pepper",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_bell_pepper",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_potato_pumpkin",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_potato_pumpkin",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_fruit_bowl",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_fruit_bowl",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_prepare_tea",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_prepare_tea",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_egg",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_egg",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_cover_lid",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_cover_lid",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_cake_plate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_cake_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_badminton",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_badminton",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_cookie_cup",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_cookie_cup",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_block_both_hands",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_block_both_hands",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_gold_bar_model_shark_doll",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_gold_bar_model_shark_doll",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_click_pen",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_click_pen",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_lemon_mango",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_lemon_mango",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_tennis_racket_ball",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_tennis_racket_ball",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_bell_pepper_bowl",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_bell_pepper_bowl",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_organize_desk_fail",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_organize_desk_fail",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Realman_RMC_AIDA_L_fold_towel",
+      "modelscope_repo": "RoboCOIN/Realman_RMC_AIDA_L_fold_towel",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_potato_left",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_potato_left",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_erase_board_right",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_erase_board_right",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_jeans_shorts_children_s",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_jeans_shorts_children_s",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_bowl",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_bowl",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_short_sleeve_black",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_short_sleeve_black",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_pull_tissue",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_pull_tissue",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_shorts_khaki",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_shorts_khaki",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_pink_tray",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_pink_tray",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_close_lid",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_close_lid",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_rotate_cube_face",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_rotate_cube_face",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_remove_lid",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_remove_lid",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_close_drawer",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_close_drawer",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_left_to_right_black_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_left_to_right_black_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_close_door_right",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_close_door_right",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_close_doors",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_close_doors",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_pick_up_and_place_tub",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_pick_up_and_place_tub",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_close_door_left",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_close_door_left",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_cake_tape_measure",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_cake_tape_measure",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_cup_plate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_cup_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_dial_number",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_dial_number",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_block",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_block",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_sword_doll",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_sword_doll",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_onion_sweet_potato",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_onion_sweet_potato",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_block",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_block",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_apple_orange_pomegranate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_apple_orange_pomegranate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_open_door_left",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_open_door_left",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_cake_both_hands",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_cake_both_hands",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_and_take_cake_plate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_and_take_cake_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_bottle_umbrella",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_bottle_umbrella",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_grey_tray",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_grey_tray",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_blue_tray",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_blue_tray",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_tissues",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_tissues",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_cup_paper_box",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_cup_paper_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_move_mouse_pen_khaki_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_move_mouse_pen_khaki_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_move_mouse_pen_red_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_move_mouse_pen_red_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_move_mouse_pen",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_move_mouse_pen",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_electronics_white_basket",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_electronics_white_basket",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_move_mouse_pen_green_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_move_mouse_pen_green_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_brown_bowl",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_brown_bowl",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_swap_bbs_block_plate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_swap_bbs_block_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_brown_basket",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_brown_basket",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_move_object_red_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_move_object_red_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_classify_object_six",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_classify_object_six",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_swap_bbs_cake_plate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_swap_bbs_cake_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_move_object_beige_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_move_object_beige_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_move_object",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_move_object",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_mango_pomegranate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_mango_pomegranate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_pan",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_pan",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_move_pencil_sharpener",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_move_pencil_sharpener",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_brown_plate",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_brown_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_BBs_block",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_BBs_block",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_pink_bowl",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_pink_bowl",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_gray_plate",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_gray_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_pour_liquid_mrable_bar_counter",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_pour_liquid_mrable_bar_counter",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_toggle_drawer_yellow",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_toggle_drawer_yellow",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_swap_bread_cake_plate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_swap_bread_cake_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_swap_apple_cake_plate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_swap_apple_cake_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_right_to_left_red_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_right_to_left_red_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_lemon_mango",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_lemon_mango",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_swap_cake_sponge_plate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_swap_cake_sponge_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_push_away_book",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_push_away_book",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_mix_blue_yellow_left_small_test_tube",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_mix_blue_yellow_left_small_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_left_to_right_white_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_left_to_right_white_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_move_object_green_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_move_object_green_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_pour_water_black_tablecloth",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_pour_water_black_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_unplug",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_unplug",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_umbrella_tissues",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_umbrella_tissues",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_orange_basket_left",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_orange_basket_left",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_sweep_peaper",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_sweep_peaper",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_play_guitar",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_play_guitar",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_orange_basket_right",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_orange_basket_right",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_stack_block",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_stack_block",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_swap_cake_pumpkin_plate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_swap_cake_pumpkin_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_open_door_right",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_open_door_right",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_tissues_tub",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_tissues_tub",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_erase_board_left",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_erase_board_left",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_mix_blue_yellow_large_test_tube",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_mix_blue_yellow_large_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_pull_plunger",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_pull_plunger",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_push_plunger",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_push_plunger",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_classify_object_three",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_classify_object_three",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_slide_block_onto_post",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_slide_block_onto_post",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_egg_yellow_box",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_egg_yellow_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Realman_RMC_AIDA_L_hang_clothes",
+      "modelscope_repo": "RoboCOIN/Realman_RMC_AIDA_L_hang_clothes",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_egg_white_box",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_egg_white_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_apple_orange",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_apple_orange",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Realman_RMC_AIDA_L_arrange_flowers",
+      "modelscope_repo": "RoboCOIN/Realman_RMC_AIDA_L_arrange_flowers",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_grape",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_grape",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_sponge_wet_wipes",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_sponge_wet_wipes",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_block",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_block",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_erase_board_passing_left_to_right",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_erase_board_passing_left_to_right",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_peach_right",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_peach_right",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_pour_powder_marble_bar_counter",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_pour_powder_marble_bar_counter",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_book",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_book",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_classify_object_four",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_classify_object_four",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_move_mouse",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_move_mouse",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pour_drink_bottle_cup",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pour_drink_bottle_cup",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_erase_board",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_erase_board",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_classify_objects_six",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_classify_objects_six",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_right_to_left_white_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pass_object_right_to_left_white_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_move_object_black_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_move_object_black_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_object_red_tablecloth",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_object_red_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_mix_color_large_test_tube",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_mix_color_large_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_mix_color",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_mix_color",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_erase_board_passing_right_to_left",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_erase_board_passing_right_to_left",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_peach_left",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_peach_left",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Realman_RMC_AIDA_L_storage_block_basket",
+      "modelscope_repo": "RoboCOIN/Realman_RMC_AIDA_L_storage_block_basket",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_classify_object_green_tablecloth",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_classify_object_green_tablecloth",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_organize_test_tube",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_organize_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_pineapple",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_pineapple",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_network_cable_paper_box",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_network_cable_paper_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_block_both_hands",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_block_both_hands",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_blue_plate",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_blue_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_classify_object_five",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_classify_object_five",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Realman_RMC_AIDA_L_storage_peach_box",
+      "modelscope_repo": "RoboCOIN/Realman_RMC_AIDA_L_storage_peach_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_peach_brown_bag",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_peach_brown_bag",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_connect_block",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_connect_block",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_yellow_tray",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_yellow_tray",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_object_left",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_object_left",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_white_box",
+      "modelscope_repo": "RoboCOIN/Galaxea_R1_Lite_storage_object_white_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_move_block_twice",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_move_block_twice",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_take_book",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_take_book",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_turn_page",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_turn_page",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_open_lid",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_open_lid",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_play_toy_piano",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_play_toy_piano",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_slide_block",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_slide_block",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_unscrew_bottle_cap",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_unscrew_bottle_cap",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_milk_tissue",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_milk_tissue",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_storage_cake_pan",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_storage_cake_pan",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_cut_scallion",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_cut_scallion",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Airbot_MMK2_organize_plate",
+      "modelscope_repo": "RoboCOIN/Airbot_MMK2_organize_plate",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pour_water_bottle_cup_cup",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pour_water_bottle_cup_cup",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_fruit_basket",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_fruit_basket",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_seal_bag",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_seal_bag",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pour_drink_bottle_cup_cup",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pour_drink_bottle_cup_cup",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pour_water_pink_cup",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pour_water_pink_cup",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_purple",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_purple",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_sweep_coffee_beans",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_sweep_coffee_beans",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_make_sandwiche",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_make_sandwiche",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_heat_burger",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_heat_burger",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_tray_twice",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_tray_twice",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_heat_sandwich",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_heat_sandwich",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_pour_water_middle_cup",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_pour_water_middle_cup",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_T_shirts",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_T_shirts",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_object_basket",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_object_basket",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_object_closest_cube",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_object_closest_cube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_place_towel_flat",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_place_towel_flat",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_towel",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_storage_towel",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_blue",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_blue",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_brown",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_towel_brown",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_short_sleeve_white",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_fold_short_sleeve_white",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Agilex_Cobot_Magic_stack_block",
+      "modelscope_repo": "RoboCOIN/Agilex_Cobot_Magic_stack_block",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Realman_RMC_AIDA_L_pass_bowl",
+      "modelscope_repo": "RoboCOIN/Realman_RMC_AIDA_L_pass_bowl",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_move_test_tube",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_move_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_pick_stirring_rod",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_pick_stirring_rod",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_arrange_teaset",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_arrange_teaset",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_organize_cosmetics_1",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_organize_cosmetics_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_pick_test_tube",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_pick_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_pick_thermometer",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_pick_thermometer",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_place_Tapes",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_place_Tapes",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_unplug_data_cable",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_unplug_data_cable",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_pour_water",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_pour_water",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_shake_test_tube",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_shake_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_stack_cups",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_stack_cups",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_open_microwave",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_open_microwave",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_insert_straw",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_insert_straw",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_move_basket",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_move_basket",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_store_toys",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_store_toys",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_insert_water_pipe",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_insert_water_pipe",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_stamp_document",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_stamp_document",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_shake_bottle",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_shake_bottle",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_test_data_cable",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_test_data_cable",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_organize_lab_equipment",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_organize_lab_equipment",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_sort_angle_iron",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_sort_angle_iron",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_sort_warehouse",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_sort_warehouse",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_pour_liquid",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_pour_liquid",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_heat_test_tube",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_heat_test_tube",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_shake_beaker",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_shake_beaker",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_organize_pencil_holder",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_organize_pencil_holder",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_clink_glasses",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_clink_glasses",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_stir_water",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_stir_water",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_stir_spoon",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_stir_spoon",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_place_pen",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_place_pen",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_sort_garbage_bag_and_box",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_sort_garbage_bag_and_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_sort_personal_care_items",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_sort_personal_care_items",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_4",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_4",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_sort_utensils",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_sort_utensils",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_2",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_2",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_8",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_8",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_15",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_15",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_7",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_7",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_8",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_8",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_move_test_tube_1",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_move_test_tube_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_tidy_countertop",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_tidy_countertop",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_grind_ink",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_grind_ink",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_write_text",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_write_text",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_store_toys_5",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_store_toys_5",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_1",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_5",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_5",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_5",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_5",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_2",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_2",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_9",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_9",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_13",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_13",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_9",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_9",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_hotel_services",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_hotel_services",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_package_fruit",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_package_fruit",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_moving_parts",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_moving_parts",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_12",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_12",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_6",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_6",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_insert_hose_into_hole",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_insert_hose_into_hole",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_10",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_10",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_14",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_14",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_moving_parts_2",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_moving_parts_2",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_pour_mung_beans",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_pour_mung_beans",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_1",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_moving_parts_3",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_moving_parts_3",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_11",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_11",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_18",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_18",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_10",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_10",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_3",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_3",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_11",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_11",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_17",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_17",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_19",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_19",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_6",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_6",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_fold_clothes",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_fold_clothes",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_use_dryer",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_use_dryer",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_steamer_storage_baozi",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_steamer_storage_baozi",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_4",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_4",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_3",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_3",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Unitree_G1edu_u3_place_bread_1",
+      "modelscope_repo": "RoboCOIN/Unitree_G1edu_u3_place_bread_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_7",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_box_storage_parcel_7",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_brush_egg_wash",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_brush_egg_wash",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_test_electricity",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_test_electricity",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_stack_blocks",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_stack_blocks",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Unitree_G1edu_u3_place_towel",
+      "modelscope_repo": "RoboCOIN/Unitree_G1edu_u3_place_towel",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Unitree_G1edu_u3_pour_drink",
+      "modelscope_repo": "RoboCOIN/Unitree_G1edu_u3_pour_drink",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_moving_parts_1",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_moving_parts_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_16",
+      "modelscope_repo": "RoboCOIN/Leju_Kuavo_4_sensor_card_swiping_16",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Unitree_G1edu_u3_place_bread",
+      "modelscope_repo": "RoboCOIN/Unitree_G1edu_u3_place_bread",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Unitree_G1edu_u3_place_grape_error",
+      "modelscope_repo": "RoboCOIN/Unitree_G1edu_u3_place_grape_error",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_store_toys_4",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_store_toys_4",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_store_toys_3",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_store_toys_3",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_store_toys_2",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_store_toys_2",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_package_fruit_1",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_package_fruit_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_package_fruit_2",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_package_fruit_2",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_shake_test_tube_1",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_shake_test_tube_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_fold_clothes_1",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_fold_clothes_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_use_dryer_1",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_use_dryer_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_store_toys_1",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_store_toys_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/AI2_Alphabot_2_organize_cosmetics",
+      "modelscope_repo": "RoboCOIN/AI2_Alphabot_2_organize_cosmetics",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_bag_table_trash_1",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_bag_table_trash_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_clear_table_trash_3",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_clear_table_trash_3",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_clear_table_trash_1",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_clear_table_trash_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_bag_table_trash_2",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_bag_table_trash_2",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_clear_table_trash_2",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_clear_table_trash_2",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_discard_towel_1",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_discard_towel_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_fold_clothes_4",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_fold_clothes_4",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_fold_clothes_3",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_fold_clothes_3",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_load_floor_trash_7",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_load_floor_trash_7",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_hang_clothes",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_hang_clothes",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_hang_clothes_2",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_hang_clothes_2",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_clear_sink_trash_1",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_clear_sink_trash_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_line_trash_can_1",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_line_trash_can_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_line_trash_can_2",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_line_trash_can_2",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_move_stamp",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_move_stamp",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_line_trash_can_3",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_line_trash_can_3",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_line_trash_can",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_line_trash_can",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_line_trash_can_4",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_line_trash_can_4",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_load_floor_trash",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_load_floor_trash",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_move_takeout_bag",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_move_takeout_bag",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_load_floor_trash_6",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_load_floor_trash_6",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_wipe_mirror",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_wipe_mirror",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_organize_table",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_organize_table",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_pick_trash_can",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_pick_trash_can",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_hang_clothes_1",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_hang_clothes_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_pick_floor_trash_1",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_pick_floor_trash_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_store_takeout_box_1",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_store_takeout_box_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_store_takeout_box",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_store_takeout_box",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_scrub_toilet",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_scrub_toilet",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_pull_curtain",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_pull_curtain",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_pick_floor_trash",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_pick_floor_trash",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_clear_sink_1",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_clear_sink_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_hang_clothes_3",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_hang_clothes_3",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_load_floor_trash_1",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_load_floor_trash_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_load_floor_trash_2",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_load_floor_trash_2",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_load_floor_trash_4",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_load_floor_trash_4",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_load_floor_trash_5",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_load_floor_trash_5",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_clear_table_residue_1",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_clear_table_residue_1",
+      "renamed": false
+    },
+    {
+      "canonical_repo": "RoboCOIN/Galbot_G1_load_floor_trash_3",
+      "modelscope_repo": "RoboCOIN/Galbot_G1_load_floor_trash_3",
+      "renamed": false
+    }
+  ]
+}

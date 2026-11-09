@@ -1,0 +1,116 @@
+{
+  "dataset_id": "Example__ego",
+  "profile_id": "example:human:torso-yaw:next-state:v1",
+  "data_kind": "ego",
+  "robot_type": "human",
+  "fps": 30,
+  "media": {
+    "policy": "normalize",
+    "fps": 30,
+    "size": [
+      960,
+      728
+    ]
+  },
+  "source": {
+    "id": "replace_with_ego_source",
+    "revision": "replace_with_release_version_or_commit"
+  },
+  "frames": {
+    "torso_yaw": {
+      "kind": "dynamic_body",
+      "origin": "pelvis",
+      "axes": "x forward, y left, z gravity-up",
+      "status": "derived",
+      "method": "Source adapter must compute and record world_to_torso_yaw from available body tracking"
+    }
+  },
+  "state_fields": [
+    {
+      "source": "left_wrist_torso_xyzw",
+      "slot": "left_eef",
+      "owner": "human",
+      "quantity": "absolute_wrist_pose",
+      "unit": "m",
+      "frame": "torso_yaw",
+      "reference_point": "wrist_joint_0",
+      "quaternion_order": "xyzw",
+      "provenance": "derived",
+      "method": "Adapter transforms source world wrist pose into declared torso_yaw frame"
+    },
+    {
+      "source": "left_pinch_proxy01",
+      "slot": "left_gripper",
+      "owner": "human",
+      "quantity": "pinch_opening_proxy",
+      "unit": "1",
+      "provenance": "derived",
+      "method": "Adapter computes clip((thumb-index distance in m - 0.04)/0.06,0,1); heuristic proxy, not robot jaw width",
+      "gripper": {
+        "mode": "open_01"
+      },
+      "signal_kind": "continuous_proxy"
+    },
+    {
+      "source": "right_wrist_torso_xyzw",
+      "slot": "right_eef",
+      "owner": "human",
+      "quantity": "absolute_wrist_pose",
+      "unit": "m",
+      "frame": "torso_yaw",
+      "reference_point": "wrist_joint_0",
+      "quaternion_order": "xyzw",
+      "provenance": "derived",
+      "method": "Adapter transforms source world wrist pose into declared torso_yaw frame"
+    },
+    {
+      "source": "right_pinch_proxy01",
+      "slot": "right_gripper",
+      "owner": "human",
+      "quantity": "pinch_opening_proxy",
+      "unit": "1",
+      "provenance": "derived",
+      "method": "Adapter computes clip((thumb-index distance in m - 0.04)/0.06,0,1); heuristic proxy, not robot jaw width",
+      "gripper": {
+        "mode": "open_01"
+      },
+      "signal_kind": "continuous_proxy"
+    }
+  ],
+  "action": {
+    "mode": "next_state"
+  },
+  "time": {
+    "kind": "measured",
+    "column": "capture_timestamp_ns",
+    "unit": "ns"
+  },
+  "calibration_columns": {
+    "main": {
+      "K": "camera_K"
+    }
+  },
+  "passthrough_columns": "all",
+  "episodes": [
+    {
+      "source_episode_id": "e0",
+      "data": "e0.parquet",
+      "videos": {
+        "main": "e0_25fps.mp4"
+      },
+      "fps": 25,
+      "task": "prepare the object",
+      "split_group_uid": "ego:session-0:e0"
+    },
+    {
+      "source_episode_id": "e1",
+      "data": "e1.parquet",
+      "videos": {
+        "main": "e1_30fps.mp4"
+      },
+      "fps": 30,
+      "task": "place the object",
+      "split_group_uid": "ego:session-1:e1"
+    }
+  ]
+}

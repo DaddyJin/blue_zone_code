@@ -1,0 +1,31 @@
+{
+  "dataset_id": "Example__videos",
+  "profile_id": "example:video-only:v1",
+  "data_kind": "video_only",
+  "robot_type": "none",
+  "fps": 25,
+  "media": {
+    "policy": "native"
+  },
+  "source": {
+    "id": "replace_with_real_video_collection",
+    "revision": "replace_with_release_version_or_commit"
+  },
+  "state_fields": [],
+  "action": {
+    "mode": "none"
+  },
+  "time": {
+    "kind": "unknown"
+  },
+  "episodes": [
+    {
+      "source_episode_id": "clip_0",
+      "videos": {
+        "main": "clip_0.mp4"
+      },
+      "task": "",
+      "split_group_uid": "video-source:original-video-0"
+    }
+  ]
+}
