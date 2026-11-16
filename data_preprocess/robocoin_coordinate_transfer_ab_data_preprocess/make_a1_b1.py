@@ -531,6 +531,27 @@ def _raw_column(table: pa.Table, kind: str) -> pa.Array:
     raise KeyError(f"none of {candidates} found for extra joint mapping")
 
 
+def check_extra_support(table: pa.Table, cfg: Mapping[str, Any]) -> Optional[str]:
+    """Return a reason string if raw columns cannot supply extra joints."""
+    extra = cfg.get("extra_joint_mapping") or {}
+    if not extra:
+        return None
+    max_idx = max(int(v) for v in extra.values())
+    for kind in ("state", "action"):
+        try:
+            arr = _raw_column(table, kind)
+        except KeyError as exc:
+            return str(exc)
+        values = arr.to_pylist()
+        width = len(values[0]) if values and values[0] is not None else 0
+        if width <= max_idx:
+            return (
+                f"{kind} raw width {width} <= extra joint index {max_idx} "
+                f"({sorted(extra)})"
+            )
+    return None
+
+
 def build_b1_table(
     table: pa.Table,
     cfg: Mapping[str, Any],
@@ -1029,14 +1050,32 @@ def process_dataset(
         urdf = Urdf(urdf_root / cfg["urdf"])
         validate_config(cfg, urdf, n_left, n_right)
 
+        if not episodes:
+            record["status"] = "excluded"
+            record["reason"] = "no_episodes"
+            log(f"[exclude] {name}: no episodes")
+            return record
+
+        reader = SourceReader(dataset_dir, info)
+        first_table: Optional[pa.Table] = None
+        if cfg.get("extra_joint_mapping") or dry_run:
+            first_table = reader.read_episode(episodes[0])
+            if cfg.get("extra_joint_mapping"):
+                try:
+                    why = check_extra_support(first_table, cfg)
+                except Exception as exc:
+                    why = f"{type(exc).__name__}: {exc}"
+                if why:
+                    record["status"] = "excluded"
+                    record["reason"] = f"extra_joint_missing: {why}"
+                    log(f"[exclude] {name}: {record['reason']}")
+                    return record
+
         if dry_run:
             # Quick preflight: one episode, no writes.
-            if episodes:
-                reader = SourceReader(dataset_dir, info)
-                src = reader.read_episode(episodes[0])
-                common = reindex_table(src, 0, 0)
-                b1, _ = build_b1_table(common, cfg, urdf, n_left, n_right)
-                validate_pair(common, b1, cfg)
+            common = reindex_table(first_table, 0, 0)
+            b1, _ = build_b1_table(common, cfg, urdf, n_left, n_right)
+            validate_pair(common, b1, cfg)
             record["status"] = "included"
             record["reason"] = "dry_run"
             record["episodes"] = len(episodes)
@@ -1054,7 +1093,6 @@ def process_dataset(
         out_a.mkdir(parents=True, exist_ok=True)
         out_b.mkdir(parents=True, exist_ok=True)
 
-        reader = SourceReader(dataset_dir, info)
         has_offsets = {
             "data/file_from_offset",
             "data/file_to_offset",
