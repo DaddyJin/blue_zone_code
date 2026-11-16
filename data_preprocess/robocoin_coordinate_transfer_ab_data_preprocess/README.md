@@ -137,6 +137,7 @@ A1/B1 的每个子数据集都是一个独立的 LeRobot v3.0 数据集，可以
 | 文件 | 用途 |
 |---|---|
 | `make_a1_b1.py` | 主脚本：扫描、生成 A1/B1、校验、写报告 |
+| `group_by_robot_type.py` | 按机械臂类型把 P 的子数据集分组为 Q 下的绝对软链接 |
 | `ab_fk.py` | 最小 URDF 解析 + 向量化 FK + 四元数转换 |
 | `ab_progress.py` | 进度条、处理速率、剩余时间 |
 | `urdf/models/` | 本包需要的推荐 URDF |
@@ -146,6 +147,7 @@ A1/B1 的每个子数据集都是一个独立的 LeRobot v3.0 数据集，可以
 | `docs/USAGE.md` | 另一台服务器上的逐步操作命令 |
 | `docs/CALIBRATION.md` | `calibration.json` 字段和 caveat |
 | `docs/URDF_SOURCES.md` | URDF 来源与授权 |
+| `docs/GROUP_BY_ROBOT_TYPE.md` | `group_by_robot_type.py` 的用法和分组规则 |
 | `requirements.txt` | Python 依赖（numpy + pyarrow） |
 | `NOTICE.md` | 第三方 URDF 说明 |
 
@@ -163,3 +165,26 @@ A1/B1 的每个子数据集都是一个独立的 LeRobot v3.0 数据集，可以
 
 更详细的原理见 [`docs/PRINCIPLE.md`](docs/PRINCIPLE.md)，
 逐步操作见 [`docs/USAGE.md`](docs/USAGE.md)。
+
+---
+
+## 按机械臂类型分组
+
+如果只是想把 P 下的子数据集按**机械臂类型**放到一起：
+
+```bash
+python3 group_by_robot_type.py \
+  --input /path/to/P \
+  --output /path/to/Q
+```
+
+Q 的结构：
+
+```text
+Q/<arm_type>/<dataset_name> -> /absolute/path/P/<dataset_name>
+Q/unknown/<dataset_name>    -> /absolute/path/P/<dataset_name>
+Q/manifest.json
+```
+
+只建绝对路径软链接，不复制数据。详细规则见
+[`docs/GROUP_BY_ROBOT_TYPE.md`](docs/GROUP_BY_ROBOT_TYPE.md)。
