@@ -1547,105 +1547,115 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
         jobs = max(1, int(args.jobs))
         records: List[Dict[str, Any]] = []
+        plans = [_dataset_plan(d) for d in datasets]
+        total_datasets = len(plans)
+        frame_done = 0
 
-        if jobs == 1:
-            for dataset_dir in datasets:
-                records.append(
-                    process_dataset(
-                        dataset_dir,
+        # Overall progress is measured in subdatasets, not per-dataset bars.
+        progress = Progress(
+            total_datasets,
+            desc=f"A1/B1 jobs={jobs}",
+            unit="datasets",
+        )
+
+        def handle_event(event: Dict[str, Any]) -> None:
+            nonlocal frame_done
+            if event.get("type") == "log":
+                log(str(event.get("msg", "")))
+            elif event.get("type") == "frames":
+                frame_done += int(event.get("delta", 0))
+
+        def finish_record(plan: Dict[str, Any], rec: Dict[str, Any]) -> None:
+            records.append(rec)
+            progress.update(
+                1,
+                suffix=(
+                    f"{plan['name']} | "
+                    f"frames {frame_done:,}"
+                ),
+            )
+
+        try:
+            if jobs == 1:
+                for plan in plans:
+                    rec = process_dataset(
+                        Path(plan["dataset"]),
                         output / "A1",
                         output / "B1",
                         calibration,
                         urdf_root,
                         args.dry_run,
                         log,
+                        handle_event,
                     )
-                )
-        else:
-            plans = [_dataset_plan(d) for d in datasets]
-            total_planned = sum(int(p.get("candidate_frames", 0)) for p in plans)
-            progress = Progress(
-                total_planned,
-                desc=f"A1/B1 jobs={jobs}",
-                unit="frames",
-            )
-            manager = mp.Manager()
-            progress_queue = manager.Queue()
+                    finish_record(plan, rec)
+            else:
+                manager = mp.Manager()
+                progress_queue = manager.Queue()
 
-            def drain_queue() -> None:
-                while True:
-                    try:
-                        event = progress_queue.get_nowait()
-                    except queue_mod.Empty:
-                        return
-                    if event.get("type") == "log":
-                        log(str(event.get("msg", "")))
-                    elif event.get("type") == "frames":
-                        delta = int(event.get("delta", 0))
-                        if delta:
-                            progress.update(delta, suffix=str(event.get("name", "")))
+                def drain_queue() -> None:
+                    while True:
+                        try:
+                            event = progress_queue.get_nowait()
+                        except queue_mod.Empty:
+                            return
+                        handle_event(event)
 
-            try:
-                max_workers = min(jobs, max(1, len(plans)))
-                with ProcessPoolExecutor(max_workers=max_workers) as executor:
-                    futures = {
-                        executor.submit(
-                            _process_dataset_worker,
-                            (
-                                plan,
-                                str(output / "A1"),
-                                str(output / "B1"),
-                                calibration,
-                                str(urdf_root),
-                                args.dry_run,
-                                progress_queue,
-                            ),
-                        ): plan
-                        for plan in plans
-                    }
-                    while futures:
-                        done, _ = wait(
-                            futures,
-                            timeout=0.25,
-                            return_when=FIRST_COMPLETED,
-                        )
-                        drain_queue()
-                        for future in done:
-                            plan = futures.pop(future)
-                            try:
-                                rec = future.result()
-                            except Exception as exc:
-                                rec = {
-                                    "name": plan["name"],
-                                    "path": plan["dataset"],
-                                    "status": "error",
-                                    "reason": f"{type(exc).__name__}: {exc}",
-                                    "family": None,
-                                    "tier": None,
-                                    "candidate_episodes": 0,
-                                    "candidate_frames": int(plan.get("candidate_frames", 0)),
-                                    "attempted_frames": 0,
-                                    "episodes": 0,
-                                    "frames": 0,
-                                    "failures": [],
-                                    "quality": empty_quality(),
-                                    "episode_map": [],
-                                }
-                            records.append(rec)
-                            unattempted = max(
-                                0,
-                                int(plan.get("candidate_frames", 0))
-                                - int(rec.get("attempted_frames", 0)),
+                try:
+                    max_workers = min(jobs, max(1, len(plans)))
+                    with ProcessPoolExecutor(max_workers=max_workers) as executor:
+                        futures = {
+                            executor.submit(
+                                _process_dataset_worker,
+                                (
+                                    plan,
+                                    str(output / "A1"),
+                                    str(output / "B1"),
+                                    calibration,
+                                    str(urdf_root),
+                                    args.dry_run,
+                                    progress_queue,
+                                ),
+                            ): plan
+                            for plan in plans
+                        }
+                        while futures:
+                            done, _ = wait(
+                                futures,
+                                timeout=0.25,
+                                return_when=FIRST_COMPLETED,
                             )
-                            if unattempted:
-                                progress.set_total(
-                                    max(0, progress.total - unattempted)
-                                )
-                drain_queue()
-            finally:
-                progress.close()
-                manager.shutdown()
-            records.sort(key=lambda r: r["name"])
+                            drain_queue()
+                            for future in done:
+                                plan = futures.pop(future)
+                                try:
+                                    rec = future.result()
+                                except Exception as exc:
+                                    rec = {
+                                        "name": plan["name"],
+                                        "path": plan["dataset"],
+                                        "status": "error",
+                                        "reason": f"{type(exc).__name__}: {exc}",
+                                        "family": None,
+                                        "tier": None,
+                                        "candidate_episodes": 0,
+                                        "candidate_frames": int(
+                                            plan.get("candidate_frames", 0)
+                                        ),
+                                        "attempted_frames": 0,
+                                        "episodes": 0,
+                                        "frames": 0,
+                                        "failures": [],
+                                        "quality": empty_quality(),
+                                        "episode_map": [],
+                                    }
+                                finish_record(plan, rec)
+                            drain_queue()
+                    records.sort(key=lambda r: r["name"])
+                finally:
+                    manager.shutdown()
+        finally:
+            progress.close()
 
         elapsed = time.monotonic() - t0
         write_reports(

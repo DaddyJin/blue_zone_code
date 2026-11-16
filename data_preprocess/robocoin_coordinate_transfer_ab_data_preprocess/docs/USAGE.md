@@ -179,8 +179,8 @@ python3 make_a1_b1.py \
 终端会显示类似：
 
 ```text
-[##############--------------]  50.64% A1/B1 jobs=4 48.2M/95.19M frames
-9.8k frames/s | elapsed 01:10:12 | ETA 01:10:12 | Unitree_...
+[##############--------------]  45.20% A1/B1 jobs=4 278/614 datasets
+2.1 datasets/s | elapsed 01:10:12 | ETA 01:10:12 | Unitree_... | frames 48.2M
 ```
 
 每个子数据集独立处理：
