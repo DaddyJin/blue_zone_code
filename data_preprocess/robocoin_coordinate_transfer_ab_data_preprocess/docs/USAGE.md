@@ -150,26 +150,50 @@ dry-run 的 `included` 表示该子数据集有匹配的 URDF/映射；正式跑
 
 ## 3. 正式生成 A1/B1
 
+默认按**子数据集**开 4 个进程：
+
 ```bash
 python3 make_a1_b1.py \
   --input /data/robocoin/A \
   --output /data/robocoin/ablation
 ```
 
+等价于：
+
+```bash
+python3 make_a1_b1.py \
+  --input /data/robocoin/A \
+  --output /data/robocoin/ablation \
+  --jobs 4
+```
+
+单进程调试：
+
+```bash
+python3 make_a1_b1.py \
+  --input /data/robocoin/A \
+  --output /data/robocoin/ablation \
+  --jobs 1
+```
+
 终端会显示类似：
 
 ```text
-[##############--------------]  50.64% Build Unitree_... 278/549 frames
-9.8k frames/s | elapsed 00:10:12 | ETA 00:10:12 | ... ep 0
+[##############--------------]  50.64% A1/B1 jobs=4 48.2M/95.19M frames
+9.8k frames/s | elapsed 01:10:12 | ETA 01:10:12 | Unitree_...
 ```
 
-每个阶段：
+每个子数据集独立处理：
 
-1. 扫描子数据集、识别 family/Tier、检查 URDF/DoF；
+1. 识别 family/Tier、检查 URDF/DoF；
 2. 逐 episode 读 A、算 B1、校验 A1/B1；
 3. 同时写 A1/B1 parquet；
 4. 建视频软链接；
 5. 写 meta、reports。
+
+`--jobs 4` 是进程数，不是线程数。每个进程处理一个子数据集，输出目录互不冲突。
+
+如果 A/输出在慢速网络文件系统，或内存有限，先降到 `--jobs 2`；如果 CPU 核数很多且本地盘很快，可以试 `--jobs 8`。建议先观察一次 `--jobs 4` 的 CPU、磁盘和内存。
 
 如果某个 episode 的 FK/结构校验失败，该 episode 会同时从 A1 和 B1 中剔除，
 原因写入：
@@ -359,7 +383,7 @@ python3 -m pip install -r requirements.txt
 # 1) 快速检查
 python3 make_a1_b1.py --input /data/robocoin/A --output /data/robocoin/ablation --dry-run
 
-# 2) 正式生成
+# 2) 正式生成（默认 --jobs 4）
 python3 make_a1_b1.py --input /data/robocoin/A --output /data/robocoin/ablation
 
 # 3) 看报告

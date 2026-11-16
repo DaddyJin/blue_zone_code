@@ -8,9 +8,10 @@ URDF-root forward kinematics from the 55D arm joints.
 Usage:
     python make_a1_b1.py --input ./A --output ./ablation
 
-Optional (defaults are relative to this script):
+Optional:
     --urdf-root ./urdf
     --calibration ./urdf/validation/calibration.json
+    --jobs 4                 # subdatasets processed in parallel
 
 Only numpy and pyarrow are required.
 """
@@ -19,14 +20,17 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import multiprocessing as mp
 import os
+import queue as queue_mod
 import re
 import shutil
 import sys
 import time
+from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, wait
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
 import numpy as np
 import pyarrow as pa
@@ -989,7 +993,8 @@ def process_dataset(
     calibration: Mapping[str, Any],
     urdf_root: Path,
     dry_run: bool,
-    log,
+    log: Callable[[str], None],
+    progress_cb: Optional[Callable[[Dict[str, Any]], None]] = None,
 ) -> Dict[str, Any]:
     name = dataset_dir.name
     record: Dict[str, Any] = {
@@ -1001,6 +1006,7 @@ def process_dataset(
         "tier": None,
         "candidate_episodes": 0,
         "candidate_frames": 0,
+        "attempted_frames": 0,
         "episodes": 0,
         "frames": 0,
         "failures": [],
@@ -1080,6 +1086,17 @@ def process_dataset(
             record["reason"] = "dry_run"
             record["episodes"] = len(episodes)
             record["frames"] = record["candidate_frames"]
+            record["attempted_frames"] = record["candidate_frames"]
+            if progress_cb:
+                progress_cb(
+                    {
+                        "type": "frames",
+                        "name": name,
+                        "delta": record["candidate_frames"],
+                        "attempted": record["candidate_frames"],
+                        "total": record["candidate_frames"],
+                    }
+                )
             log(
                 f"[dry-run] {name}: family={family} tier={tier} "
                 f"episodes={len(episodes)} frames={record['candidate_frames']}"
@@ -1108,19 +1125,25 @@ def process_dataset(
             info,
             one_file_per_episode=(not has_offsets) or per_episode_template,
         )
-        progress = Progress(
-            record["candidate_frames"],
-            desc=f"Build {name}",
-            unit="frames",
+        progress = (
+            None
+            if progress_cb is not None
+            else Progress(
+                record["candidate_frames"],
+                desc=f"Build {name}",
+                unit="frames",
+            )
         )
         results: List[EpisodeResult] = []
         failures: List[Dict[str, Any]] = []
         quality = empty_quality()
         new_global = 0
+        attempted_frames = 0
 
         for ep in episodes:
             old_ep = int(ep["episode_index"])
             length = int(ep["length"])
+            failed = False
             try:
                 src = reader.read_episode(ep)
                 new_ep = len(results)
@@ -1131,37 +1154,53 @@ def process_dataset(
                 failures.append(
                     {"episode": old_ep, "error": f"{type(exc).__name__}: {exc}"}
                 )
-                progress.update(length, suffix=f"{name} ep {old_ep} FAILED")
-                continue
+                failed = True
 
-            meta_row = dict(ep)
-            meta_row["episode_index"] = new_ep
-            meta_row["dataset_from_index"] = new_global
-            meta_row["dataset_to_index"] = new_global + length
-            meta_row["meta/episodes/chunk_index"] = 0
-            meta_row["meta/episodes/file_index"] = 0
-            result = EpisodeResult(
-                old_episode=old_ep,
-                new_episode=new_ep,
-                length=length,
-                original_row=ep,
-                meta_row=meta_row,
-                a1_table=common,
-                b1_table=b1,
-                quality=q,
-            )
-            writer.add(result)
-            results.append(result)
-            # Release episode tables; the writer owns them until flush.
-            result.a1_table = None
-            result.b1_table = None
-            merge_quality(quality, q)
-            new_global += length
-            progress.update(length, suffix=f"{name} ep {old_ep}")
+            if not failed:
+                meta_row = dict(ep)
+                meta_row["episode_index"] = new_ep
+                meta_row["dataset_from_index"] = new_global
+                meta_row["dataset_to_index"] = new_global + length
+                meta_row["meta/episodes/chunk_index"] = 0
+                meta_row["meta/episodes/file_index"] = 0
+                result = EpisodeResult(
+                    old_episode=old_ep,
+                    new_episode=new_ep,
+                    length=length,
+                    original_row=ep,
+                    meta_row=meta_row,
+                    a1_table=common,
+                    b1_table=b1,
+                    quality=q,
+                )
+                writer.add(result)
+                results.append(result)
+                # Release episode tables; the writer owns them until flush.
+                result.a1_table = None
+                result.b1_table = None
+                merge_quality(quality, q)
+                new_global += length
 
-        progress.close()
+            attempted_frames += length
+            suffix = f"{name} ep {old_ep}" + (" FAILED" if failed else "")
+            if progress is not None:
+                progress.update(length, suffix=suffix)
+            if progress_cb is not None:
+                progress_cb(
+                    {
+                        "type": "frames",
+                        "name": name,
+                        "delta": length,
+                        "attempted": attempted_frames,
+                        "total": record["candidate_frames"],
+                    }
+                )
+
+        if progress is not None:
+            progress.close()
         writer.close()
         record["failures"] = failures
+        record["attempted_frames"] = attempted_frames
         record["episodes"] = len(results)
         record["frames"] = int(sum(r.length for r in results))
         record["quality"] = quality
@@ -1246,6 +1285,7 @@ def write_reports(
     calibration_path: Path,
     records: Sequence[Mapping[str, Any]],
     elapsed: float,
+    jobs: int = 1,
 ) -> None:
     reports = output / "reports"
     reports.mkdir(parents=True, exist_ok=True)
@@ -1253,6 +1293,7 @@ def write_reports(
     eligibility = {
         "input": str(input_root),
         "policy": "strict_tier1_tier2",
+        "jobs": jobs,
         "urdf_root": str(urdf_root),
         "calibration": str(calibration_path),
         "datasets": list(records),
@@ -1362,9 +1403,73 @@ def write_reports(
         "urdf_files": sorted(set(urdf_files)),
         "input": str(input_root),
         "policy": "strict_tier1_tier2",
+        "jobs": jobs,
         "note": "R,t is used only for validation; it is not applied to B1.",
     }
     write_json(reports / "provenance.json", provenance)
+
+
+def _process_dataset_worker(args: Tuple[Any, ...]) -> Dict[str, Any]:
+    """Process one subdataset in a worker process."""
+    plan, out_a, out_b, calibration, urdf_root, dry_run, progress_queue = args
+    name = plan["name"]
+
+    def log(msg: str) -> None:
+        progress_queue.put({"type": "log", "msg": msg})
+
+    def progress_cb(event: Dict[str, Any]) -> None:
+        progress_queue.put(event)
+
+    try:
+        return process_dataset(
+            Path(plan["dataset"]),
+            Path(out_a),
+            Path(out_b),
+            calibration,
+            Path(urdf_root),
+            dry_run,
+            log,
+            progress_cb,
+        )
+    except Exception as exc:  # worker-level safety net
+        return {
+            "name": name,
+            "path": plan["dataset"],
+            "status": "error",
+            "reason": f"{type(exc).__name__}: {exc}",
+            "family": None,
+            "tier": None,
+            "candidate_episodes": 0,
+            "candidate_frames": int(plan.get("candidate_frames", 0)),
+            "attempted_frames": 0,
+            "episodes": 0,
+            "frames": 0,
+            "failures": [],
+            "quality": empty_quality(),
+            "episode_map": [],
+        }
+
+
+def _dataset_plan(dataset_dir: Path) -> Dict[str, Any]:
+    """Cheap metadata-only frame count for the overall progress bar."""
+    frames = 0
+    try:
+        info = read_json(dataset_dir / "meta" / "info.json")
+        frames = int(info.get("total_frames", 0) or 0)
+    except Exception:
+        frames = 0
+    if frames <= 0:
+        try:
+            frames = int(
+                sum(int(x["length"]) for x in load_episodes_table(dataset_dir).to_pylist())
+            )
+        except Exception:
+            frames = 0
+    return {
+        "name": dataset_dir.name,
+        "dataset": str(dataset_dir),
+        "candidate_frames": frames,
+    }
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -1393,7 +1498,16 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     )
     parser.add_argument("--dry-run", action="store_true", help="scan only; write reports, no A1/B1 data")
     parser.add_argument("--overwrite", action="store_true", help="replace existing A1/B1/reports")
+    parser.add_argument(
+        "--jobs",
+        type=int,
+        default=4,
+        help="number of subdatasets processed in parallel (default: 4; use 1 for sequential)",
+    )
     args = parser.parse_args(argv)
+    if args.jobs < 1:
+        print("error: --jobs must be >= 1", file=sys.stderr)
+        return 2
 
     input_root = Path(args.input).expanduser().resolve()
     output = Path(args.output).expanduser().resolve()
@@ -1427,22 +1541,111 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         log(
             f"input={input_root}\noutput={output}\n"
             f"urdf_root={urdf_root}\ncalibration={calibration_path}\n"
-            f"datasets={len(datasets)} policy=strict_tier1_tier2 dry_run={args.dry_run}"
+            f"datasets={len(datasets)} policy=strict_tier1_tier2 "
+            f"dry_run={args.dry_run} jobs={args.jobs}"
         )
 
-        records = []
-        for dataset_dir in datasets:
-            records.append(
-                process_dataset(
-                    dataset_dir,
-                    output / "A1",
-                    output / "B1",
-                    calibration,
-                    urdf_root,
-                    args.dry_run,
-                    log,
+        jobs = max(1, int(args.jobs))
+        records: List[Dict[str, Any]] = []
+
+        if jobs == 1:
+            for dataset_dir in datasets:
+                records.append(
+                    process_dataset(
+                        dataset_dir,
+                        output / "A1",
+                        output / "B1",
+                        calibration,
+                        urdf_root,
+                        args.dry_run,
+                        log,
+                    )
                 )
+        else:
+            plans = [_dataset_plan(d) for d in datasets]
+            total_planned = sum(int(p.get("candidate_frames", 0)) for p in plans)
+            progress = Progress(
+                total_planned,
+                desc=f"A1/B1 jobs={jobs}",
+                unit="frames",
             )
+            manager = mp.Manager()
+            progress_queue = manager.Queue()
+
+            def drain_queue() -> None:
+                while True:
+                    try:
+                        event = progress_queue.get_nowait()
+                    except queue_mod.Empty:
+                        return
+                    if event.get("type") == "log":
+                        log(str(event.get("msg", "")))
+                    elif event.get("type") == "frames":
+                        delta = int(event.get("delta", 0))
+                        if delta:
+                            progress.update(delta, suffix=str(event.get("name", "")))
+
+            try:
+                max_workers = min(jobs, max(1, len(plans)))
+                with ProcessPoolExecutor(max_workers=max_workers) as executor:
+                    futures = {
+                        executor.submit(
+                            _process_dataset_worker,
+                            (
+                                plan,
+                                str(output / "A1"),
+                                str(output / "B1"),
+                                calibration,
+                                str(urdf_root),
+                                args.dry_run,
+                                progress_queue,
+                            ),
+                        ): plan
+                        for plan in plans
+                    }
+                    while futures:
+                        done, _ = wait(
+                            futures,
+                            timeout=0.25,
+                            return_when=FIRST_COMPLETED,
+                        )
+                        drain_queue()
+                        for future in done:
+                            plan = futures.pop(future)
+                            try:
+                                rec = future.result()
+                            except Exception as exc:
+                                rec = {
+                                    "name": plan["name"],
+                                    "path": plan["dataset"],
+                                    "status": "error",
+                                    "reason": f"{type(exc).__name__}: {exc}",
+                                    "family": None,
+                                    "tier": None,
+                                    "candidate_episodes": 0,
+                                    "candidate_frames": int(plan.get("candidate_frames", 0)),
+                                    "attempted_frames": 0,
+                                    "episodes": 0,
+                                    "frames": 0,
+                                    "failures": [],
+                                    "quality": empty_quality(),
+                                    "episode_map": [],
+                                }
+                            records.append(rec)
+                            unattempted = max(
+                                0,
+                                int(plan.get("candidate_frames", 0))
+                                - int(rec.get("attempted_frames", 0)),
+                            )
+                            if unattempted:
+                                progress.set_total(
+                                    max(0, progress.total - unattempted)
+                                )
+                drain_queue()
+            finally:
+                progress.close()
+                manager.shutdown()
+            records.sort(key=lambda r: r["name"])
 
         elapsed = time.monotonic() - t0
         write_reports(
@@ -1452,6 +1655,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             calibration_path,
             records,
             elapsed,
+            jobs=jobs,
         )
 
         included = [r for r in records if r["status"] == "included"]

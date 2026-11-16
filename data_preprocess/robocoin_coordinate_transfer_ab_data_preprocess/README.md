@@ -38,6 +38,7 @@ reliability[:, 14:28]        # 若 A 有该列
 | 关节源 | A 的 `state_unified/action_unified[:, 0:14]` |
 | 额外关节 | AgiBot 的 `body_joint1/2` 从原始 `source.*` 列取 |
 | 统计量 | `stats.json` 继承 A，不重算 |
+| 并行 | 默认 `--jobs 4`，按子数据集多进程；`--jobs 1` 为串行 |
 
 预计严格模式覆盖约 **614 个仓库 / 95.19M 帧 / 67.7% 帧**。
 具体以实际扫描报告为准。
@@ -58,10 +59,16 @@ python3 make_a1_b1.py \
   --output /path/to/ablation \
   --dry-run
 
-# 正式生成
+# 正式生成（默认按子数据集 4 进程并行）
 python3 make_a1_b1.py \
   --input /path/to/A \
   --output /path/to/ablation
+
+# 单进程（便于逐数据集看日志）
+python3 make_a1_b1.py \
+  --input /path/to/A \
+  --output /path/to/ablation \
+  --jobs 1
 ```
 
 `--input` 支持两种形式：
@@ -89,6 +96,7 @@ python3 make_a1_b1.py \
 其他可选参数：
 
 ```text
+--jobs N      默认 4；按子数据集并行，N=1 时串行
 --dry-run     只扫描、只写 reports，不写 A1/B1 数据
 --overwrite   输出目录非空时，替换 A1/B1/reports/manifest.json/run.log
 ```
