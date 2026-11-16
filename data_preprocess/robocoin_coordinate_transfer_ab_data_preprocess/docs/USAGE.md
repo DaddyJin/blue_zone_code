@@ -321,6 +321,7 @@ python3 make_a1_b1.py \
 |---|---|
 | `no dataset found` | `--input` 下没有 `*/meta/info.json`；检查是否指向了 A 的父目录 |
 | `only LeRobot v3.0 ... supported` | A 是 v2.1；需要先转换或调整脚本 |
+| `KeyError: data/file_from_offset` | 旧脚本假设 `meta/episodes` 一定有该字段；当前脚本已支持缺失 offset（按 episode_index 过滤或一 episode 一文件），更新代码即可 |
 | `family_not_in_calibration` | 子数据集前缀无法识别；在 `resolve_family()` 中补充规则 |
 | `dof_mismatch` | 数据关节数和 calibration 不一致；检查 6/7-DoF |
 | `ai2_public_urdf_mismatch_strict` | AI2 在 strict 下被排除，符合预期 |

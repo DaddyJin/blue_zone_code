@@ -30,6 +30,7 @@ from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
 import numpy as np
 import pyarrow as pa
+import pyarrow.compute as pc
 import pyarrow.parquet as pq
 
 from ab_fk import Urdf, pack_pose, rigid_fit
@@ -290,12 +291,28 @@ class SourceReader:
         self.info = info
         self.cache: Dict[Path, pa.Table] = {}
         self.template = str(info["data_path"])
+        self.chunks_size = int(info.get("chunks_size", 1000))
 
     def path_for(self, ep: Mapping[str, Any]) -> Path:
-        rel = self.template.format(
-            chunk_index=int(ep["data/chunk_index"]),
-            file_index=int(ep["data/file_index"]),
+        old_ep = int(ep["episode_index"])
+        chunk = ep.get("data/chunk_index")
+        file_index = ep.get("data/file_index")
+        chunk = int(chunk) if chunk is not None else old_ep // self.chunks_size
+        file_index = (
+            int(file_index) if file_index is not None else old_ep % self.chunks_size
         )
+        try:
+            rel = self.template.format(
+                chunk_index=chunk,
+                file_index=file_index,
+                episode_chunk=old_ep // self.chunks_size,
+                episode_index=old_ep,
+            )
+        except KeyError as exc:
+            raise KeyError(
+                f"cannot format data_path={self.template!r} for episode {old_ep}; "
+                f"missing template key {exc}"
+            ) from exc
         return self.dataset_dir / rel
 
     def read_episode(self, ep: Mapping[str, Any]) -> pa.Table:
@@ -307,16 +324,43 @@ class SourceReader:
                 self.cache.pop(next(iter(self.cache)))
             self.cache[path] = pq.read_table(path)
         table = self.cache[path]
-        start = int(ep["data/file_from_offset"])
-        end = int(ep["data/file_to_offset"])
         length = int(ep["length"])
-        if end - start != length:
-            raise ValueError(
-                f"episode {ep.get('episode_index')}: offset length {end-start} != {length}"
-            )
-        if end > len(table):
-            raise ValueError(f"episode {ep.get('episode_index')}: offset beyond {path}")
-        return table.slice(start, length)
+        old_ep = int(ep["episode_index"])
+
+        # v3.0 chunked-file metadata has file_from_offset/file_to_offset.
+        # Some data-cleaning outputs omit those fields because each episode is
+        # its own file, or because the episode is located by episode_index.
+        if "data/file_from_offset" in ep and "data/file_to_offset" in ep:
+            start = int(ep["data/file_from_offset"])
+            end = int(ep["data/file_to_offset"])
+            if end - start != length:
+                raise ValueError(
+                    f"episode {old_ep}: offset length {end-start} != {length}"
+                )
+            if end > len(table):
+                raise ValueError(f"episode {old_ep}: offset beyond {path}")
+            return table.slice(start, length)
+
+        if "episode_index" in table.column_names:
+            field_type = table.schema.field("episode_index").type
+            mask = pc.equal(table["episode_index"], pa.scalar(old_ep, type=field_type))
+            filtered = table.filter(mask)
+            if len(filtered) == length:
+                return filtered
+            if len(filtered) != 0:
+                raise ValueError(
+                    f"episode {old_ep}: episode_index filter returned "
+                    f"{len(filtered)} rows, expected {length} ({path})"
+                )
+
+        if len(table) == length:
+            return table
+
+        raise ValueError(
+            f"episode {old_ep}: cannot locate episode in {path}; "
+            f"file rows={len(table)} expected={length}; "
+            f"metadata keys={sorted(ep.keys())}"
+        )
 
 
 @dataclass
@@ -340,6 +384,7 @@ class PairedBufferedWriter:
         out_b: Path,
         info: Mapping[str, Any],
         target_bytes: Optional[int] = None,
+        one_file_per_episode: bool = False,
     ):
         self.out_a = out_a
         self.out_b = out_b
@@ -350,6 +395,7 @@ class PairedBufferedWriter:
             if target_bytes is not None
             else float(info.get("data_files_size_in_mb", 100)) * 1_000_000
         )
+        self.one_file_per_episode = bool(one_file_per_episode)
         self.a_buf: List[pa.Table] = []
         self.b_buf: List[pa.Table] = []
         self.rows = 0
@@ -360,6 +406,23 @@ class PairedBufferedWriter:
         if result.a1_table is None or result.b1_table is None:
             raise ValueError("result has no tables")
         nbytes = int(result.a1_table.nbytes)
+
+        if self.one_file_per_episode:
+            if self.a_buf:
+                self.flush()
+            chunk = self.file_index // self.chunks_size
+            file_in_chunk = self.file_index % self.chunks_size
+            result.meta_row["data/chunk_index"] = chunk
+            result.meta_row["data/file_index"] = file_in_chunk
+            result.meta_row["data/file_from_offset"] = 0
+            result.meta_row["data/file_to_offset"] = result.length
+            self.a_buf.append(result.a1_table)
+            self.b_buf.append(result.b1_table)
+            self.rows = result.length
+            self.bytes = nbytes
+            self.flush()
+            return
+
         if self.a_buf and self.bytes + nbytes > self.target_bytes:
             self.flush()
 
@@ -379,7 +442,10 @@ class PairedBufferedWriter:
         chunk = self.file_index // self.chunks_size
         file_in_chunk = self.file_index % self.chunks_size
         rel = str(self.info["data_path"]).format(
-            chunk_index=chunk, file_index=file_in_chunk
+            chunk_index=chunk,
+            file_index=file_in_chunk,
+            episode_chunk=chunk,
+            episode_index=self.file_index,
         )
         return root / rel
 
@@ -989,7 +1055,21 @@ def process_dataset(
         out_b.mkdir(parents=True, exist_ok=True)
 
         reader = SourceReader(dataset_dir, info)
-        writer = PairedBufferedWriter(out_a, out_b, info)
+        has_offsets = {
+            "data/file_from_offset",
+            "data/file_to_offset",
+        }.issubset(set(episodes_table.schema.names))
+        data_path_template = str(info.get("data_path", ""))
+        per_episode_template = (
+            "{episode_index" in data_path_template
+            or "{episode_chunk" in data_path_template
+        )
+        writer = PairedBufferedWriter(
+            out_a,
+            out_b,
+            info,
+            one_file_per_episode=(not has_offsets) or per_episode_template,
+        )
         progress = Progress(
             record["candidate_frames"],
             desc=f"Build {name}",
