@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+
+# local data / outputs
+A/
+ablation/
+*.parquet
+*.tmp
+run.log

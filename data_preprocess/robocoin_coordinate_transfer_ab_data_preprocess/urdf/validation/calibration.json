@@ -1,0 +1,844 @@
+{
+  "generated_at": "2026-11-13",
+  "method": "FK from candidate URDF vs dataset eef_sim_pose_state; rigid fit (Umeyama)",
+  "families": {
+    "Agilex_Cobot_Magic": {
+      "urdf": "models/Agilex_Cobot_Magic/CobotMagicArmV4/urdf/CobotMagicWithGripperV100.urdf",
+      "eef_link": {
+        "left": "gripper_base",
+        "right": "gripper_base"
+      },
+      "arm_joints": {
+        "left": [
+          "joint1",
+          "joint2",
+          "joint3",
+          "joint4",
+          "joint5",
+          "joint6"
+        ],
+        "right": [
+          "joint1",
+          "joint2",
+          "joint3",
+          "joint4",
+          "joint5",
+          "joint6"
+        ]
+      },
+      "state_arm_index": {
+        "left": 0,
+        "right": 13
+      },
+      "note": "position exact; orientation not reproduced by this URDF (best 9-16 deg variation)",
+      "sides": {
+        "L": {
+          "position_rms_m": 0.000354,
+          "position_max_m": 0.001116,
+          "R": [
+            [
+              0.999945,
+              -0.009393,
+              0.004585
+            ],
+            [
+              0.009374,
+              0.999948,
+              0.00413
+            ],
+            [
+              -0.004624,
+              -0.004087,
+              0.999981
+            ]
+          ],
+          "t_m": [
+            0.236558,
+            0.297014,
+            0.775467
+          ],
+          "best_rotation_representation": "xyz_ext",
+          "rotation_mean_dev_deg": 16.094,
+          "rotation_max_dev_deg": 49.0085
+        },
+        "R": {
+          "position_rms_m": 0.000186,
+          "position_max_m": 0.000562,
+          "R": [
+            [
+              0.999995,
+              -0.001998,
+              0.00262
+            ],
+            [
+              0.001993,
+              0.999996,
+              0.001868
+            ],
+            [
+              -0.002623,
+              -0.001863,
+              0.999995
+            ]
+          ],
+          "t_m": [
+            0.238135,
+            -0.299833,
+            0.776491
+          ],
+          "best_rotation_representation": "yzx_int",
+          "rotation_mean_dev_deg": 9.3485,
+          "rotation_max_dev_deg": 19.7652
+        }
+      }
+    },
+    "Unitree_G1": {
+      "urdf": "models/Unitree_G1/robocoin_g1_body29_hand14/g1_body29_hand14.urdf",
+      "eef_link": {
+        "left": "left_wrist_yaw_link",
+        "right": "right_wrist_yaw_link"
+      },
+      "arm_joints": {
+        "left": [
+          "left_shoulder_pitch_joint",
+          "left_shoulder_roll_joint",
+          "left_shoulder_yaw_joint",
+          "left_elbow_joint",
+          "left_wrist_roll_joint",
+          "left_wrist_pitch_joint",
+          "left_wrist_yaw_joint"
+        ],
+        "right": [
+          "right_shoulder_pitch_joint",
+          "right_shoulder_roll_joint",
+          "right_shoulder_yaw_joint",
+          "right_elbow_joint",
+          "right_wrist_roll_joint",
+          "right_wrist_pitch_joint",
+          "right_wrist_yaw_joint"
+        ]
+      },
+      "state_arm_index": {
+        "left": 0,
+        "right": 7
+      },
+      "note": "position+orientation exact",
+      "sides": {
+        "L": {
+          "position_rms_m": 0.0,
+          "position_max_m": 0.0,
+          "R": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              -0.0,
+              1.0,
+              1e-06
+            ],
+            [
+              -0.0,
+              -1e-06,
+              1.0
+            ]
+          ],
+          "t_m": [
+            -0.0,
+            -0.0,
+            0.793
+          ],
+          "best_rotation_representation": "xyz_ext",
+          "rotation_mean_dev_deg": 0.0,
+          "rotation_max_dev_deg": 0.0
+        },
+        "R": {
+          "position_rms_m": 0.0,
+          "position_max_m": 0.0,
+          "R": [
+            [
+              1.0,
+              -0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              -1e-06
+            ],
+            [
+              -0.0,
+              1e-06,
+              1.0
+            ]
+          ],
+          "t_m": [
+            -0.0,
+            0.0,
+            0.793
+          ],
+          "best_rotation_representation": "xyz_ext",
+          "rotation_mean_dev_deg": 0.0,
+          "rotation_max_dev_deg": 0.0
+        }
+      }
+    },
+    "Leju_Kuavo_4 (Pro/two-finger)": {
+      "urdf": "models/Leju_Kuavo_4/biped_s45/urdf/biped_s45.urdf",
+      "eef_link": {
+        "left": "zarm_l7_end_effector",
+        "right": "zarm_r7_end_effector"
+      },
+      "arm_joints": {
+        "left": [
+          "zarm_l1_joint",
+          "zarm_l2_joint",
+          "zarm_l3_joint",
+          "zarm_l4_joint",
+          "zarm_l5_joint",
+          "zarm_l6_joint",
+          "zarm_l7_joint"
+        ],
+        "right": [
+          "zarm_r1_joint",
+          "zarm_r2_joint",
+          "zarm_r3_joint",
+          "zarm_r4_joint",
+          "zarm_r5_joint",
+          "zarm_r6_joint",
+          "zarm_r7_joint"
+        ]
+      },
+      "state_arm_index": {
+        "left": 0,
+        "right": 7
+      },
+      "note": "position+orientation exact",
+      "sides": {
+        "L": {
+          "position_rms_m": 0.0,
+          "position_max_m": 0.0,
+          "R": [
+            [
+              1.0,
+              -0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              -0.0,
+              -0.0,
+              1.0
+            ]
+          ],
+          "t_m": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "best_rotation_representation": "xyz_ext",
+          "rotation_mean_dev_deg": 0.0,
+          "rotation_max_dev_deg": 0.0
+        },
+        "R": {
+          "position_rms_m": 0.0,
+          "position_max_m": 0.0,
+          "R": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              -0.0,
+              1.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "t_m": [
+            -0.0,
+            0.0,
+            0.0
+          ],
+          "best_rotation_representation": "xyz_ext",
+          "rotation_mean_dev_deg": 0.0,
+          "rotation_max_dev_deg": 0.0
+        }
+      }
+    },
+    "leju_robot (LB/five-finger)": {
+      "urdf": "models/Leju_Kuavo_4/biped_s45/urdf/biped_s45.urdf",
+      "eef_link": {
+        "left": "l_hand_tripod",
+        "right": "r_hand_tripod"
+      },
+      "arm_joints": {
+        "left": [
+          "zarm_l1_joint",
+          "zarm_l2_joint",
+          "zarm_l3_joint",
+          "zarm_l4_joint",
+          "zarm_l5_joint",
+          "zarm_l6_joint",
+          "zarm_l7_joint"
+        ],
+        "right": [
+          "zarm_r1_joint",
+          "zarm_r2_joint",
+          "zarm_r3_joint",
+          "zarm_r4_joint",
+          "zarm_r5_joint",
+          "zarm_r6_joint",
+          "zarm_r7_joint"
+        ]
+      },
+      "state_arm_index": {
+        "left": 0,
+        "right": 7
+      },
+      "note": "position+orientation exact",
+      "sides": {
+        "L": {
+          "position_rms_m": 0.0,
+          "position_max_m": 0.0,
+          "R": [
+            [
+              1.0,
+              0.0,
+              -0.0
+            ],
+            [
+              -0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              -0.0,
+              1.0
+            ]
+          ],
+          "t_m": [
+            -0.0,
+            0.0,
+            -0.0
+          ],
+          "best_rotation_representation": "xyz_ext",
+          "rotation_mean_dev_deg": 0.0,
+          "rotation_max_dev_deg": 0.0
+        },
+        "R": {
+          "position_rms_m": 0.0,
+          "position_max_m": 0.0,
+          "R": [
+            [
+              1.0,
+              -0.0,
+              -0.0
+            ],
+            [
+              0.0,
+              1.0,
+              -0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "t_m": [
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          "best_rotation_representation": "xyz_ext",
+          "rotation_mean_dev_deg": 0.0,
+          "rotation_max_dev_deg": 0.0
+        }
+      }
+    },
+    "Airbot_MMK2": {
+      "urdf": "models/Airbot_MMK2/airbot_mmk2_description/urdf/airbot_mmk2.urdf",
+      "eef_link": {
+        "left": "left_gripper_center",
+        "right": "right_gripper_center"
+      },
+      "arm_joints": {
+        "left": [
+          "left_joint1",
+          "left_joint2",
+          "left_joint3",
+          "left_joint4",
+          "left_joint5",
+          "left_joint6"
+        ],
+        "right": [
+          "right_joint1",
+          "right_joint2",
+          "right_joint3",
+          "right_joint4",
+          "right_joint5",
+          "right_joint6"
+        ]
+      },
+      "state_arm_index": {
+        "left": 0,
+        "right": 6
+      },
+      "note": "position ~3-6 mm; orientation matches left_link6 (not gripper_center)",
+      "sides": {
+        "L": {
+          "position_rms_m": 0.005854,
+          "position_max_m": 0.010638,
+          "R": [
+            [
+              0.999609,
+              -0.027963,
+              0.000637
+            ],
+            [
+              0.027962,
+              0.999607,
+              0.001933
+            ],
+            [
+              -0.000691,
+              -0.001914,
+              0.999998
+            ]
+          ],
+          "t_m": [
+            -0.013193,
+            -0.009114,
+            -0.000879
+          ],
+          "best_rotation_representation": "xyz_ext",
+          "rotation_mean_dev_deg": 14.2516,
+          "rotation_max_dev_deg": 27.539
+        },
+        "R": {
+          "position_rms_m": 0.002736,
+          "position_max_m": 0.008881,
+          "R": [
+            [
+              0.999772,
+              -0.015414,
+              0.014762
+            ],
+            [
+              0.015357,
+              0.999874,
+              0.003973
+            ],
+            [
+              -0.014821,
+              -0.003746,
+              0.999883
+            ]
+          ],
+          "t_m": [
+            -0.029345,
+            -0.029514,
+            0.009882
+          ],
+          "best_rotation_representation": "zyx_int",
+          "rotation_mean_dev_deg": 5.2881,
+          "rotation_max_dev_deg": 13.7345
+        }
+      }
+    },
+    "Galaxea_R1_Lite (6DoF)": {
+      "urdf": "models/Galaxea_R1_Lite/galaxea_r1lite_description/urdf/galaxea_r1lite.urdf",
+      "eef_link": {
+        "left": "left_gripper_center",
+        "right": "right_gripper_center"
+      },
+      "arm_joints": {
+        "left": [
+          "left_joint1",
+          "left_joint2",
+          "left_joint3",
+          "left_joint4",
+          "left_joint5",
+          "left_joint6"
+        ],
+        "right": [
+          "right_joint1",
+          "right_joint2",
+          "right_joint3",
+          "right_joint4",
+          "right_joint5",
+          "right_joint6"
+        ]
+      },
+      "state_arm_index": {
+        "left": 0,
+        "right": 6
+      },
+      "note": "right exact; left ~2-3 cm (joint zero/calibration needed)",
+      "sides": {
+        "L": {
+          "position_rms_m": 0.031816,
+          "position_max_m": 0.047698,
+          "R": [
+            [
+              0.955888,
+              -0.190457,
+              -0.223615
+            ],
+            [
+              0.223797,
+              0.965312,
+              0.134489
+            ],
+            [
+              0.190244,
+              -0.178601,
+              0.965354
+            ]
+          ],
+          "t_m": [
+            0.252006,
+            -0.193253,
+            0.077327
+          ],
+          "best_rotation_representation": "xyz_ext",
+          "rotation_mean_dev_deg": 0.0,
+          "rotation_max_dev_deg": 0.0
+        },
+        "R": {
+          "position_rms_m": 6.6e-05,
+          "position_max_m": 0.001054,
+          "R": [
+            [
+              0.997883,
+              0.017438,
+              -0.062648
+            ],
+            [
+              -0.003043,
+              0.97484,
+              0.222884
+            ],
+            [
+              0.064958,
+              -0.222221,
+              0.97283
+            ]
+          ],
+          "t_m": [
+            -0.038055,
+            -0.267515,
+            -0.055616
+          ],
+          "best_rotation_representation": "xyz_ext",
+          "rotation_mean_dev_deg": 0.0,
+          "rotation_max_dev_deg": 0.0
+        }
+      }
+    },
+    "Realman_RMC-AIDA-L": {
+      "urdf": "models/Realman_RMC-AIDA-L/aidal_description/urdf/aidal.urdf",
+      "eef_link": {
+        "left": "left_ee",
+        "right": "right_ee"
+      },
+      "arm_joints": {
+        "left": [
+          "left_joint1",
+          "left_joint2",
+          "left_joint3",
+          "left_joint4",
+          "left_joint5",
+          "left_joint6",
+          "left_joint7"
+        ],
+        "right": [
+          "right_joint1",
+          "right_joint2",
+          "right_joint3",
+          "right_joint4",
+          "right_joint5",
+          "right_joint6",
+          "right_joint7"
+        ]
+      },
+      "state_arm_index": {
+        "left": 14,
+        "right": 0
+      },
+      "note": "right ~6 mm; left ~10 mm (joint zero/calibration needed)",
+      "sides": {
+        "L": {
+          "position_rms_m": 0.010298,
+          "position_max_m": 0.020255,
+          "R": [
+            [
+              0.988351,
+              -0.123722,
+              -0.088631
+            ],
+            [
+              0.131853,
+              0.98693,
+              0.092653
+            ],
+            [
+              0.07601,
+              -0.10326,
+              0.991746
+            ]
+          ],
+          "t_m": [
+            0.015857,
+            -0.085979,
+            0.758352
+          ],
+          "best_rotation_representation": "xzy_int",
+          "rotation_mean_dev_deg": 21.901,
+          "rotation_max_dev_deg": 30.9329,
+          "rotation_note": "Best tested convention is xzy_int but variation is 21.9 deg; not reliable. Left-arm joint zero/order still needs calibration."
+        },
+        "R": {
+          "position_rms_m": 0.006296,
+          "position_max_m": 0.010693,
+          "R": [
+            [
+              0.984406,
+              0.093662,
+              -0.148907
+            ],
+            [
+              -0.104937,
+              0.99203,
+              -0.069745
+            ],
+            [
+              0.141187,
+              0.084283,
+              0.986389
+            ]
+          ],
+          "t_m": [
+            0.022695,
+            0.067077,
+            0.71854
+          ],
+          "best_rotation_representation": "xyz_ext",
+          "rotation_mean_dev_deg": 0.0043,
+          "rotation_max_dev_deg": 0.0195
+        }
+      }
+    },
+    "AgiBot_G1": {
+      "urdf": "models/AgiBot_G1/agibot_g1_description/urdf/agibot_g1.urdf",
+      "eef_link": {
+        "left": "left_eef",
+        "right": "right_eef"
+      },
+      "arm_joints": {
+        "left": [
+          "left_joint1",
+          "left_joint2",
+          "left_joint3",
+          "left_joint4",
+          "left_joint5",
+          "left_joint6",
+          "left_joint7"
+        ],
+        "right": [
+          "right_joint1",
+          "right_joint2",
+          "right_joint3",
+          "right_joint4",
+          "right_joint5",
+          "right_joint6",
+          "right_joint7"
+        ]
+      },
+      "state_arm_index": {
+        "left": 0,
+        "right": 7
+      },
+      "note": "right exact; left ~10 cm (joint zero/calibration needed); body_joint1=state[28], body_joint2=state[29]",
+      "sides": {
+        "L": {
+          "position_rms_m": 0.104484,
+          "position_max_m": 0.301128,
+          "R": [
+            [
+              0.795361,
+              -0.110011,
+              -0.596069
+            ],
+            [
+              0.055495,
+              0.992478,
+              -0.109123
+            ],
+            [
+              0.60359,
+              0.053713,
+              0.795484
+            ]
+          ],
+          "t_m": [
+            0.66654,
+            0.078046,
+            -0.298211
+          ],
+          "best_rotation_representation": "xyz_ext",
+          "rotation_mean_dev_deg": 0.0,
+          "rotation_max_dev_deg": 0.0
+        },
+        "R": {
+          "position_rms_m": 3.4e-05,
+          "position_max_m": 8.9e-05,
+          "R": [
+            [
+              0.198527,
+              -0.857399,
+              0.47482
+            ],
+            [
+              0.524483,
+              -0.316319,
+              -0.79048
+            ],
+            [
+              0.827952,
+              0.405967,
+              0.386893
+            ]
+          ],
+          "t_m": [
+            -0.643655,
+            0.798865,
+            0.644428
+          ],
+          "best_rotation_representation": "xyz_ext",
+          "rotation_mean_dev_deg": 0.0,
+          "rotation_max_dev_deg": 0.0004,
+          "rotation_note": "Native SDK end_quat_* (xyzw) cross-check: converted eef_sim Euler matches up to a constant 25.0006 deg frame offset; variation 0.0004 deg. The earlier xzy_int was a tie in the URDF FK score."
+        }
+      },
+      "extra_joint_mapping": {
+        "body_joint1": 28,
+        "body_joint2": 29,
+        "head_joint1": 30,
+        "head_joint2": 31
+      }
+    },
+    "AI2_AlphaBot_2": {
+      "urdf": "models/AI2_AlphaBot_2/ai2_bot2_description/urdf/ai2_bot2_fixed.urdf",
+      "eef_link": {
+        "left": "left_ee",
+        "right": "right_ee"
+      },
+      "arm_joints": {
+        "left": [
+          "left_joint1",
+          "left_joint2",
+          "left_joint3",
+          "left_joint4",
+          "left_joint5",
+          "left_joint6",
+          "left_joint7"
+        ],
+        "right": [
+          "right_joint1",
+          "right_joint2",
+          "right_joint3",
+          "right_joint4",
+          "right_joint5",
+          "right_joint6",
+          "right_joint7"
+        ]
+      },
+      "state_arm_index": {
+        "left": 0,
+        "right": 13
+      },
+      "note": "no exact match; likely different URDF version / torso mapping",
+      "sides": {
+        "L": {
+          "position_rms_m": 0.03424,
+          "position_max_m": 0.054861,
+          "R": [
+            [
+              0.829893,
+              -0.540551,
+              -0.138139
+            ],
+            [
+              0.555024,
+              0.774671,
+              0.303039
+            ],
+            [
+              -0.056796,
+              -0.328161,
+              0.942913
+            ]
+          ],
+          "t_m": [
+            0.302541,
+            -0.440106,
+            0.436499
+          ],
+          "best_rotation_representation": "rotvec",
+          "rotation_mean_dev_deg": 25.4333,
+          "rotation_max_dev_deg": 46.2944
+        },
+        "R": {
+          "position_rms_m": 0.11892,
+          "position_max_m": 0.259527,
+          "R": [
+            [
+              0.054071,
+              0.516646,
+              -0.85449
+            ],
+            [
+              -0.782579,
+              -0.509581,
+              -0.357626
+            ],
+            [
+              -0.620198,
+              0.688043,
+              0.376763
+            ]
+          ],
+          "t_m": [
+            1.587837,
+            0.217049,
+            1.439397
+          ],
+          "best_rotation_representation": "yxz_ext",
+          "rotation_mean_dev_deg": 27.0666,
+          "rotation_max_dev_deg": 70.6875
+        }
+      },
+      "extra_joint_mapping": {
+        "body_joint1": 30,
+        "body_joint2": 31,
+        "body_joint3": 32,
+        "body_joint4": 33,
+        "head_joint1": 28,
+        "head_joint2": 29
+      }
+    }
+  }
+}
